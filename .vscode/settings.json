@@ -3,10 +3,22 @@
     ".next": true,
     ".vscode": true,
     "node_modules": true,
-    "tailwind.config.js": true,
     "postcss.config.js": true,
     "package-lock.json": true,
     "jsconfig.json": true,
     "README.md": true
-  }
+  },
+  "editor.quickSuggestions": {
+    "comments": "on",
+    "strings": true
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "css.validate": false,
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.suggestions": true,
+  "editor.inlineSuggest.enabled": true,
+  "tailwindCSS.validate": true,
+  "editor.suggest.snippetsPreventQuickSuggestions": false
 }
