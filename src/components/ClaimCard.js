@@ -18,10 +18,11 @@ export const ClaimCard = ({ title, description }) => (
           className="object-cover rounded-2xl"
         />
       </div>
-      <div className="flex-1">
+      <div className="flex-1"></div>
+      {/* <div className="flex-1">
         <div className="rounded-xl p-2 shadow-md">Evidence</div>
         <div className="rounded-xl p-3 shadow-md">Evidence</div>
-      </div>
+      </div> */}
     </div>
   </div>
 );
