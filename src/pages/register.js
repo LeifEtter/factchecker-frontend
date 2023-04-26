@@ -1,16 +1,6 @@
+import { isEmail, isPassword } from "@/helpers/helpers";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-
-const isEmail = (email) => {
-  var emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-  return email !== "" && email.match(emailFormat) ? true : false;
-};
-
-const isPassword = (password) => {
-  var passwordFormat =
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-  return password !== "" && password.match(passwordFormat) ? true : false;
-};
 
 export default function Register() {
   const [name, setName] = useState("");
