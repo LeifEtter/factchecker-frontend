@@ -20,5 +20,6 @@
   "tailwindCSS.suggestions": true,
   "editor.inlineSuggest.enabled": true,
   "tailwindCSS.validate": true,
-  "editor.suggest.snippetsPreventQuickSuggestions": false
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+  "editor.tabSize": 2
 }
