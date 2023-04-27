@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "autoprefixer": "10.4.14",
-    "aws-sdk": "^2.1366.0",
     "eslint": "8.39.0",
     "eslint-config-next": "13.3.1",
     "js-cookie": "^3.0.5",
