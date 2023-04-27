@@ -4,7 +4,6 @@ import { InputField, InputFieldMultiline } from "@/components/InputField";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-const { v1: uuidv1, v4: uuidv4 } = require("uuid");
 
 export default function CreateClaim() {
   const [title, setTitle] = useState("");
