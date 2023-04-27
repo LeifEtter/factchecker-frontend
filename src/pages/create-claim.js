@@ -7,6 +7,8 @@ import Image from "next/image";
 const { v1: uuidv1, v4: uuidv4 } = require("uuid");
 
 export default function CreateClaim() {
+  const [claimId, setClaimId] = useState();
+
   const [title, setTitle] = useState("");
   const [titleError, setTitleError] = useState(null);
 
@@ -20,6 +22,29 @@ export default function CreateClaim() {
 
   const [showModal, setShowModal] = useState(false);
   const [modalInput, setModalInput] = useState();
+
+  useEffect(() => {
+    if (!claimId) {
+      createClaim();
+    }
+  }, []);
+
+  const createClaim = async () => {
+    try {
+      const result = await fetch("http://localhost:3005/claims/create", {
+        method: "POST",
+        body: {
+          statement: "",
+          description: "",
+          user_id: 3,
+        },
+      });
+      const body = await result.json();
+      setClaimId(body.result[0].id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     if (modalInput) {
