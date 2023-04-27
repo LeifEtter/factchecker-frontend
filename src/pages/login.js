@@ -1,4 +1,5 @@
 import { InputField } from "@/components/InputField";
+import { CustomErrors } from "@/errors";
 import { isEmail } from "@/helpers/helpers";
 import Head from "next/head";
 import { useEffect, useState } from "react";
@@ -16,6 +17,25 @@ export default function Login() {
     }
     if (!password) {
       setPasswordError("Password is required");
+    }
+  };
+
+  const attemptLogin = async () => {
+    const loginResult = await fetch("http://localhost:3005/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (loginResult.status == 400) {
+      const body = await loginResult.json();
+      if (body.errorCode == CustomErrors.EmailNotExist) {
+        setEmailError("Email Does Not Exist");
+      } else if (body.errorCode == CustomErrors.InvalidPassword) {
+        setPasswordError("Password Does Not Match");
+      }
     }
   };
 
@@ -44,7 +64,8 @@ export default function Login() {
           />
           <button
             onClick={() => {
-              validate();
+              const validateResult = validate();
+              attemptLogin();
             }}
             className="bg-white rounded-2xl special-shadow mt-6 p-2"
           >
