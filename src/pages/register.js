@@ -17,6 +17,8 @@ export default function Register() {
   const [repeatPassword, setRepeatPassword] = useState("");
   const [repeatPasswordError, setRepeatPasswordError] = useState(null);
 
+  const [snackbar, setSnackbar] = useState(null);
+
   const validate = () => {
     if (!name) {
       setNameError("Name is required");
@@ -73,6 +75,7 @@ export default function Register() {
     <>
       <Head></Head>
       <div className="flex flex-col items-center">
+        <SnackBar snackbar={snackbar} setSnackbar={setSnackbar} />
         <div className="flex flex-col gap-2 w-80 mt-60">
           <h1 className="font-bold text-2xl text-fact-text-medium text-center mb-5">
             Register
@@ -118,8 +121,55 @@ export default function Register() {
           >
             Submit
           </button>
+          <button
+            onClick={() => {
+              setSnackbar({
+                title: "Registration Successfull!",
+                description:
+                  "You should have received an Email with a link to confirm your registration",
+                type: "success",
+              });
+            }}
+          >
+            Show popup
+          </button>
         </div>
       </div>
     </>
   );
 }
+
+const SnackBar = ({ snackbar, setSnackbar }) => {
+  const [color, setColor] = useState("white");
+
+  useEffect(() => {
+    if (snackbar != null) {
+      if (snackbar.type == "error") {
+        setColor("#FF5A5F");
+      } else if (snackbar.type == "success") {
+        setColor("#50C878");
+      } else if (snackbar.type == "info") {
+        setColor("#48cae4");
+      }
+      timeout();
+    }
+  }, [snackbar]);
+
+  const timeout = async () => {
+    await new Promise((res) => setTimeout(res, 5000));
+    setSnackbar(null);
+  };
+
+  return (
+    <div
+      className="fixed bg-red-500 w-10/12 z-10 animate-bounce duration-200 rounded-2xl special-shadow flex flex-col items-center justify-center p-3"
+      style={{
+        top: snackbar != null ? "50px" : "-50px",
+        backgroundColor: color,
+      }}
+    >
+      <h2 className="font-semibold">{snackbar ? snackbar.title : ""}</h2>
+      <p className="text-center">{snackbar ? snackbar.description : ""}</p>
+    </div>
+  );
+};
