@@ -151,14 +151,12 @@ const SnackBar = ({ snackbar, setSnackbar }) => {
       } else if (snackbar.type == "info") {
         setColor("#48cae4");
       }
-      timeout();
+      const timer = setTimeout(() => {
+        setSnackbar(null);
+      }, 5000);
+      return () => clearTimeout(timer);
     }
-  }, [snackbar]);
-
-  const timeout = async () => {
-    await new Promise((res) => setTimeout(res, 5000));
-    setSnackbar(null);
-  };
+  }, [snackbar, setSnackbar]);
 
   return (
     <div
