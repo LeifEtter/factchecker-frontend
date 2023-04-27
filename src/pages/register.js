@@ -1,4 +1,5 @@
 import { InputField } from "@/components/InputField";
+import { CustomErrors } from "@/errors";
 import { isEmail, isPassword } from "@/helpers/helpers";
 import Head from "next/head";
 import { useEffect, useState } from "react";
@@ -19,26 +20,51 @@ export default function Register() {
   const validate = () => {
     if (!name) {
       setNameError("Name is required");
+      return false;
     }
     if (!isEmail(email)) {
       setEmailError("Please Enter a valid email");
+      return false;
     }
     if (!password) {
       setPasswordError("Password is required");
+      return false;
     }
     if (!repeatPassword) {
       setRepeatPasswordError("Please Repeat your Password");
+      return false;
     }
 
-    if (name && email && password && repeatPassword) {
-      if (password.length < 8) {
-        setPasswordError("Password needs to be a minimum of 8 characters");
-      } else if (!isPassword(password)) {
-        setPasswordError(
-          "Make sure Password contains at least one Uppercase and one Special character"
-        );
-      } else if (repeatPassword != password) {
-        setRepeatPasswordError("Repeat Password does not match Password");
+    if (password.length < 8) {
+      setPasswordError("Password needs to be a minimum of 8 characters");
+      return false;
+    } else if (!isPassword(password)) {
+      setPasswordError(
+        "Make sure Password contains at least one Uppercase and one Special character"
+      );
+      return false;
+    } else if (repeatPassword != password) {
+      setRepeatPasswordError("Repeat Password does not match Password");
+      return false;
+    }
+
+    return true;
+  };
+
+  const attemptRegistration = async () => {
+    const registerResult = await fetch("http://localhost:3005/users/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, email, password }),
+    });
+    console.log(registerResult);
+
+    if (registerResult.status == 400) {
+      const body = await registerResult.json();
+      if (body.errorCode == CustomErrors.EmailAlreadyExists) {
+        setEmailError("Email Does Already Exist");
       }
     }
   };
@@ -83,7 +109,10 @@ export default function Register() {
           />
           <button
             onClick={() => {
-              validate();
+              if (!validate()) {
+                return;
+              }
+              attemptRegistration();
             }}
             className="bg-white rounded-2xl special-shadow mt-6 p-2"
           >
