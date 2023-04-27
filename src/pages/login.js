@@ -14,10 +14,13 @@ export default function Login() {
   const validate = () => {
     if (!isEmail(email)) {
       setEmailError("Please Enter a valid email");
+      return false;
     }
     if (!password) {
       setPasswordError("Password is required");
+      return false;
     }
+    return true;
   };
 
   const attemptLogin = async () => {
@@ -28,6 +31,7 @@ export default function Login() {
       },
       body: JSON.stringify({ email, password }),
     });
+    console.log(loginResult);
 
     if (loginResult.status == 400) {
       const body = await loginResult.json();
@@ -65,7 +69,9 @@ export default function Login() {
           <button
             onClick={() => {
               const validateResult = validate();
-              attemptLogin();
+              if (validateResult) {
+                attemptLogin();
+              }
             }}
             className="bg-white rounded-2xl special-shadow mt-6 p-2"
           >
