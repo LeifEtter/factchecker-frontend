@@ -11,6 +11,13 @@ export const Appbar = ({ path, token }) => (
         isActive={path == "/requests"}
       />
     </div>
+    <div className="flex-1"></div>
+    <Link
+      href="create-claim"
+      className="fact-gradient font-medium text-white px-5 rounded-2xl special-shadow mr-5 flex items-center"
+    >
+      Create Claim
+    </Link>
     <div className="flex justify-between bg-white rounded-2xl shadow-md float-left gap-10 py-2 px-3">
       {!token ? (
         <LinkButton
