@@ -7,4 +7,5 @@ export const CustomErrors = {
   PasswordWrongFormat: 5,
   NameMissing: 6,
   EmailAlreadyExists: 7,
+  PasswordMissing: 8,
 };
