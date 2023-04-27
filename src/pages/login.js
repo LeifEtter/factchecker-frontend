@@ -1,6 +1,7 @@
 import { InputField } from "@/components/InputField";
 import { CustomErrors } from "@/errors";
 import { isEmail } from "@/helpers/helpers";
+import Cookies from "js-cookie";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 
@@ -31,15 +32,16 @@ export default function Login() {
       },
       body: JSON.stringify({ email, password }),
     });
-    console.log(loginResult);
+    const body = await loginResult.json();
 
     if (loginResult.status == 400) {
-      const body = await loginResult.json();
       if (body.errorCode == CustomErrors.EmailNotExist) {
         setEmailError("Email Does Not Exist");
       } else if (body.errorCode == CustomErrors.InvalidPassword) {
         setPasswordError("Password Does Not Match");
       }
+    } else {
+      Cookies.set("auth_token", body.token);
     }
   };
 
