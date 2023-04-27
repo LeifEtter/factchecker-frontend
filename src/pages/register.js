@@ -1,4 +1,5 @@
 import { InputField } from "@/components/InputField";
+import { SnackBar } from "@/components/Snackbar";
 import { CustomErrors } from "@/errors";
 import { isEmail, isPassword } from "@/helpers/helpers";
 import Head from "next/head";
@@ -138,5 +139,3 @@ export default function Register() {
     </>
   );
 }
-
-

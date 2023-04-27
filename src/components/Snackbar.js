@@ -1,4 +1,6 @@
-const SnackBar = ({ snackbar, setSnackbar }) => {
+import { useEffect, useState } from "react";
+
+export const SnackBar = ({ snackbar, setSnackbar }) => {
   const [color, setColor] = useState("white");
 
   useEffect(() => {
@@ -19,7 +21,7 @@ const SnackBar = ({ snackbar, setSnackbar }) => {
 
   return (
     <div
-      className="fixed bg-red-500 w-10/12 z-10 animate-bounce duration-200 rounded-2xl special-shadow flex flex-col items-center justify-center p-3"
+      className="fixed w-10/12 z-10 animate-bounce duration-200 rounded-2xl special-shadow flex flex-col items-center justify-center p-3"
       style={{
         top: snackbar != null ? "50px" : "-50px",
         backgroundColor: color,
