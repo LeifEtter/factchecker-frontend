@@ -7,8 +7,6 @@ import Image from "next/image";
 const { v1: uuidv1, v4: uuidv4 } = require("uuid");
 
 export default function CreateClaim() {
-  const [claimId, setClaimId] = useState();
-
   const [title, setTitle] = useState("");
   const [titleError, setTitleError] = useState(null);
 
@@ -23,24 +21,57 @@ export default function CreateClaim() {
   const [showModal, setShowModal] = useState(false);
   const [modalInput, setModalInput] = useState();
 
-  useEffect(() => {
-    if (!claimId) {
-      createClaim();
+  const validate = async () => {
+    if (title == "") {
+      setTitleError("Please Enter a Claim");
+      return false;
+    } else if (description == "") {
+      setDescriptionError("Please Enter a Description");
+      return false;
+    } else if (source == "") {
+      setSourceError("Please Enter a Source");
+      return false;
     }
-  }, []);
+    return true;
+  };
 
-  const createClaim = async () => {
+  const submitClaim = async () => {
     try {
-      const result = await fetch("http://localhost:3005/claims/create", {
+      const result = await fetch(`http://localhost:3005/claims/create`, {
         method: "POST",
-        body: {
-          statement: "",
-          description: "",
-          user_id: 3,
+        headers: {
+          "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          statement: title,
+          description: description,
+          user_id: 3,
+          source: source,
+        }),
       });
-      const body = await result.json();
-      setClaimId(body.result[0].id);
+
+      if (result.status == 201) {
+        const body = await result.json();
+        assignImages(body.result[0].id);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const assignImages = async (claimId) => {
+    try {
+      const result = await fetch(`http://localhost:3005/images/assign`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          claimId: claimId,
+          images: images,
+        }),
+      });
+      console.log(result);
     } catch (error) {
       console.log(error);
     }
@@ -58,15 +89,13 @@ export default function CreateClaim() {
 
     data.append("image", file);
     data.append("description", source);
-    data.append("claimId", 2);
 
     const uploadResult = await fetch("http://localhost:3005/images/upload", {
       method: "POST",
       body: data,
     });
     const body = await uploadResult.json();
-
-    setImages([...images, body.url]);
+    setImages([...images, { url: body.url, id: body.id }]);
   };
 
   return (
@@ -97,16 +126,18 @@ export default function CreateClaim() {
             resetError={() => setDescriptionError(null)}
           />
           <div>
-            <p className="ml-1 font-semibold text-fact-text-medium">Images</p>
+            <p className="ml-1 font-semibold text-fact-text-medium mt-2">
+              Images
+            </p>
             <div className="flex items-center gap-5">
               {images.map((image) => (
                 <div
                   className="relative -z-10 w-48 h-48 bg-white rounded-2xl special-shadow"
-                  key={image}
+                  key={image.url}
                 >
                   <Image
-                    src={image}
-                    alt={image}
+                    src={image.url}
+                    alt={image.url}
                     fill
                     className="object-cover rounded-2xl"
                   />
@@ -131,7 +162,11 @@ export default function CreateClaim() {
 
           <button
             className="special-shadow fact-gradient rounded-xl text-white p-3 w-full"
-            onClick={() => {}}
+            onClick={() => {
+              if (validate()) {
+                submitClaim();
+              }
+            }}
           >
             Submit
           </button>
