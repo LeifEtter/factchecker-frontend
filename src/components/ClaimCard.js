@@ -11,12 +11,12 @@ export const ClaimCard = ({ title, description }) => (
     <div>{description}</div>
     <div className="flex flex-row gap-4">
       <div className="flex-1 relative">
-        <Image
+        {/* <Image
           src="https://factchecker-images.s3.eu-central-1.amazonaws.com/claims/trump_arrested.jpg"
           alt={`${title}-image`}
           fill
           className="object-cover rounded-2xl"
-        />
+        /> */}
       </div>
       <div className="flex-1"></div>
       {/* <div className="flex-1">
