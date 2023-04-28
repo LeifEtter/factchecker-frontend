@@ -49,6 +49,7 @@ export default function Login() {
       }
     } else {
       Cookies.set("auth_token", body.token);
+      setToken(body.token);
       router.push("/");
     }
   };
