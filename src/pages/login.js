@@ -1,9 +1,12 @@
 import { InputField } from "@/components/InputField";
 import { CustomErrors } from "@/errors";
 import { isEmail } from "@/helpers/helpers";
+import { TokenContext } from "@/state/token";
 import Cookies from "js-cookie";
+import { redirect } from "next/dist/server/api-utils";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { useContext, useEffect, useState } from "react";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -11,6 +14,10 @@ export default function Login() {
 
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(null);
+
+  const router = useRouter();
+
+  const [token, setToken] = useContext(TokenContext);
 
   const validate = () => {
     if (!isEmail(email)) {
@@ -42,6 +49,7 @@ export default function Login() {
       }
     } else {
       Cookies.set("auth_token", body.token);
+      router.push("/");
     }
   };
 
