@@ -2,10 +2,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { InputField, InputFieldMultiline } from "@/components/InputField";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Image from "next/image";
+import jwtDecode from "jwt-decode";
+import { TokenContext } from "@/state/token";
 
 export default function CreateClaim() {
+  const [token, setToken] = useContext(TokenContext);
+
   const [title, setTitle] = useState("");
   const [titleError, setTitleError] = useState(null);
 
@@ -44,7 +48,7 @@ export default function CreateClaim() {
         body: JSON.stringify({
           statement: title,
           description: description,
-          user_id: 3,
+          user_id: jwtDecode(token).id,
           source: source,
         }),
       });
