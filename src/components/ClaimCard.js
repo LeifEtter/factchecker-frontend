@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 
 const { default: Image } = require("next/image");
 
-export const ClaimCard = ({ title, description }) => (
+export const ClaimCard = ({ statement, description, userId, source }) => (
   <div className="flex flex-col bg-white p-3 rounded-2xl special-shadow">
     <div className="flex items-center justify-between">
-      <h1>{title}</h1>
+      <h1>{statement}</h1>
       <IndicatorNew validity={35} />
     </div>
     <div>{description}</div>
