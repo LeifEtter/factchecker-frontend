@@ -10,7 +10,6 @@
     "next.config.js": true,
     ".gitignore": true,
     ".eslintrc.json": true,
-    ".env": true,
     "tailwind.config.js": true
   },
   "editor.quickSuggestions": {

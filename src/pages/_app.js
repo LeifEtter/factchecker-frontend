@@ -16,7 +16,9 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     const token = Cookies.get("auth_token");
-    checkToken(token);
+    if (token) {
+      checkToken(token);
+    }
   }, []);
 
   const checkToken = async (token) => {
