@@ -91,7 +91,7 @@ export default function CreateClaim() {
     const data = new FormData();
 
     data.append("image", file);
-    data.append("description", source);
+    data.append("source", source);
 
     const uploadResult = await fetch("http://localhost:3005/images/upload", {
       method: "POST",
