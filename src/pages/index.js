@@ -22,11 +22,11 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center">
-      <div className="flex flex-col w-full max-w-4xl">
+      <div className="flex flex-col w-11/12 max-w-4xl">
         <div>
           <h1 className="text-lg mt-5 ml-5">Posts/Articles</h1>
         </div>
-        <div className="grid grid-cols-3">
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-5">
           {claims.map((claim) => (
             <ClaimCard
               statement={claim.statement}

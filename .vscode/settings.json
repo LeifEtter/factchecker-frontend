@@ -10,7 +10,8 @@
     "next.config.js": true,
     ".gitignore": true,
     ".eslintrc.json": true,
-    "tailwind.config.js": true
+    "tailwind.config.js": true,
+    "public": true
   },
   "editor.quickSuggestions": {
     "comments": "on",
@@ -25,5 +26,8 @@
   "editor.inlineSuggest.enabled": true,
   "tailwindCSS.validate": true,
   "editor.suggest.snippetsPreventQuickSuggestions": false,
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "tailwindCSS.includeLanguages": {
+    "plaintext": "\"html\""
+  }
 }
