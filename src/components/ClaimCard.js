@@ -2,28 +2,44 @@ import { useEffect, useState } from "react";
 
 const { default: Image } = require("next/image");
 
-export const ClaimCard = ({ statement, description, userId, source }) => (
-  <div className="flex flex-col bg-white p-3 rounded-2xl special-shadow">
+export const ClaimCard = ({
+  images,
+  statement,
+  description,
+  userId,
+  source,
+}) => {};
+
+export const ClaimCardWithImage = ({
+  images,
+  statement,
+  description,
+  userId,
+  source,
+}) => (
+  <div className="flex flex-col bg-white rounded-2xl special-shadow">
+    {/* <div className="absolute flex w-4 bg-red-500 h-12">dd</div> */}
+    <div className="flex">
+      {images.map((image) => {
+        <div className="flex h-32">
+          <Image
+            src={image}
+            alt={`${image}-image`}
+            width={1000}
+            height={0}
+            className="object-cover"
+            style={{
+              borderRadius: `16px ${images.length == 1 ? "16" : "0"}px 0px 0px`,
+            }}
+          />
+        </div>;
+      })}
+    </div>
     <div className="flex items-center justify-between">
-      <h1>{statement}</h1>
+      <h1 class="text-xl font-semibold">{statement}</h1>
       <IndicatorNew validity={35} />
     </div>
     <div>{description}</div>
-    <div className="flex flex-row gap-4">
-      <div className="flex-1 relative">
-        {/* <Image
-          src="https://factchecker-images.s3.eu-central-1.amazonaws.com/claims/trump_arrested.jpg"
-          alt={`${title}-image`}
-          fill
-          className="object-cover rounded-2xl"
-        /> */}
-      </div>
-      <div className="flex-1"></div>
-      {/* <div className="flex-1">
-        <div className="rounded-xl p-2 shadow-md">Evidence</div>
-        <div className="rounded-xl p-3 shadow-md">Evidence</div>
-      </div> */}
-    </div>
   </div>
 );
 
