@@ -29,7 +29,7 @@ export default function Home() {
         <div>
           <h1 className="text-lg mt-5 ml-5">Posts/Articles</h1>
         </div>
-        <div className="grid grid-cols-3">
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-5">
           {claims.map((claim) => (
             <ClaimCardWithImage
               images={[EXAMPLE_IMAGE, EXAMPLE_IMAGE]}
