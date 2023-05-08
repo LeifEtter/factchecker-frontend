@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const Appbar = ({ path, token }) => (
-  <div className="mt-5 ml-5 mr-5 flex justify-between">
+  <div className="mt-5 flex justify-between">
     <div className="flex justify-between bg-white rounded-2xl shadow-md float-left gap-5 py-2 px-3">
       <LinkButton path="/" title="Home" isActive={path == "/"} />
       <LinkButton path="/new" title="New" isActive={path == "/new"} />

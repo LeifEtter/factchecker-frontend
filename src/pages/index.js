@@ -1,6 +1,4 @@
 import { ClaimCard, ClaimCardWithImage } from "@/components/ClaimCard";
-import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const EXAMPLE_IMAGE =
@@ -24,24 +22,20 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col items-center">
-      <div className="flex flex-col w-full max-w-4xl text-c">
-        <div>
-          <h1 className="text-lg mt-5 ml-5">Posts/Articles</h1>
-        </div>
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-5">
-          {claims.map((claim) => (
-            <ClaimCardWithImage
-              images={[EXAMPLE_IMAGE, EXAMPLE_IMAGE]}
-              statement={claim.statement}
-              description={claim.description}
-              source={claim.source}
-              userId={claim.user_id}
-              key={claim.id}
-            />
-          ))}
-        </div>
+    <>
+      <h1 className="text-lg mt-5 ml-5">Posts/Articles</h1>
+      <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-items-center border">
+        {claims.map((claim) => (
+          <ClaimCardWithImage
+            images={[EXAMPLE_IMAGE, EXAMPLE_IMAGE]}
+            statement={claim.statement}
+            description={claim.description}
+            source={claim.source}
+            userId={claim.user_id}
+            key={claim.id}
+          />
+        ))}
       </div>
-    </main>
+    </>
   );
 }
