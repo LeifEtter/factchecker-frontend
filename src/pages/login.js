@@ -63,6 +63,7 @@ export default function Login() {
             Login
           </h1>
           <InputField
+            testId={"email-field"}
             value={email}
             setValue={setEmail}
             title="Email"
@@ -70,6 +71,7 @@ export default function Login() {
             resetError={() => setEmailError(null)}
           />
           <InputField
+            testId={"password-field"}
             value={password}
             setValue={setPassword}
             title="Password"
@@ -78,6 +80,7 @@ export default function Login() {
             obscure
           />
           <button
+            data-testid={"submit-login"}
             onClick={() => {
               const validateResult = validate();
               if (validateResult) {

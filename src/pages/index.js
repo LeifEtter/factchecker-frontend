@@ -1,4 +1,4 @@
-import { ClaimCard, ClaimCardWithImage } from "@/components/ClaimCard";
+import { ClaimCard, ClaimCardWithImage } from "../components/ClaimCard";
 import { useEffect, useState } from "react";
 
 const EXAMPLE_IMAGE =
@@ -24,7 +24,10 @@ export default function Home() {
   return (
     <main>
       <h1 className="text-2xl mt-5 font-medium mb-3">Posts/Articles</h1>
-      <div className="inline-grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
+      <div
+        data-testid="claim-grid"
+        className="inline-grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5"
+      >
         {/* {["one", "two", "three", "four"].map((element) => (
           <ClaimCard />
         ))} */}

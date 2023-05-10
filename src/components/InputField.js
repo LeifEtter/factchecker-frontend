@@ -5,11 +5,13 @@ export const InputField = ({
   error,
   resetError,
   obscure,
+  testId,
 }) => {
   return (
     <div className="flex flex-col gap-1">
       <p className="ml-1 font-semibold text-fact-text-medium">{title}</p>
       <input
+        data-testid={testId}
         type={obscure ? "password" : "text"}
         value={value}
         onChange={(e) => {

@@ -21,6 +21,7 @@ export const Appbar = ({ path, token }) => (
     <div className="flex justify-between bg-white rounded-2xl shadow-md float-left gap-10 py-2 px-3">
       {!token ? (
         <LinkButton
+          testid="login-button"
           path="/login"
           title="Login/Register"
           isActive={path == "/login" || path == "/register"}
@@ -32,9 +33,10 @@ export const Appbar = ({ path, token }) => (
   </div>
 );
 
-const LinkButton = ({ title, path, isActive }) => {
+const LinkButton = ({ title, path, isActive, testid }) => {
   return (
     <Link
+      data-testid={testid}
       href={path}
       className="py-1 px-2 rounded-xl font-semibold"
       style={{
