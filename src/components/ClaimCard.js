@@ -2,14 +2,12 @@ import { useEffect, useState } from "react";
 
 const { default: Image } = require("next/image");
 
-export const ClaimCard = ({
-  images,
-  statement,
-  description,
-  userId,
-  source,
-}) => {};
-
+export const ClaimCard = () => (
+  <div className="flex flex-col h-60 bg-red-500">
+    <div className="basis-6/12 bg-green-500">d</div>
+    <div className="basis-6/12 bg-orange-500">d</div>
+  </div>
+);
 export const ClaimCardWithImage = ({
   images,
   statement,
@@ -17,29 +15,23 @@ export const ClaimCardWithImage = ({
   userId,
   source,
 }) => (
-  <div className="flex flex-col bg-white rounded-2xl special-shadow">
-    {/* <div className="absolute flex w-4 bg-red-500 h-12">dd</div> */}
-    <div className="flex">
-      {images.map((image) => {
-        <div className="flex h-32">
+  <div className="flex flex-col bg-white rounded-2xl special-shadow max-w-sm h-64 overflow-hidden">
+    <div className="basis-6/12 w-full flex flex-row">
+      {images.map((image) => (
+        <div className="flex-1 relative">
           <Image
             src={image}
             alt={`${image}-image`}
-            width={1000}
-            height={0}
+            fill
             className="object-cover"
-            style={{
-              borderRadius: `16px ${images.length == 1 ? "16" : "0"}px 0px 0px`,
-            }}
           />
-        </div>;
-      })}
+        </div>
+      ))}
     </div>
-    <div className="flex items-center justify-between">
+    <div className="basis-7/12 flex">
       <h1 class="text-xl font-semibold">{statement}</h1>
       <IndicatorNew validity={35} />
     </div>
-    <div>{description}</div>
   </div>
 );
 

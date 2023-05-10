@@ -22,9 +22,12 @@ export default function Home() {
   };
 
   return (
-    <>
-      <h1 className="text-lg mt-5 ml-5">Posts/Articles</h1>
-      <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-items-center border">
+    <main>
+      <h1 className="text-2xl mt-5 font-medium mb-3">Posts/Articles</h1>
+      <div className="inline-grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
+        {/* {["one", "two", "three", "four"].map((element) => (
+          <ClaimCard />
+        ))} */}
         {claims.map((claim) => (
           <ClaimCardWithImage
             images={[EXAMPLE_IMAGE, EXAMPLE_IMAGE]}
@@ -36,6 +39,6 @@ export default function Home() {
           />
         ))}
       </div>
-    </>
+    </main>
   );
 }
