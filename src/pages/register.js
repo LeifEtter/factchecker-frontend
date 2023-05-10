@@ -77,7 +77,7 @@ export default function Register() {
       <Head></Head>
       <div className="flex flex-col items-center">
         <SnackBar snackbar={snackbar} setSnackbar={setSnackbar} />
-        <div className="flex flex-col gap-2 w-80 mt-60">
+        <div className="flex flex-col gap-2 w-80 mt-48">
           <h1 className="font-bold text-2xl text-fact-text-medium text-center mb-5">
             Register
           </h1>

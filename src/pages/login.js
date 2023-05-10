@@ -5,6 +5,7 @@ import { TokenContext } from "@/state/token";
 import Cookies from "js-cookie";
 import { redirect } from "next/dist/server/api-utils";
 import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 
@@ -58,7 +59,7 @@ export default function Login() {
     <>
       <Head></Head>
       <div className="flex flex-col items-center">
-        <div className="flex flex-col gap-2 w-80 mt-60">
+        <div className="flex flex-col gap-2 w-80 mt-48">
           <h1 className="font-bold text-2xl text-fact-text-medium text-center mb-5">
             Login
           </h1>
@@ -91,6 +92,9 @@ export default function Login() {
           >
             Submit
           </button>
+          <Link href="/register" className="mt-5 text-center">
+            No Account? Register
+          </Link>
         </div>
       </div>
     </>
