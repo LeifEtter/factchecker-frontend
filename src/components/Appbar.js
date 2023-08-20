@@ -13,6 +13,7 @@ export const Appbar = ({ path, token }) => (
     </div>
     <div className="flex-1"></div>
     <Link
+      data-testid={"create-claim-button"}
       href="/create-claim"
       className="fact-gradient font-medium text-white px-5 rounded-2xl special-shadow mr-5 flex items-center"
     >

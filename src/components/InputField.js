@@ -31,6 +31,7 @@ export const InputField = ({
 };
 
 export const InputFieldMultiline = ({
+  testId,
   value,
   setValue,
   title,
@@ -41,6 +42,7 @@ export const InputFieldMultiline = ({
     <div className="flex flex-col gap-1">
       <p className="ml-1 font-semibold text-fact-text-medium">{title}</p>
       <textarea
+        data-testid={testId}
         value={value}
         onChange={(e) => {
           if (error != null) {
