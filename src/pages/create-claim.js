@@ -115,6 +115,7 @@ export default function CreateClaim() {
             Create Claim
           </h1>
           <InputField
+            testId={"claim-input"}
             value={title}
             setValue={setTitle}
             title="Claim"
@@ -122,6 +123,7 @@ export default function CreateClaim() {
             resetError={() => setTitleError(null)}
           />
           <InputFieldMultiline
+            testId={"description-input"}
             value={description}
             setValue={setDescription}
             title="Description"
@@ -156,6 +158,7 @@ export default function CreateClaim() {
           </div>
 
           <InputField
+            testId={"source-input"}
             value={source}
             setValue={setSource}
             title="Source"

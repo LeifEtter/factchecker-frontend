@@ -92,7 +92,11 @@ export default function Login() {
           >
             Submit
           </button>
-          <Link href="/register" className="mt-5 text-center">
+          <Link
+            data-testid="switch-to-register"
+            href="/register"
+            className="mt-5 text-center"
+          >
             No Account? Register
           </Link>
         </div>

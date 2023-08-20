@@ -82,6 +82,7 @@ export default function Register() {
             Register
           </h1>
           <InputField
+            testId={"name-field"}
             value={name}
             setValue={setName}
             title="Name"
@@ -89,6 +90,7 @@ export default function Register() {
             resetError={() => setNameError(null)}
           />
           <InputField
+            testId={"email-field"}
             value={email}
             setValue={setEmail}
             title="Email"
@@ -96,6 +98,7 @@ export default function Register() {
             resetError={() => setEmailError(null)}
           />
           <InputField
+            testId={"password-field"}
             value={password}
             setValue={setPassword}
             title="Password"
@@ -104,6 +107,7 @@ export default function Register() {
             obscure
           />
           <InputField
+            testId={"repeat-password-field"}
             value={repeatPassword}
             setValue={setRepeatPassword}
             title="Repeat Password"
@@ -112,6 +116,7 @@ export default function Register() {
             obscure
           />
           <button
+            data-testid={"submit-registration"}
             onClick={() => {
               if (!validate()) {
                 return;
