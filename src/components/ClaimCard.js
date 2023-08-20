@@ -15,22 +15,27 @@ export const ClaimCardWithImage = ({
   userId,
   source,
 }) => (
-  <div className="flex flex-col bg-white rounded-2xl special-shadow max-w-sm h-64 overflow-hidden">
-    <div className="basis-6/12 w-full flex flex-row">
-      {images.map((image) => (
-        <div className="flex-1 relative">
-          <Image
-            src={image}
-            alt={`${image}-image`}
-            fill
-            className="object-cover"
-          />
-        </div>
-      ))}
-    </div>
-    <div className="basis-7/12 flex">
-      <h1 class="text-xl font-semibold">{statement}</h1>
-      <IndicatorNew validity={35} />
+  <div>
+    <div className="flex flex-col bg-white rounded-2xl special-shadow max-w-sm h-72 overflow-hidden">
+      <div className="absolute z-10 h-10">
+        <IndicatorNew validity={35} />
+      </div>
+      <div className="basis-6/12 w-full flex flex-row">
+        {images.map((image) => (
+          <div className="flex-1 relative" key={image + "-container"}>
+            <Image
+              src={image}
+              alt={`${image}-image`}
+              fill
+              className="object-cover"
+            />
+          </div>
+        ))}
+      </div>
+      <div className="basis-7/12 overflow-scroll flex flex-col p-3">
+        <h1 class="text-xl font-semibold">{statement}</h1>
+        <p>{description.slice(0, 80) + "..."}</p>
+      </div>
     </div>
   </div>
 );
