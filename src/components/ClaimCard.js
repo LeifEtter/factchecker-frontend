@@ -14,9 +14,13 @@ export const ClaimCardWithImage = ({
   description,
   userId,
   source,
+  onClick,
 }) => (
   <div>
-    <div className="flex flex-col bg-white rounded-2xl special-shadow max-w-sm h-72 overflow-hidden">
+    <div
+      className="flex flex-col bg-white rounded-2xl special-shadow max-w-sm h-72 overflow-hidden"
+      onClick={onClick}
+    >
       <div className="absolute z-10 h-10">
         <IndicatorNew validity={35} />
       </div>
