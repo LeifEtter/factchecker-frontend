@@ -1,11 +1,23 @@
 import { ClaimCard, ClaimCardWithImage } from "../components/ClaimCard";
 import { useEffect, useState } from "react";
+import { ClaimViewer } from "@/components/ClaimViewer";
 
 const EXAMPLE_IMAGE =
   "https://factchecker-images.s3.eu-central-1.amazonaws.com/6f409519-6546-4d6d-987d-2cddeabfac8b";
 
 export default function Home() {
   const [claims, setClaims] = useState([]);
+
+  const [claimViewerOpen, setClaimViewerOpen] = useState(false);
+  const [claimBeingViewed, setClaimBeingViewed] = useState(null);
+  const closeClaimViewer = () => {
+    setClaimViewerOpen(false);
+    setClaimBeingViewed(null);
+  };
+  const viewClaim = (id) => {
+    setClaimViewerOpen(true);
+    setClaimBeingViewed(id);
+  };
 
   useEffect(() => {
     getAllClaims();
@@ -23,6 +35,11 @@ export default function Home() {
 
   return (
     <main>
+      <ClaimViewer
+        claimViewerOpen={claimViewerOpen}
+        closeClaimViewer={closeClaimViewer}
+        claimId={claimBeingViewed}
+      />
       <h1 className="text-2xl mt-20 font-medium mb-5">Posts/Articles</h1>
       <div
         data-testid="claim-grid"
@@ -39,6 +56,7 @@ export default function Home() {
             source={claim.source}
             userId={claim.user_id}
             key={claim.id}
+            onClick={() => viewClaim(claim.id)}
           />
         ))}
       </div>
