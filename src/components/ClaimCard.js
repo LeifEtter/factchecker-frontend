@@ -25,19 +25,21 @@ export const ClaimCardWithImage = ({
         <IndicatorNew validity={35} />
       </div>
       <div className="basis-6/12 w-full flex flex-row">
-        {images.map((image) => (
-          <div className="flex-1 relative" key={image + "-container"}>
+        {images.map((image, index) => (
+          <div className="flex-1 relative" key={image + "-container" + index}>
             <Image
+              priority="false"
               src={image}
               alt={`${image}-image`}
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover"
             />
           </div>
         ))}
       </div>
       <div className="basis-7/12 overflow-scroll flex flex-col p-3">
-        <h1 class="text-xl font-semibold">{statement}</h1>
+        <h1 className="text-xl font-semibold">{statement}</h1>
         <p>{description.slice(0, 80) + "..."}</p>
       </div>
     </div>
