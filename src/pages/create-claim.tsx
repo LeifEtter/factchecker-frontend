@@ -1,15 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
-import { InputField, InputFieldMultiline } from "@/components/InputField";
+import { InputField, InputFieldMultiline } from "../components/InputField";
 import Head from "next/head";
 import { useContext, useEffect, useState } from "react";
 import Image from "next/image";
-import jwtDecode from "jwt-decode";
-import { TokenContext } from "@/state/token";
+import jwtDecode, { JwtPayload } from "jwt-decode";
+import { TokenContext } from "../state/token";
+import { Token } from "../token";
 
 export default function CreateClaim() {
-  const [token, setToken] = useContext(TokenContext);
-
   const [title, setTitle] = useState("");
   const [titleError, setTitleError] = useState(null);
 
@@ -23,6 +22,8 @@ export default function CreateClaim() {
 
   const [showModal, setShowModal] = useState(false);
   const [modalInput, setModalInput] = useState();
+
+  const { token, setToken } = useContext(TokenContext);
 
   const validate = async () => {
     if (title == "") {
@@ -48,7 +49,7 @@ export default function CreateClaim() {
         body: JSON.stringify({
           statement: title,
           description: description,
-          user_id: jwtDecode(token).id,
+          user_id: jwtDecode<Token>(token).id,
           source: source,
         }),
       });
@@ -82,7 +83,7 @@ export default function CreateClaim() {
 
   useEffect(() => {
     if (modalInput) {
-      uploadImage(modalInput.imageFile, modalInput.imageUrl);
+      // uploadImage(modalInput.imageFile, modalInput.imageUrl);
       setModalInput(null);
     }
   }, [modalInput]);
@@ -103,7 +104,7 @@ export default function CreateClaim() {
 
   return (
     <>
-      <Head></Head>
+      {/* <Head></Head> */}
       <Modal
         showModal={showModal}
         setModalInput={setModalInput}
@@ -185,7 +186,7 @@ export default function CreateClaim() {
 const Modal = ({ showModal, setModalInput, setShowModal }) => {
   const [imageUrl, setImageUrl] = useState("");
   const [imageFile, setImageFile] = useState();
-  const [error, setError] = useState();
+  const [error, setError] = useState(false);
 
   const validate = () => {
     if (imageUrl == "" || imageFile == null) {
@@ -227,7 +228,7 @@ const Modal = ({ showModal, setModalInput, setShowModal }) => {
           <input
             id="image-upload"
             type="file"
-            onChange={(e) => setImageFile(e.target.files[0])}
+            // onChange={(e) => setImageFile(e.target.files[0])}
             className="hidden"
           />
           {error ? (

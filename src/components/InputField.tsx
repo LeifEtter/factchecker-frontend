@@ -1,3 +1,13 @@
+export type InputFieldProps = {
+  value: string;
+  setValue: Function;
+  title: string;
+  error: string;
+  resetError: Function;
+  obscure?: boolean;
+  testId: string;
+};
+
 export const InputField = ({
   value,
   setValue,
@@ -6,7 +16,7 @@ export const InputField = ({
   resetError,
   obscure,
   testId,
-}) => {
+}: InputFieldProps) => {
   return (
     <div className="flex flex-col gap-1">
       <p className="ml-1 font-semibold text-fact-text-medium">{title}</p>
@@ -37,7 +47,7 @@ export const InputFieldMultiline = ({
   title,
   error,
   resetError,
-}) => {
+}: InputFieldProps) => {
   return (
     <div className="flex flex-col gap-1">
       <p className="ml-1 font-semibold text-fact-text-medium">{title}</p>

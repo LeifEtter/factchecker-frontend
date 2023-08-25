@@ -1,7 +1,7 @@
-import { InputField } from "@/components/InputField";
-import { CustomErrors } from "@/errors";
-import { isEmail } from "@/helpers/helpers";
-import { TokenContext } from "@/state/token";
+import { InputField } from "../components/InputField";
+import { CustomErrors } from "../errors";
+import { isEmail } from "../helpers/helpers";
+import { TokenContext } from "../state/token";
 import Cookies from "js-cookie";
 import { redirect } from "next/dist/server/api-utils";
 import Head from "next/head";
@@ -18,7 +18,7 @@ export default function Login() {
 
   const router = useRouter();
 
-  const [token, setToken] = useContext(TokenContext);
+  const { token, setToken } = useContext(TokenContext);
 
   const validate = () => {
     if (!isEmail(email)) {
@@ -57,7 +57,7 @@ export default function Login() {
 
   return (
     <>
-      <Head></Head>
+      {/* <Head></Head> */}
       <div className="flex flex-col items-center">
         <div className="flex flex-col gap-2 w-80 mt-48">
           <h1 className="font-bold text-2xl text-fact-text-medium text-center mb-5">

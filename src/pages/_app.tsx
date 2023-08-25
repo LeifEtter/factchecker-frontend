@@ -1,7 +1,7 @@
-import { Appbar } from "@/components/Appbar";
-import { TokenContext } from "@/state/token";
-import "@/styles/globals.css";
-import "@/styles/shadows.css";
+import { Appbar } from "../components/Appbar";
+import { TokenContext } from "../state/token";
+import "../styles/globals.css";
+import "../styles/shadows.css";
 import Cookies from "js-cookie";
 import { Roboto_Mono } from "next/font/google";
 import Link from "next/link";
@@ -12,7 +12,7 @@ const robotoMono = Roboto_Mono({ subsets: ["latin"] });
 
 export default function App({ Component, pageProps }) {
   const path = useRouter().pathname;
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState<string>(null);
 
   useEffect(() => {
     const token = Cookies.get("auth_token");
@@ -38,7 +38,7 @@ export default function App({ Component, pageProps }) {
   };
 
   return (
-    <TokenContext.Provider value={[token, setToken]}>
+    <TokenContext.Provider value={{ token, setToken }}>
       <main className={`${robotoMono.className} flex flex-col items-center`}>
         <div className="w-11/12 max-w-6xl">
           <Appbar path={path} />

@@ -1,6 +1,6 @@
 import { ClaimCard, ClaimCardWithImage } from "../components/ClaimCard";
 import { useEffect, useState } from "react";
-import { ClaimViewer } from "@/components/ClaimViewer";
+import { ClaimViewer } from "../components/ClaimViewer";
 
 const EXAMPLE_IMAGE =
   "https://factchecker-images.s3.eu-central-1.amazonaws.com/6f409519-6546-4d6d-987d-2cddeabfac8b";

@@ -47,8 +47,8 @@ export const ClaimCardWithImage = ({
 );
 
 const IndicatorNew = ({ validity }) => {
-  const [text, setText] = useState();
-  const [color, setColor] = useState();
+  const [text, setText] = useState("");
+  const [color, setColor] = useState("");
 
   useEffect(() => {
     if (validity < 30) {

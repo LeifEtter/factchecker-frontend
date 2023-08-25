@@ -1,7 +1,7 @@
-import { InputField } from "@/components/InputField";
-import { SnackBar } from "@/components/Snackbar";
-import { CustomErrors } from "@/errors";
-import { isEmail, isPassword } from "@/helpers/helpers";
+import { InputField } from "../components/InputField";
+import { SnackBar } from "../components/Snackbar";
+import { CustomErrors } from "../errors";
+import { isEmail, isPassword } from "../helpers/helpers";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 
@@ -74,7 +74,7 @@ export default function Register() {
 
   return (
     <>
-      <Head></Head>
+      {/* <Head></Head> */}
       <div className="flex flex-col items-center">
         <SnackBar snackbar={snackbar} setSnackbar={setSnackbar} />
         <div className="flex flex-col gap-2 w-80 mt-48">
