@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
 
-const { default: Image } = require("next/image");
+import { default as Image } from "next/image";
 
-export const ClaimCard = () => (
-  <div className="flex flex-col h-60 bg-red-500">
-    <div className="basis-6/12 bg-green-500">d</div>
-    <div className="basis-6/12 bg-orange-500">d</div>
-  </div>
-);
+// TODO Implement Claim Card without images
+
+interface ClaimCardWithImageProps {
+  images: string[];
+  statement: string;
+  description: string;
+  userId: number;
+  source: string;
+  onClick: () => void;
+}
+
 export const ClaimCardWithImage = ({
   images,
   statement,
@@ -15,20 +20,20 @@ export const ClaimCardWithImage = ({
   userId,
   source,
   onClick,
-}) => (
+}: ClaimCardWithImageProps) => (
   <div>
     <div
       className="flex flex-col bg-white rounded-2xl special-shadow max-w-sm h-72 overflow-hidden"
       onClick={onClick}
     >
       <div className="absolute z-10 h-10">
-        <IndicatorNew validity={35} />
+        <Indicator validity={35} />
       </div>
       <div className="basis-6/12 w-full flex flex-row">
         {images.map((image, index) => (
           <div className="flex-1 relative" key={image + "-container" + index}>
             <Image
-              priority="false"
+              priority
               src={image}
               alt={`${image}-image`}
               fill
@@ -46,7 +51,11 @@ export const ClaimCardWithImage = ({
   </div>
 );
 
-const IndicatorNew = ({ validity }) => {
+interface IndicatorProps {
+  validity: number;
+}
+
+const Indicator = ({ validity }: IndicatorProps) => {
   const [text, setText] = useState("");
   const [color, setColor] = useState("");
 

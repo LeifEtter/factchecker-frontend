@@ -1,4 +1,4 @@
-import { ClaimCard, ClaimCardWithImage } from "../components/ClaimCard";
+import { ClaimCardWithImage } from "../components/ClaimCard";
 import { useEffect, useState } from "react";
 import { ClaimViewer } from "../components/ClaimViewer";
 
