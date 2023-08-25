@@ -1,27 +1,7 @@
-import { useEffect } from "react";
-
-export const ClaimViewer = ({ claimViewerOpen, closeClaimViewer, claimId }) => {
-  useEffect(() => {
-    console.log();
-    if (claimId != null) getClaimForViewing(claimId);
-  }, [claimId]);
-
-  const getClaimForViewing = async (id) => {
-    const claimResult = await fetch(`http://localhost:3005/claims/view/${id}`, {
-      method: "GET",
-    });
-    if (claimResult.status == 200) {
-      const claims = await claimResult.json();
-    }
-    console.log(claimResult);
-  };
-
-  return (
+export const ClaimViewer = ({ claimViewerOpen, closeClaimViewer, claim }) =>
+  claimViewerOpen ? (
     <div
       className="z-50 bg-gray-400 bg-opacity-10 backdrop-blur-sm w-full h-full fixed left-0 top-0 flex items-center justify-center"
-      style={{
-        display: claimViewerOpen ? "flex" : "none",
-      }}
       onClick={closeClaimViewer}
     >
       <div
@@ -29,8 +9,13 @@ export const ClaimViewer = ({ claimViewerOpen, closeClaimViewer, claimId }) => {
         className="h-3/6 w-10/12 bg-white fixed bg-opacity-100 rounded-lg shadow-lg p-5"
       >
         <h1>Claim</h1>
-        <p>{claimId}</p>
+        <p>{claim.statement}</p>
+        <p>{claim.description}</p>
       </div>
+      {claim.comments.map((comment) => (
+        <div key={comment.id}>{comment.statement}</div>
+      ))}
     </div>
+  ) : (
+    <></>
   );
-};

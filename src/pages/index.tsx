@@ -14,9 +14,10 @@ export default function Home() {
     setClaimViewerOpen(false);
     setClaimBeingViewed(null);
   };
-  const viewClaim = (id) => {
+  const viewClaim = async (id: number) => {
+    const claim: Claim = await getSingleClaim(id);
+    setClaimBeingViewed(claim);
     setClaimViewerOpen(true);
-    setClaimBeingViewed(id);
   };
 
   useEffect(() => {
@@ -33,12 +34,29 @@ export default function Home() {
     }
   };
 
+  const getSingleClaim = async (id: number): Promise<Claim> => {
+    try {
+      const claimResult = await fetch(
+        `http://localhost:3005/claims/view/${id}`,
+        {
+          method: "GET",
+        }
+      );
+      if (claimResult.status == 200) {
+        const decodedClaim: Claim = await claimResult.json();
+        return decodedClaim;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <main>
       <ClaimViewer
         claimViewerOpen={claimViewerOpen}
         closeClaimViewer={closeClaimViewer}
-        claimId={claimBeingViewed}
+        claim={claimBeingViewed}
       />
       <h1 className="text-2xl mt-20 font-medium mb-5">Posts/Articles</h1>
       <div
