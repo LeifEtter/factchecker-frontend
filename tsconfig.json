@@ -20,7 +20,8 @@
     "**/*.tsx",
     "src/components/Appbar.tsx",
     "src/components/ClaimCard.tsx",
-    "src/pages/login.js"
+    "src/pages/login.tsx",
+    "cypress/e2e/user-flows.cy.js"
   ],
   "exclude": ["node_modules"]
 }
