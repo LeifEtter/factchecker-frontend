@@ -3,5 +3,5 @@ interface Claim {
   statement: string;
   description: string;
   user_name?: string;
-  comments?: Comment[];
+  comments?: ClaimComment[];
 }

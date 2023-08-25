@@ -1,4 +1,4 @@
-interface Comment {
+interface ClaimComment {
   id: number;
   result: string;
   statement: string;
