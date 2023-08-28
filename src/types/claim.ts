@@ -4,4 +4,5 @@ interface Claim {
   description: string;
   user_name?: string;
   comments?: ClaimComment[];
+  images: ClaimImage[];
 }
