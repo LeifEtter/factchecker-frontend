@@ -44,7 +44,7 @@ export const ClaimCardWithImage = ({
           </div>
         ))}
       </div>
-      <div className="basis-7/12 overflow-scroll flex flex-col p-3">
+      <div className="basis-7/12 flex flex-col p-3">
         <h1 className="text-xl font-semibold">{statement}</h1>
         <p>{description.slice(0, 80) + "..."}</p>
       </div>
