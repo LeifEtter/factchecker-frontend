@@ -8,7 +8,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useState } from "react";
 
-const robotoMono = Roboto_Mono({ subsets: ["latin"] });
+const robotoMono = Roboto_Mono({
+  subsets: ["latin"],
+  weight: ["400", "600", "500", "700"],
+});
 
 export default function App({ Component, pageProps }) {
   const path = useRouter().pathname;
