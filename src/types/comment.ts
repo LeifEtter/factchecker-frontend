@@ -1,6 +1,6 @@
 interface ClaimComment {
   id: number;
-  result: string;
+  result: boolean;
   statement: string;
   user_id: number;
   claim_id: number;

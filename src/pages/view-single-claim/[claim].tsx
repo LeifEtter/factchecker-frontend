@@ -1,10 +1,40 @@
 import Image from "next/image";
+import React, { useEffect, useState } from "react";
 
 interface ViewSingleClaimProps {
   claim: Claim;
 }
 
 export default function ViewSingleClaim({ claim }: ViewSingleClaimProps) {
+  const [truthValue, setTruthValue] = React.useState<null | number>(null);
+  const [truthLabel, setTruthLabel] = React.useState<null | string>(null);
+
+  const calculateTruthFactorFromComments = (comments: ClaimComment[]) => {
+    const truthValues: number[] = comments.map((comment) =>
+      comment.result ? 100 : 0
+    );
+
+    const totalTruthPoints: number = truthValues.reduce((a, b) => a + b);
+    return totalTruthPoints;
+  };
+
+  useEffect(() => {
+    const truthFactor: number = calculateTruthFactorFromComments(
+      claim.comments
+    );
+    setTruthValue(truthFactor);
+
+    if (truthFactor < 35) {
+      setTruthLabel("False");
+    } else if (truthFactor < 50) {
+      setTruthLabel("Likely False");
+    } else if (truthFactor < 90) {
+      setTruthLabel("Likely True");
+    } else {
+      setTruthLabel("True");
+    }
+  }, [claim.comments]);
+
   return (
     <div>
       <h1 className="mt-10 mb-3">Claim</h1>
@@ -15,7 +45,12 @@ export default function ViewSingleClaim({ claim }: ViewSingleClaimProps) {
           </div>
           <div className="flex-grow"></div>
           <div className="border border-red-500">Source</div>
-          <div className="border border-red-500">True/False</div>
+          <div
+            className="border border-red-500"
+            style={{ backgroundColor: truthValue < 50 ? "red" : "green" }}
+          >
+            {truthLabel}
+          </div>
         </div>
         <p>{claim.description}</p>
         <div className="basis-3/12 w-full flex flex-row h-72 gap-8 mt-16">
