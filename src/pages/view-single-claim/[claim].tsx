@@ -9,7 +9,14 @@ export default function ViewSingleClaim({ claim }: ViewSingleClaimProps) {
     <div>
       <h1 className="mt-10 mb-3">Claim</h1>
       <div className="bg-white rounded-xl w-11/12 shadow-lg px-20 py-10">
-        <h2>{claim.statement}</h2>
+        <div className="flex flex-row">
+          <div>
+            <h2>{claim.statement}</h2>
+          </div>
+          <div className="flex-grow"></div>
+          <div className="border border-red-500">Source</div>
+          <div className="border border-red-500">True/False</div>
+        </div>
         <p>{claim.description}</p>
         <div className="basis-3/12 w-full flex flex-row h-72 gap-8 mt-16">
           {claim.images.map((image) => (
