@@ -1,5 +1,7 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { faShare } from "@fortawesome/free-solid-svg-icons";
 
 interface ViewSingleClaimProps {
   claim: Claim;
@@ -49,16 +51,19 @@ export default function ViewSingleClaim({ claim }: ViewSingleClaimProps) {
             <h2>{claim.statement}</h2>
           </div>
           <div className="flex-grow"></div>
-          <div className="border border-red-500">Source</div>
+          <div className="shadow-md text-blue-500 px-4 py-1 rounded-xl">
+            Source
+            <FontAwesomeIcon icon={faShare} className="pl-2" />
+          </div>
           <div
-            className="border border-red-500"
+            className="ml-5 rounded-xl px-4 py-1"
             style={{
               backgroundColor:
                 truthValue == null
                   ? "yellow"
                   : truthValue < 50
-                  ? "red"
-                  : "green",
+                  ? "#FF9494"
+                  : "#B1EFA7",
             }}
           >
             {truthLabel}
