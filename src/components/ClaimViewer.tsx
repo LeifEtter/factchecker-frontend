@@ -25,7 +25,7 @@ export const ClaimViewer = ({
       <ClaimExpanded claim={claim} />
       <HighlightCard claim={claim} />
       <Link
-        href="/view-single-claim/1"
+        href={`/view-single-claim/${claim.id}`}
         onClick={(e) => {
           e.stopPropagation();
         }}
