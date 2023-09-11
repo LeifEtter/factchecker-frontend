@@ -79,7 +79,7 @@ export default function ViewSingleClaim({ claim }: ViewSingleClaimProps) {
           ))}
         </div>
       </div>
-      <h1 className="mt-16">Statements</h1>
+      {claim.comments.length > 1 ? <h1 className="mt-16">Statements</h1> : null}
       {claim.comments.map((comment) => (
         <div
           className="mt-5 w-full rounded-2xl p-5 bg-white shadow-lg"
