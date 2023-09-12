@@ -59,24 +59,26 @@ export default function Home() {
         claim={claimBeingViewed}
       />
       <h1 className="text-2xl mt-20 font-medium mb-5">Posts/Articles</h1>
-      <div
-        data-testid="claim-grid"
-        className="inline-grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10"
-      >
-        {/* {["one", "two", "three", "four"].map((element) => (
+      <div className="flex flex-col items-center">
+        <div
+          data-testid="claim-grid"
+          className="inline-grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10 border"
+        >
+          {/* {["one", "two", "three", "four"].map((element) => (
           <ClaimCard />
         ))} */}
-        {claims.map((claim) => (
-          <ClaimCardWithImage
-            images={[EXAMPLE_IMAGE, EXAMPLE_IMAGE]}
-            statement={claim.statement}
-            description={claim.description}
-            source={claim.source}
-            userId={claim.user_id}
-            key={claim.id}
-            onClick={() => viewClaim(claim.id)}
-          />
-        ))}
+          {claims.map((claim) => (
+            <ClaimCardWithImage
+              images={[EXAMPLE_IMAGE, EXAMPLE_IMAGE]}
+              statement={claim.statement}
+              description={claim.description}
+              source={claim.source}
+              userId={claim.user_id}
+              key={claim.id}
+              onClick={() => viewClaim(claim.id)}
+            />
+          ))}
+        </div>
       </div>
     </main>
   );
