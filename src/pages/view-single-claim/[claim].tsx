@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { faShare } from "@fortawesome/free-solid-svg-icons";
+import { SourceButton, TruthFactorLabel } from "../../components/Buttons";
 
 interface ViewSingleClaimProps {
   claim: Claim;
@@ -45,31 +46,16 @@ export default function ViewSingleClaim({ claim }: ViewSingleClaimProps) {
   return (
     <div>
       <h1 className="mt-10 mb-3">Claim</h1>
-      <div className="bg-white rounded-xl shadow-lg px-6 md:px-16 py-10 w-full">
+      <div className="bg-white rounded-xl shadow-xl px-6 md:px-16 py-10 w-full">
         <div className="flex flex-row">
           <div>
             <h2>{claim.statement}</h2>
           </div>
           <div className="flex-grow"></div>
-          <div className="shadow-md text-blue-500 px-4 py-1 rounded-xl">
-            Source
-            <FontAwesomeIcon icon={faShare} className="pl-2" />
-          </div>
-          <div
-            className="ml-5 rounded-xl px-4 py-1"
-            style={{
-              backgroundColor:
-                truthValue == null
-                  ? "yellow"
-                  : truthValue < 50
-                  ? "#FF9494"
-                  : "#B1EFA7",
-            }}
-          >
-            {truthLabel}
-          </div>
+          <SourceButton link={"nothing"} />
+          <TruthFactorLabel label={truthLabel} value={truthValue} />
         </div>
-        <p>{claim.description}</p>
+        <p className="mt-3">{claim.description}</p>
         <div className="basis-3/12 w-full flex flex-row h-56 md:h-72 gap-4 md:gap-8 mt-16">
           {claim.images.map((image) => (
             <div key={`${image.id}-image`} className="flex-1 relative">
