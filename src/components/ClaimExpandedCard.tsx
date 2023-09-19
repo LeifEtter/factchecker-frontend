@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Indicator } from "./Indicator";
+import { SourceButton } from "./Buttons";
 
 interface ClaimExpandedProps {
   claim: Claim;
@@ -13,9 +14,7 @@ export const ClaimExpanded = ({ claim }: ClaimExpandedProps) => (
     <div className="flex justify-between">
       <h1 className="font-bold">Claim</h1>
       <div className="flex-grow"></div>
-      <div className="text-blue-400 p-2 shadow-md rounded-lg px-4 mr-5">
-        Source
-      </div>
+      <SourceButton link={claim.source} />
       <Indicator validity={35} />
     </div>
     <p className="text-xl mt-2 mb-1">{claim.statement}</p>
