@@ -15,6 +15,7 @@ export const ClaimExpanded = ({ claim }: ClaimExpandedProps) => (
       <h1 className="font-bold">Claim</h1>
       <div className="flex-grow"></div>
       <SourceButton link={claim.source} />
+      <div className="w-5" />
       <Indicator validity={35} />
     </div>
     <p className="text-xl mt-2 mb-1">{claim.statement}</p>

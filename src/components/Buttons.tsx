@@ -6,9 +6,9 @@ interface SourceButtonParams {
 }
 
 export const SourceButton = ({ link }: SourceButtonParams) => (
-  <div className="shadow-md text-blue-500 px-4 py-1 rounded-xl flex flex-row">
-    Source
-    <FontAwesomeIcon icon={faShare} className="pl-2 w-5" />
+  <div className="shadow-md text-blue-500 px-4 py-1 rounded-xl flex flex-row justify-center items-center">
+    Source: {link}
+    {/* <FontAwesomeIcon icon={faShare} className="pl-2 w-5" /> */}
   </div>
 );
 
