@@ -10,6 +10,6 @@ export const HighlightCard = (claim) => (
         amet.
       </p>
     </div>
-    <div className="w-32 border-red-500 border">graphic</div>C
+    {/* <div className="w-32 border-red-500 border">graphic</div> */}
   </div>
 );
