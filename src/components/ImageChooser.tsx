@@ -3,7 +3,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useState } from "react";
 
-export const ImageChooser = ({ showModal, setModalInput, setShowModal }) => {
+interface ImageChooserParams {
+  showModal: Function;
+  setModalInput: Function;
+  setShowModal: Function;
+  callback: Function;
+}
+
+export const ImageChooser = ({
+  showModal,
+  setModalInput,
+  setShowModal,
+  callback,
+}) => {
   const [imageUrl, setImageUrl] = useState("");
   const [imageFile, setImageFile] = useState<File>(null);
   const [error, setError] = useState(false);
@@ -15,6 +27,13 @@ export const ImageChooser = ({ showModal, setModalInput, setShowModal }) => {
       return false;
     }
     return true;
+  };
+
+  const resetModal = () => {
+    setImageUrl("");
+    setImageFile(null);
+    setError(null);
+    setShowModal(false);
   };
 
   return showModal ? (
@@ -81,14 +100,8 @@ export const ImageChooser = ({ showModal, setModalInput, setShowModal }) => {
               if (!validate()) {
                 return;
               }
-              setShowModal(false);
-              setModalInput({
-                imageUrl: imageUrl,
-                imageFile: imageFile,
-              });
-              setImageUrl("");
-              setImageFile(null);
-              setError(false);
+              resetModal();
+              callback({ file: imageFile, source: imageUrl } as ClaimImageFile);
             }}
           >
             Submit Image

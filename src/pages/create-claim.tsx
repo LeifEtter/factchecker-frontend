@@ -7,13 +7,7 @@ import Image from "next/image";
 import jwtDecode, { JwtPayload } from "jwt-decode";
 import { TokenContext } from "../state/token";
 import { Token } from "../token";
-import { URL } from "next/dist/compiled/@edge-runtime/primitives/url";
 import { ImageChooser } from "../components/ImageChooser";
-
-interface ModalInput {
-  imageFile: File;
-  imageUrl: string;
-}
 
 export default function CreateClaim() {
   const [title, setTitle] = useState("");
@@ -22,13 +16,13 @@ export default function CreateClaim() {
   const [description, setDescription] = useState("");
   const [descriptionError, setDescriptionError] = useState(null);
 
-  const [images, setImages] = useState<List>([]);
+  const [images, setImages] = useState<ClaimImageFile[]>([]);
 
   const [source, setSource] = useState("");
   const [sourceError, setSourceError] = useState(null);
 
   const [showModal, setShowModal] = useState(false);
-  const [modalInput, setModalInput] = useState<ModalInput>();
+  const [modalInput, setModalInput] = useState<ClaimImageFile>();
 
   const { token, setToken } = useContext(TokenContext);
 
@@ -70,6 +64,10 @@ export default function CreateClaim() {
     }
   };
 
+  const addImageFromChooser = (image: ClaimImageFile) => {
+    setImages([...images, image]);
+  };
+
   const assignImages = async (claimId) => {
     try {
       const result = await fetch(`http://localhost:3005/images/assign`, {
@@ -87,6 +85,10 @@ export default function CreateClaim() {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    console.log(images);
+  }, [images]);
 
   useEffect(() => {
     if (modalInput) {
@@ -117,6 +119,7 @@ export default function CreateClaim() {
         showModal={showModal}
         setModalInput={setModalInput}
         setShowModal={setShowModal}
+        callback={addImageFromChooser}
       />
       <main className="flex justify-center">
         <div className="w-11/12 max-w-md flex flex-col gap-3">
@@ -147,11 +150,11 @@ export default function CreateClaim() {
               {images.map((image) => (
                 <div
                   className="relative -z-10 w-48 h-48 bg-white rounded-2xl special-shadow"
-                  key={image.url}
+                  key={window.URL.createObjectURL(image.file)}
                 >
                   <Image
-                    src={image.url}
-                    alt={image.url}
+                    src={window.URL.createObjectURL(image.file)}
+                    alt={window.URL.createObjectURL(image.file)}
                     fill
                     className="object-cover rounded-2xl"
                   />
