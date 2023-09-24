@@ -7,5 +7,5 @@ interface ClaimImage {
 
 interface ClaimImageFile {
   file: File;
-  url: string;
+  source: string;
 }
