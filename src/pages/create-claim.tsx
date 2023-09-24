@@ -86,17 +86,6 @@ export default function CreateClaim() {
     }
   };
 
-  useEffect(() => {
-    console.log(images);
-  }, [images]);
-
-  useEffect(() => {
-    if (modalInput) {
-      // uploadImage(modalInput.imageFile, modalInput.imageUrl);
-      setModalInput(null);
-    }
-  }, [modalInput]);
-
   //TODO only upload images on form submit
   // const uploadImage = async (file: File, source: string) => {
   //   const data = new FormData();
