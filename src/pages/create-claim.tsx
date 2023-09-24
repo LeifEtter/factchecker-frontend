@@ -7,6 +7,7 @@ import Image from "next/image";
 import jwtDecode, { JwtPayload } from "jwt-decode";
 import { TokenContext } from "../state/token";
 import { Token } from "../token";
+import { URL } from "next/dist/compiled/@edge-runtime/primitives/url";
 
 export default function CreateClaim() {
   const [title, setTitle] = useState("");
@@ -185,10 +186,11 @@ export default function CreateClaim() {
 
 const Modal = ({ showModal, setModalInput, setShowModal }) => {
   const [imageUrl, setImageUrl] = useState("");
-  const [imageFile, setImageFile] = useState();
+  const [imageFile, setImageFile] = useState<File>(null);
   const [error, setError] = useState(false);
 
   const validate = () => {
+    console.log(imageFile);
     if (imageUrl == "" || imageFile == null) {
       setError(true);
       return false;
@@ -218,19 +220,34 @@ const Modal = ({ showModal, setModalInput, setShowModal }) => {
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
           />
+
+          {imageFile != null ? (
+            <div className="relative w-full h-36 mt-4 rounded-xl">
+              <Image
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                src={window.URL.createObjectURL(imageFile)}
+                alt={`current-selected-image`}
+                className="object-cover rounded-xl special-shadow"
+              />
+            </div>
+          ) : null}
           <label
             htmlFor="image-upload"
-            className="w-full h-full mt-3 bg-white rounded-md py-2 special-shadow flex justify-center items-center gap-2"
+            className="z-10 w-full h-full mt-3 bg-white rounded-md py-2 special-shadow flex justify-center items-center gap-2"
           >
             {imageFile ? "Change Image" : "Select Image"}{" "}
-            <FontAwesomeIcon icon={faAdd} />
+            <div className="w-4">
+              <FontAwesomeIcon icon={faAdd} />
+            </div>
           </label>
           <input
             id="image-upload"
             type="file"
-            // onChange={(e) => setImageFile(e.target.files[0])}
+            onChange={(e) => setImageFile(e.target.files[0])}
             className="hidden"
           />
+
           {error ? (
             <p className="text-sm text-red-500 mt-2">
               Please select an image and source
