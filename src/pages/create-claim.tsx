@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAdd } from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faDeleteLeft, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { InputField, InputFieldMultiline } from "../components/InputField";
 import Head from "next/head";
 import { useContext, useEffect, useState } from "react";
@@ -152,6 +152,9 @@ export default function CreateClaim() {
                   className="relative -z-10 w-48 h-48 bg-white rounded-2xl special-shadow"
                   key={window.URL.createObjectURL(image.file)}
                 >
+                  <div className="flex items-center justify-center absolute z-50 w-8 h-8 right-0 bg-blue-200 rounded-md special-shadow">
+                    <FontAwesomeIcon icon={faEdit} />
+                  </div>
                   <Image
                     src={window.URL.createObjectURL(image.file)}
                     alt={window.URL.createObjectURL(image.file)}
