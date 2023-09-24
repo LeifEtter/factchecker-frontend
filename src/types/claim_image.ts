@@ -4,3 +4,8 @@ interface ClaimImage {
   source: string;
   claimId: number;
 }
+
+interface ClaimImageFile {
+  file: File;
+  url: string;
+}
