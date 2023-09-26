@@ -145,17 +145,17 @@ export default function CreateClaim() {
               Images
             </p>
             <div className="flex items-center gap-5">
-              {images.map((image) => (
+              {images.map((image, i) => (
                 <div
                   className="relative -z-10 w-48 h-48 bg-white rounded-2xl special-shadow"
-                  key={window.URL.createObjectURL(image.file)}
+                  key={`image-div-${i}`}
                 >
                   <div className="flex items-center justify-center absolute z-50 w-8 h-8 right-0 bg-blue-200 rounded-md special-shadow">
                     <FontAwesomeIcon icon={faEdit} />
                   </div>
                   <Image
                     src={window.URL.createObjectURL(image.file)}
-                    alt={window.URL.createObjectURL(image.file)}
+                    alt={`image-${i}`}
                     fill
                     className="object-cover rounded-2xl"
                   />
