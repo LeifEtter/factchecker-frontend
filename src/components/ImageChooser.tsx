@@ -4,47 +4,36 @@ import Image from "next/image";
 import { useState } from "react";
 
 interface ImageChooserParams {
-  showModal: Function;
-  setModalInput: Function;
-  setShowModal: Function;
-  callback: Function;
+  showModal: boolean;
+  imageChooserData: ClaimImageFile;
+  setImageChooserData: Function;
+  resetImageChooser: Function;
+  saveImage: Function;
 }
 
 export const ImageChooser = ({
   showModal,
-  setModalInput,
-  setShowModal,
-  callback,
-}) => {
-  const [imageUrl, setImageUrl] = useState("");
-  const [imageFile, setImageFile] = useState<File>(null);
+  imageChooserData,
+  setImageChooserData,
+  resetImageChooser,
+  saveImage,
+}: ImageChooserParams) => {
   const [error, setError] = useState(false);
 
   const validate = () => {
-    console.log(imageFile);
-    if (imageUrl == "" || imageFile == null) {
+    if (imageChooserData.source == "" || imageChooserData.file == null) {
       setError(true);
       return false;
     }
     return true;
   };
 
-  const resetModal = () => {
-    setImageUrl("");
-    setImageFile(null);
-    setError(null);
-    setShowModal(false);
-  };
-
   return showModal ? (
     <div>
       <div
         onClick={() => {
-          setImageFile(null);
-          setImageUrl("");
-          setModalInput(null);
-          setShowModal(false);
-          setError(false);
+          setError(null);
+          resetImageChooser();
         }}
         className="fixed flex top-0 justify-center w-full h-full bg-gray-500 opacity-50"
       />
@@ -55,16 +44,21 @@ export const ImageChooser = ({
           <input
             className="special-shadow bg-white rounded-md py-1 px-2 mt-1 w-full"
             type="text"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
+            value={imageChooserData.source ?? ""}
+            onChange={(e) =>
+              setImageChooserData({
+                ...imageChooserData,
+                source: e.target.value,
+              })
+            }
           />
 
-          {imageFile != null ? (
+          {imageChooserData.file != null ? (
             <div className="relative w-full h-36 mt-4 rounded-xl">
               <Image
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                src={window.URL.createObjectURL(imageFile)}
+                src={window.URL.createObjectURL(imageChooserData.file)}
                 alt={`current-selected-image`}
                 className="object-cover rounded-xl special-shadow"
               />
@@ -74,7 +68,7 @@ export const ImageChooser = ({
             htmlFor="image-upload"
             className="z-10 w-full h-full mt-3 bg-white rounded-md py-2 special-shadow flex justify-center items-center gap-2"
           >
-            {imageFile ? "Change Image" : "Select Image"}{" "}
+            {imageChooserData.file ? "Change Image" : "Select Image"}{" "}
             <div className="w-4">
               <FontAwesomeIcon icon={faAdd} />
             </div>
@@ -82,7 +76,12 @@ export const ImageChooser = ({
           <input
             id="image-upload"
             type="file"
-            onChange={(e) => setImageFile(e.target.files[0])}
+            onChange={(e) =>
+              setImageChooserData({
+                ...imageChooserData,
+                file: e.target.files[0],
+              })
+            }
             className="hidden"
           />
 
@@ -100,8 +99,8 @@ export const ImageChooser = ({
               if (!validate()) {
                 return;
               }
-              resetModal();
-              callback({ file: imageFile, source: imageUrl } as ClaimImageFile);
+              setError(null);
+              saveImage();
             }}
           >
             Submit Image

@@ -10,6 +10,8 @@ import { Token } from "../token";
 import { ImageChooser } from "../components/ImageChooser";
 
 export default function CreateClaim() {
+  // TODO Manage state from parent of image chooser modalInput
+
   const [title, setTitle] = useState("");
   const [titleError, setTitleError] = useState(null);
 
@@ -21,8 +23,11 @@ export default function CreateClaim() {
   const [source, setSource] = useState("");
   const [sourceError, setSourceError] = useState(null);
 
-  const [showModal, setShowModal] = useState(false);
-  const [modalInput, setModalInput] = useState<ClaimImageFile>();
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [imageChooserData, setImageChooserData] = useState<ClaimImageFile>({
+    file: null,
+    source: null,
+  });
 
   const { token, setToken } = useContext(TokenContext);
 
@@ -64,10 +69,6 @@ export default function CreateClaim() {
     }
   };
 
-  const addImageFromChooser = (image: ClaimImageFile) => {
-    setImages([...images, image]);
-  };
-
   const assignImages = async (claimId) => {
     try {
       const result = await fetch(`http://localhost:3005/images/assign`, {
@@ -106,9 +107,17 @@ export default function CreateClaim() {
       {/* <Head></Head> */}
       <ImageChooser
         showModal={showModal}
-        setModalInput={setModalInput}
-        setShowModal={setShowModal}
-        callback={addImageFromChooser}
+        imageChooserData={imageChooserData}
+        setImageChooserData={setImageChooserData}
+        saveImage={() => {
+          setImages([...images, imageChooserData]);
+          setImageChooserData({ file: null, source: null });
+          setShowModal(false);
+        }}
+        resetImageChooser={() => {
+          setImageChooserData({ file: null, source: null });
+          setShowModal(false);
+        }}
       />
       <main className="flex justify-center">
         <div className="w-11/12 max-w-md flex flex-col gap-3">
