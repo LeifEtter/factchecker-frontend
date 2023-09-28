@@ -8,6 +8,7 @@ import jwtDecode, { JwtPayload } from "jwt-decode";
 import { TokenContext } from "../state/token";
 import { Token } from "../token";
 import { ImageChooser } from "../components/ImageChooser";
+import { v4 as uuidv4 } from "uuid";
 
 export default function CreateClaim() {
   // TODO Manage state from parent of image chooser modalInput
@@ -25,6 +26,7 @@ export default function CreateClaim() {
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const [imageChooserData, setImageChooserData] = useState<ClaimImageFile>({
+    id: null,
     file: null,
     source: null,
   });
@@ -102,23 +104,12 @@ export default function CreateClaim() {
   //   setImages([...images, { url: body.url, id: body.id }]);
   // };
 
+  //TODO Add id on choosing image to prevent saving new image on editing
+
   return (
     <>
       {/* <Head></Head> */}
-      <ImageChooser
-        showModal={showModal}
-        imageChooserData={imageChooserData}
-        setImageChooserData={setImageChooserData}
-        saveImage={() => {
-          setImages([...images, imageChooserData]);
-          setImageChooserData({ file: null, source: null });
-          setShowModal(false);
-        }}
-        resetImageChooser={() => {
-          setImageChooserData({ file: null, source: null });
-          setShowModal(false);
-        }}
-      />
+
       <main className="flex justify-center">
         <div className="w-11/12 max-w-md flex flex-col gap-3">
           <h1 className="font-bold text-2xl text-fact-text-medium text-center mb-5 mt-24">
@@ -147,25 +138,35 @@ export default function CreateClaim() {
             <div className="flex items-center gap-5">
               {images.map((image, i) => (
                 <div
-                  className="relative -z-10 w-48 h-48 bg-white rounded-2xl special-shadow"
+                  className="relative w-48 h-48 bg-white rounded-2xl special-shadow"
                   key={`image-div-${i}`}
                 >
-                  <div className="flex items-center justify-center absolute z-50 w-8 h-8 right-0 bg-blue-200 rounded-md special-shadow">
-                    <FontAwesomeIcon icon={faEdit} />
-                  </div>
                   <Image
                     src={window.URL.createObjectURL(image.file)}
                     alt={`image-${i}`}
                     fill
                     className="object-cover rounded-2xl"
                   />
+                  <button
+                    onClick={() => {
+                      setImageChooserData(image);
+                      setShowModal(true);
+                    }}
+                    className="absolute flex items-center justify-center w-8 h-8 right-0 bg-blue-200 rounded-md special-shadow"
+                  >
+                    <div className="w-4">
+                      <FontAwesomeIcon icon={faEdit} />
+                    </div>
+                  </button>
                 </div>
               ))}
               <button
-                className="flex p-4 mt-2 bg-white rounded-2xl special-shadow"
+                className="flex items-center justify-center mt-2 p-2 bg-white rounded-2xl special-shadow"
                 onClick={() => setShowModal(true)}
               >
-                <FontAwesomeIcon icon={faAdd} size="lg" />
+                <div className="w-5">
+                  <FontAwesomeIcon icon={faAdd} />
+                </div>
               </button>
             </div>
           </div>
@@ -191,6 +192,34 @@ export default function CreateClaim() {
           </button>
         </div>
       </main>
+      <ImageChooser
+        showModal={showModal}
+        imageChooserData={imageChooserData}
+        setImageChooserData={setImageChooserData}
+        saveImage={() => {
+          if (imageChooserData.id != null) {
+            setImages(
+              images.map((image) =>
+                image.id == imageChooserData.id ? imageChooserData : image
+              )
+            );
+          } else {
+            setImages([
+              ...images,
+              {
+                ...imageChooserData,
+                id: uuidv4(),
+              },
+            ]);
+          }
+          setImageChooserData({ id: null, file: null, source: null });
+          setShowModal(false);
+        }}
+        resetImageChooser={() => {
+          setImageChooserData({ id: null, file: null, source: null });
+          setShowModal(false);
+        }}
+      />
     </>
   );
 }
