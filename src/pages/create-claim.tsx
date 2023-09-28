@@ -1,5 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAdd, faDeleteLeft, faEdit } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAdd,
+  faDeleteLeft,
+  faEdit,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { InputField, InputFieldMultiline } from "../components/InputField";
 import Head from "next/head";
 import { useContext, useEffect, useState } from "react";
@@ -9,9 +14,11 @@ import { TokenContext } from "../state/token";
 import { Token } from "../token";
 import { ImageChooser } from "../components/ImageChooser";
 import { v4 as uuidv4 } from "uuid";
+import { SnackBar } from "../components/Snackbar";
 
 export default function CreateClaim() {
   // TODO Manage state from parent of image chooser modalInput
+  const [snackbar, setSnackbar] = useState(null);
 
   const [title, setTitle] = useState("");
   const [titleError, setTitleError] = useState(null);
@@ -149,6 +156,16 @@ export default function CreateClaim() {
                   />
                   <button
                     onClick={() => {
+                      setImages(images.filter((e) => e.id != image.id));
+                    }}
+                    className="absolute flex items-center justify-center w-8 h-8 left-0 bg-red-300 rounded-md special-shadow"
+                  >
+                    <div className="w-4">
+                      <FontAwesomeIcon icon={faTrash} />
+                    </div>
+                  </button>
+                  <button
+                    onClick={() => {
                       setImageChooserData(image);
                       setShowModal(true);
                     }}
@@ -162,7 +179,18 @@ export default function CreateClaim() {
               ))}
               <button
                 className="flex items-center justify-center mt-2 p-2 bg-white rounded-2xl special-shadow"
-                onClick={() => setShowModal(true)}
+                onClick={() => {
+                  if (images.length >= 3) {
+                    setSnackbar({
+                      title: "3 Image Maximum",
+                      description:
+                        "You are only allowed to add 3 images to a claim. Please delete existing images to add new ones.",
+                      type: "error",
+                    });
+                  } else {
+                    setShowModal(true);
+                  }
+                }}
               >
                 <div className="w-5">
                   <FontAwesomeIcon icon={faAdd} />
@@ -220,6 +248,7 @@ export default function CreateClaim() {
           setShowModal(false);
         }}
       />
+      <SnackBar snackbar={snackbar} setSnackbar={setSnackbar} />
     </>
   );
 }
