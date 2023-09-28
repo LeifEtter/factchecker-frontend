@@ -6,6 +6,7 @@ interface ClaimImage {
 }
 
 interface ClaimImageFile {
+  id: string;
   file: File;
   source: string;
 }
