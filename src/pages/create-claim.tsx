@@ -1,15 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAdd,
-  faDeleteLeft,
-  faEdit,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { InputField, InputFieldMultiline } from "../components/InputField";
-import Head from "next/head";
 import { useContext, useEffect, useState } from "react";
 import Image from "next/image";
-import jwtDecode, { JwtPayload } from "jwt-decode";
+import jwtDecode from "jwt-decode";
 import { TokenContext } from "../state/token";
 import { Token } from "../token";
 import { ImageChooser } from "../components/ImageChooser";
@@ -17,7 +11,6 @@ import { v4 as uuidv4 } from "uuid";
 import { SnackBar } from "../components/Snackbar";
 
 export default function CreateClaim() {
-  // TODO Manage state from parent of image chooser modalInput
   const [snackbar, setSnackbar] = useState(null);
 
   const [title, setTitle] = useState("");
@@ -111,12 +104,8 @@ export default function CreateClaim() {
   //   setImages([...images, { url: body.url, id: body.id }]);
   // };
 
-  //TODO Add id on choosing image to prevent saving new image on editing
-
   return (
     <>
-      {/* <Head></Head> */}
-
       <main className="flex justify-center">
         <div className="w-11/12 max-w-md flex flex-col gap-3">
           <h1 className="font-bold text-2xl text-fact-text-medium text-center mb-5 mt-24">
