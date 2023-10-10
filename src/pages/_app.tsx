@@ -43,11 +43,9 @@ export default function App({ Component, pageProps }) {
 
   return (
     <TokenContext.Provider value={{ token, setToken }}>
-      <main className={`${robotoMono.className} flex flex-col items-center`}>
-        <div className="w-11/12 max-w-6xl">
-          <Appbar path={path} />
-          <Component {...pageProps} />
-        </div>
+      <main className={`${robotoMono.className}`}>
+        <Appbar path={path} />
+        <Component {...pageProps} />
       </main>
     </TokenContext.Provider>
   );
