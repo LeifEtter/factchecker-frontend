@@ -62,7 +62,7 @@ export default function Home() {
       <div className="flex flex-col items-center">
         <div
           data-testid="claim-grid"
-          className="inline-grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10 border"
+          className="inline-grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10"
         >
           {/* {["one", "two", "three", "four"].map((element) => (
           <ClaimCard />
