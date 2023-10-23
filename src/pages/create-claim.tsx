@@ -47,8 +47,13 @@ export default function CreateClaim() {
     return true;
   };
 
+  /* TODO Implement Function flow for submitting claim:
+    Submit Claim with Text Data -> Receive Claim ID -> Send Claim ID and Images to upload function -> [FAIL?: Delete Claim] | [SUCCESS?: Return Claim with images]
+  */
   const submitClaim = async () => {
     try {
+      const data = new FormData();
+
       const result = await fetch(`http://localhost:3005/claims/create`, {
         method: "POST",
         headers: {
@@ -64,45 +69,56 @@ export default function CreateClaim() {
 
       if (result.status == 201) {
         const body = await result.json();
-        assignImages(body.result[0].id);
+        // assignImages(body.result[0].id);
+        uploadImage(images, body.result[0].id);
+        //TODO Upload the multiple images
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const assignImages = async (claimId) => {
-    try {
-      const result = await fetch(`http://localhost:3005/images/assign`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          claimId: claimId,
-          images: images,
-        }),
-      });
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  //TODO only upload images on form submit
-  // const uploadImage = async (file: File, source: string) => {
-  //   const data = new FormData();
-
-  //   data.append("image", file);
-  //   data.append("source", source);
-
-  //   const uploadResult = await fetch("http://localhost:3005/images/upload", {
-  //     method: "POST",
-  //     body: data,
-  //   });
-  //   const body = await uploadResult.json();
-  //   setImages([...images, { url: body.url, id: body.id }]);
+  // const assignImages = async (claimId) => {
+  //   try {
+  //     const result = await fetch(`http://localhost:3005/images/assign`, {
+  //       method: "PATCH",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         claimId: claimId,
+  //         images: images,
+  //       }),
+  //     });
+  //     console.log(result);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
   // };
+
+  const uploadImage = async (images: ClaimImageFile[], claimId: number) => {
+    const data = new FormData();
+    for (let image of images) {
+      console.log(image.source);
+      data.append("images", image.file);
+      data.append("sources", image.source);
+    }
+
+    const uploadResult = await fetch(
+      `http://localhost:3005/images/upload/multiple/${claimId}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization:
+            "Bearer " +
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMzUsImVtYWlsIjoiZXR0ZXIubGVpZkBnbWFpbC5jb20iLCJpYXQiOjE2OTc4MTA5OTYsImV4cCI6MTY5NzgxODE5Nn0.U3xxgK2ToHxO0GHfcvZHYG6LqYZ9b0XEZZHbAWEUMYE",
+        },
+        body: data,
+      }
+    );
+    const body = await uploadResult.json();
+    console.log(body);
+  };
 
   return (
     <>
@@ -237,6 +253,7 @@ export default function CreateClaim() {
           setShowModal(false);
         }}
       />
+      <button onClick={() => uploadImage(images, 31398)}>Upload Test</button>
       <SnackBar snackbar={snackbar} setSnackbar={setSnackbar} />
     </>
   );
