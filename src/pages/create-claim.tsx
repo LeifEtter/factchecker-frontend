@@ -47,9 +47,6 @@ export default function CreateClaim() {
     return true;
   };
 
-  /* TODO Implement Function flow for submitting claim:
-    Submit Claim with Text Data -> Receive Claim ID -> Send Claim ID and Images to upload function -> [FAIL?: Delete Claim] | [SUCCESS?: Return Claim with images]
-  */
   const submitClaim = async () => {
     try {
       const data = new FormData();
@@ -58,6 +55,7 @@ export default function CreateClaim() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
         },
         body: JSON.stringify({
           statement: title,
@@ -69,37 +67,21 @@ export default function CreateClaim() {
 
       if (result.status == 201) {
         const body = await result.json();
-        // assignImages(body.result[0].id);
+        console.log("Claim Created:");
+        console.log(body);
         uploadImage(images, body.result[0].id);
-        //TODO Upload the multiple images
+      }
+      if (result.status == 400) {
+        console.log(await result.json());
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  // const assignImages = async (claimId) => {
-  //   try {
-  //     const result = await fetch(`http://localhost:3005/images/assign`, {
-  //       method: "PATCH",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         claimId: claimId,
-  //         images: images,
-  //       }),
-  //     });
-  //     console.log(result);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const uploadImage = async (images: ClaimImageFile[], claimId: number) => {
     const data = new FormData();
     for (let image of images) {
-      console.log(image.source);
       data.append("images", image.file);
       data.append("sources", image.source);
     }
@@ -109,9 +91,7 @@ export default function CreateClaim() {
       {
         method: "POST",
         headers: {
-          Authorization:
-            "Bearer " +
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMzUsImVtYWlsIjoiZXR0ZXIubGVpZkBnbWFpbC5jb20iLCJpYXQiOjE2OTc4MTA5OTYsImV4cCI6MTY5NzgxODE5Nn0.U3xxgK2ToHxO0GHfcvZHYG6LqYZ9b0XEZZHbAWEUMYE",
+          Authorization: "Bearer " + token,
         },
         body: data,
       }
