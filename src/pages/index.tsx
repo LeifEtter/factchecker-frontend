@@ -69,7 +69,7 @@ export default function Home() {
         ))} */}
           {claims.map((claim) => (
             <ClaimCardWithImage
-              images={[EXAMPLE_IMAGE, EXAMPLE_IMAGE]}
+              images={[]}
               statement={claim.statement}
               description={claim.description}
               source={claim.source}
