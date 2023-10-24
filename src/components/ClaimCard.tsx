@@ -6,7 +6,7 @@ import { Indicator } from "./Indicator";
 // TODO Implement Claim Card without images
 
 interface ClaimCardWithImageProps {
-  images: string[];
+  images: ClaimImage[];
   statement: string;
   description: string;
   userId: number;
@@ -35,7 +35,7 @@ export const ClaimCardWithImage = ({
           <div className="flex-1 relative" key={image + "-container" + index}>
             <Image
               priority
-              src={image}
+              src={image.link}
               alt={`${image}-image`}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
