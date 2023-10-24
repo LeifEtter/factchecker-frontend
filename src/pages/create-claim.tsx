@@ -60,7 +60,7 @@ export default function CreateClaim() {
         body: JSON.stringify({
           statement: title,
           description: description,
-          user_id: jwtDecode<Token>(token).id,
+          user_id: jwtDecode<Token>(token).user_id,
           source: source,
         }),
       });
