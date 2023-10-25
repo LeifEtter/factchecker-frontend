@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { TokenContext } from "../state/token";
 import jwtDecode from "jwt-decode";
 import { Token } from "../token";
@@ -27,18 +27,27 @@ const Requests: React.FC = () => {
 
   return (
     <div>
-      <h1>Your Submitted Claims</h1>
-      {ownClaims.map((claim) => (
-        <ClaimCardWithImage
-          key={claim.id}
-          images={claim.images}
-          statement={claim.statement}
-          source={claim.source}
-          description={claim.description}
-          onClick={() => {}}
-          userId={1}
-        />
-      ))}
+      <div className="flex flex-col items-center mt-32">
+        <div
+          data-testid="claim-grid"
+          className="inline-grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10"
+        >
+          <h1 className="text-2xl font-medium">Your Submitted Claims</h1>
+          <div className="hidden xl:block"></div>
+          <div className="hidden md:block"></div>
+          {ownClaims.map((claim) => (
+            <ClaimCardWithImage
+              key={claim.id}
+              images={claim.images}
+              statement={claim.statement}
+              source={claim.source}
+              description={claim.description}
+              onClick={() => {}}
+              userId={1}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

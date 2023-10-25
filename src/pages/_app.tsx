@@ -43,8 +43,11 @@ export default function App({ Component, pageProps }) {
 
   return (
     <TokenContext.Provider value={{ token, setToken }}>
-      <main className={`${robotoMono.className}`}>
-        <Appbar path={path} />
+      <main className={`${robotoMono.className} mb-10`}>
+        <div className="ml-12 mr-12 mt-8">
+          <Appbar path={path} />
+        </div>
+
         <Component {...pageProps} />
       </main>
     </TokenContext.Provider>
