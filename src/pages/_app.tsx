@@ -47,7 +47,6 @@ export default function App({ Component, pageProps }) {
         <div className="ml-12 mr-12 mt-8">
           <Appbar path={path} />
         </div>
-
         <Component {...pageProps} />
       </main>
     </TokenContext.Provider>
