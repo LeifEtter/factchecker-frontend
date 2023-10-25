@@ -3,8 +3,6 @@ import { CustomErrors } from "../errors";
 import { isEmail } from "../helpers/helpers";
 import { TokenContext } from "../state/token";
 import Cookies from "js-cookie";
-import { redirect } from "next/dist/server/api-utils";
-import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
@@ -55,9 +53,18 @@ export default function Login() {
     }
   };
 
+  useEffect(() => {
+    if (
+      process.env.NEXT_PUBLIC_TESTING_EMAIL &&
+      process.env.NEXT_PUBLIC_TESTING_PASSWORD
+    ) {
+      setEmail(process.env.NEXT_PUBLIC_TESTING_EMAIL);
+      setPassword(process.env.NEXT_PUBLIC_TESTING_PASSWORD);
+    }
+  }, []);
+
   return (
     <>
-      {/* <Head></Head> */}
       <div className="flex flex-col items-center">
         <div className="flex flex-col gap-2 w-80 mt-48">
           <h1 className="font-bold text-2xl text-fact-text-medium text-center mb-5">
