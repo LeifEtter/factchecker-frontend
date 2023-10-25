@@ -3,8 +3,10 @@ import { TokenContext } from "../state/token";
 import jwtDecode from "jwt-decode";
 import { Token } from "../token";
 import { ClaimCardWithImage } from "../components/ClaimCard";
+import { useRouter } from "next/router";
 
 const Requests: React.FC = () => {
+  const router = useRouter();
   const { token } = useContext(TokenContext);
   const [ownClaims, setOwnClaims] = useState<Claim[]>([]);
 
@@ -22,8 +24,10 @@ const Requests: React.FC = () => {
       )
         .then((result) => result.json())
         .then((body) => setOwnClaims(body.result));
+    } else {
+      router.push("/login");
     }
-  }, [token]);
+  }, [token, router]);
 
   return (
     <div>
