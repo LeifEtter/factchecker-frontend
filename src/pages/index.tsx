@@ -58,15 +58,14 @@ export default function Home() {
         closeClaimViewer={closeClaimViewer}
         claim={claimBeingViewed}
       />
-      <h1 className="text-2xl mt-20 font-medium mb-5">Posts/Articles</h1>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center mt-32">
         <div
           data-testid="claim-grid"
           className="inline-grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10"
         >
-          {/* {["one", "two", "three", "four"].map((element) => (
-          <ClaimCard />
-        ))} */}
+          <h1 className="text-2xl font-medium">Posts/Articles</h1>
+          <div className="hidden xl:block"></div>
+          <div className="hidden md:block"></div>
           {claims.map((claim) => (
             <ClaimCardWithImage
               images={[]}
