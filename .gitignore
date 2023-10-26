@@ -38,5 +38,6 @@ next-env.d.ts
 # vscode
 /.vscode
 .vscode
+.VSCodeCounter
 
 .eslintrc.json
