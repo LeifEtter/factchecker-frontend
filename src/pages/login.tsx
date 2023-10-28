@@ -2,7 +2,6 @@ import { InputField } from "../components/InputField";
 import { CustomErrors } from "../errors";
 import { isEmail } from "../helpers/helpers";
 import { TokenContext } from "../state/token";
-import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
@@ -33,6 +32,8 @@ export default function Login() {
   const attemptLogin = async () => {
     const loginResult = await fetch("http://localhost:3005/users/login", {
       method: "POST",
+      mode: "cors",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -47,7 +48,6 @@ export default function Login() {
         setPasswordError("Password Does Not Match");
       }
     } else {
-      Cookies.set("auth_token", body.token);
       setToken(body.token);
       router.push("/");
     }
