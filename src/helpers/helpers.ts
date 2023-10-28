@@ -9,20 +9,20 @@ export const isPassword = (password: String): boolean => {
   return password !== "" && password.match(passwordFormat) ? true : false;
 };
 
-interface IsTokenValidType {
-  (token: string): Promise<boolean>;
-}
+// interface IsTokenValidType {
+//   (token: string): Promise<boolean>;
+// }
 
-export const isTokenValid: IsTokenValidType = async (token) => {
-  const res = await fetch("http://localhost:3005/users/authenticate", {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  if (res.status == 200) {
-    return true;
-  } else {
-    return false;
-  }
-};
+// export const isTokenValid: IsTokenValidType = async (token) => {
+//   const res = await fetch("http://localhost:3005/users/authenticate", {
+//     method: "GET",
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   });
+//   if (res.status == 200) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// };

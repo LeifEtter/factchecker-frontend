@@ -3,12 +3,10 @@ import { faAdd, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { InputField, InputFieldMultiline } from "../components/InputField";
 import { useContext, useEffect, useState } from "react";
 import Image from "next/image";
-import jwtDecode from "jwt-decode";
-import { TokenContext } from "../state/token";
-import { Token } from "../token";
 import { ImageChooser } from "../components/ImageChooser";
 import { v4 as uuidv4 } from "uuid";
 import { SnackBar } from "../components/Snackbar";
+import { UserContext } from "../state/user";
 
 export default function CreateClaim() {
   const [snackbar, setSnackbar] = useState(null);
@@ -31,7 +29,7 @@ export default function CreateClaim() {
     source: null,
   });
 
-  const { token, setToken } = useContext(TokenContext);
+  const { user, setUser } = useContext(UserContext);
 
   const validate = async () => {
     if (title == "") {
@@ -53,14 +51,12 @@ export default function CreateClaim() {
 
       const result = await fetch(`http://localhost:3005/claims/create`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
+        mode: "cors",
+        credentials: "include",
         body: JSON.stringify({
           statement: title,
           description: description,
-          user_id: jwtDecode<Token>(token).user_id,
+          user_id: user.id,
           source: source,
         }),
       });
@@ -90,9 +86,8 @@ export default function CreateClaim() {
       `http://localhost:3005/images/upload/multiple/${claimId}`,
       {
         method: "POST",
-        headers: {
-          Authorization: "Bearer " + token,
-        },
+        credentials: "include",
+        mode: "cors",
         body: data,
       }
     );

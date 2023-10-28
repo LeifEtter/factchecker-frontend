@@ -1,33 +1,21 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { TokenContext } from "../state/token";
 import jwtDecode from "jwt-decode";
-import { Token } from "../token";
 import { ClaimCardWithImage } from "../components/ClaimCard";
 import { useRouter } from "next/router";
+import { UserContext } from "../state/user";
 
 const Requests: React.FC = () => {
   const router = useRouter();
-  const { token } = useContext(TokenContext);
+  const { user } = useContext(UserContext);
   const [ownClaims, setOwnClaims] = useState<Claim[]>([]);
 
   useEffect(() => {
-    if (token) {
-      fetch(
-        `http://localhost:3005/claims/user/${jwtDecode<Token>(token).user_id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-        }
-      )
-        .then((result) => result.json())
-        .then((body) => setOwnClaims(body.result));
-    } else {
-      router.push("/login");
-    }
-  }, [token, router]);
+    fetch(`http://localhost:3005/claims/user/${user.id}`, {
+      method: "GET",
+    })
+      .then((result) => result.json())
+      .then((body) => setOwnClaims(body.result));
+  }, [user]);
 
   return (
     <div>

@@ -1,7 +1,6 @@
 import { InputField } from "../components/InputField";
 import { CustomErrors } from "../errors";
 import { isEmail } from "../helpers/helpers";
-import { TokenContext } from "../state/token";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
@@ -15,7 +14,7 @@ export default function Login() {
 
   const router = useRouter();
 
-  const { token, setToken } = useContext(TokenContext);
+  // const { token, setToken } = useContext(TokenContext);
 
   const validate = () => {
     if (!isEmail(email)) {
@@ -48,7 +47,6 @@ export default function Login() {
         setPasswordError("Password Does Not Match");
       }
     } else {
-      setToken(body.token);
       router.push("/");
     }
   };

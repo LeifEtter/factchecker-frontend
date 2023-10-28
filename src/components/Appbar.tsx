@@ -1,10 +1,7 @@
 import Link from "next/link";
 import { useContext } from "react";
-import { TokenContext } from "../state/token";
 
 export const Appbar = ({ path }) => {
-  const { token } = useContext(TokenContext);
-
   return (
     <div className="mt-5 flex justify-between">
       <div className="flex justify-between bg-white rounded-2xl shadow-md float-left gap-5 py-2 px-3">
@@ -25,7 +22,7 @@ export const Appbar = ({ path }) => {
         Create Claim
       </Link>
       <div className="flex justify-between bg-white rounded-2xl shadow-md float-left gap-10 py-2 px-3">
-        {!token ? (
+        {/* {!token ? (
           <LinkButton
             testId="login-button"
             path="/login"
@@ -34,7 +31,7 @@ export const Appbar = ({ path }) => {
           />
         ) : (
           <UserBar></UserBar>
-        )}
+        )} */}
       </div>
     </div>
   );

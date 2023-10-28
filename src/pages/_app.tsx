@@ -1,8 +1,7 @@
 import { Appbar } from "../components/Appbar";
-import { TokenContext } from "../state/token";
+import { UserContext } from "../state/user";
 import "../styles/globals.css";
 import "../styles/shadows.css";
-import Cookies from "js-cookie";
 import { Roboto_Mono } from "next/font/google";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -16,39 +15,37 @@ const robotoMono = Roboto_Mono({
 
 export default function App({ Component, pageProps }) {
   const path = useRouter().pathname;
-  const [token, setToken] = useState<string>(null);
+  // const [token, setToken] = useState<string>(null);
+  const [user, setUser] = useState<User>(null);
 
-  useEffect(() => {
-    const token = Cookies.get("auth_token");
-    if (token) {
-      checkToken(token);
-    }
-  }, []);
+  useEffect(() => {}, []);
 
-  const checkToken = async (token) => {
-    const result = await fetch("http://localhost:3005/users/authenticate", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  const getUserInfo = async () => {};
 
-    if (result.status == 200) {
-      setToken(token);
-    } else {
-      setToken(null);
-      Cookies.remove("auth_token");
-    }
-  };
+  // const checkToken = async (token) => {
+  //   const result = await fetch("http://localhost:3005/users/authenticate", {
+  //     method: "GET",
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   });
+
+  //   if (result.status == 200) {
+  //     setToken(token);
+  //   } else {
+  //     setToken(null);
+  //     Cookies.remove("auth_token");
+  //   }
+  // };
 
   return (
-    <TokenContext.Provider value={{ token, setToken }}>
+    <UserContext.Provider value={{ user, setUser }}>
       <main className={`${robotoMono.className} mb-10`}>
         <div className="ml-12 mr-12 mt-8">
           <Appbar path={path} />
         </div>
         <Component {...pageProps} />
       </main>
-    </TokenContext.Provider>
+    </UserContext.Provider>
   );
 }
