@@ -51,6 +51,16 @@ export default function Home() {
     }
   };
 
+  const checkCookies = async () => {
+    const res = await fetch("http://localhost:3005/users/cookies", {
+      method: "GET",
+      mode: "cors",
+      credentials: "include",
+    });
+    const dec = await res.json();
+    console.log(dec.cookies);
+  };
+
   return (
     <main>
       <ClaimViewer
@@ -59,6 +69,7 @@ export default function Home() {
         claim={claimBeingViewed}
       />
       <div className="flex flex-col items-center mt-32">
+        <button onClick={checkCookies}>Check Cookies</button>
         <div
           data-testid="claim-grid"
           className="inline-grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10"
