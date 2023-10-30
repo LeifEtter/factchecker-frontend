@@ -3,9 +3,8 @@ import { UserContext } from "../state/user";
 import "../styles/globals.css";
 import "../styles/shadows.css";
 import { Roboto_Mono } from "next/font/google";
-import Link from "next/link";
 import { useRouter } from "next/router";
-import { createContext, useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const robotoMono = Roboto_Mono({
   subsets: ["latin"],
@@ -15,35 +14,48 @@ const robotoMono = Roboto_Mono({
 
 export default function App({ Component, pageProps }) {
   const path = useRouter().pathname;
-  // const [token, setToken] = useState<string>(null);
   const [user, setUser] = useState<User>(null);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const syncUserInfo = async () => {
+      const res = await fetch("http://localhost:3005/users/authenticate", {
+        method: "GET",
+        mode: "cors",
+        credentials: "include",
+      });
 
-  const getUserInfo = async () => {};
+      if (res.status == 401) {
+        sessionStorage.removeItem("user");
+        return;
+      }
+      const dec = await res.json();
+      const sessionUser: User = JSON.parse(sessionStorage.getItem("user"));
+      if (
+        !user ||
+        !sessionUser ||
+        dec.id != sessionUser.id ||
+        dec.name != sessionUser.name ||
+        dec.avatar != sessionUser.avatar
+      ) {
+        sessionStorage.setItem("user", JSON.stringify(dec));
+        setUser(dec);
+      }
+    };
 
-  // const checkToken = async (token) => {
-  //   const result = await fetch("http://localhost:3005/users/authenticate", {
-  //     method: "GET",
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   });
-
-  //   if (result.status == 200) {
-  //     setToken(token);
-  //   } else {
-  //     setToken(null);
-  //     Cookies.remove("auth_token");
-  //   }
-  // };
+    if (!user) {
+      syncUserInfo();
+      // const storedUser: User = JSON.parse(sessionStorage.getItem("user"));
+      // setUser(storedUser);
+    }
+  }, [user]);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <main className={`${robotoMono.className} mb-10`}>
         <div className="ml-12 mr-12 mt-8">
-          <Appbar path={path} />
+          <Appbar path={path} user={user ?? null} />
         </div>
+        <h1>{user ? user.id : null}</h1>
         <Component {...pageProps} />
       </main>
     </UserContext.Provider>
