@@ -12,13 +12,15 @@ const Profile: React.FC = () => {
   const chooseNewProfilePic = () => {};
 
   useEffect(() => {
-    fetch(`http://localhost:3005/users/${user.id}`, {
-      method: "GET",
-      mode: "cors",
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((res) => console.log(res));
+    if (user) {
+      fetch(`http://localhost:3005/users/${user.id}`, {
+        method: "GET",
+        mode: "cors",
+        credentials: "include",
+      })
+        .then((res) => res.json())
+        .then((res) => console.log(res));
+    }
   }, [user]);
 
   return (
