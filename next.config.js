@@ -2,9 +2,12 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: [
-      "factchecker-images.s3.eu-central-1.amazonaws.com",
-      "images.unsplash.com",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "factchecker-images.s3.eu-central-1.amazonaws.com",
+      },
+      { protocol: "https", hostname: "images.unsplash.com" },
     ],
   },
 };
