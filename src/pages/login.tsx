@@ -4,6 +4,7 @@ import { isEmail } from "../helpers/helpers";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../state/user";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -12,9 +13,9 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(null);
 
-  const router = useRouter();
+  const { setUser } = useContext(UserContext);
 
-  // const { token, setToken } = useContext(TokenContext);
+  const router = useRouter();
 
   const validate = () => {
     if (!isEmail(email)) {
@@ -47,6 +48,8 @@ export default function Login() {
         setPasswordError("Password Does Not Match");
       }
     } else {
+      sessionStorage.setItem("user", JSON.stringify(body.user));
+      setUser(body.user);
       router.push("/");
     }
   };
