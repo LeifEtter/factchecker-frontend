@@ -7,6 +7,7 @@ module.exports = {
   ],
   theme: {
     extend: {
+      display: ["group-hover"],
       colors: {
         "fact-text-light": "#535353",
         "fact-text-medium": "#1B2636",
