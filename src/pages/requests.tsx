@@ -10,12 +10,22 @@ const Requests: React.FC = () => {
   const [ownClaims, setOwnClaims] = useState<Claim[]>([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3005/claims/user/${user.id}`, {
-      method: "GET",
-    })
-      .then((result) => result.json())
-      .then((body) => setOwnClaims(body.result));
-  }, [user]);
+    const sessionUser: User = JSON.parse(sessionStorage.getItem("user"));
+    if (!sessionUser) {
+      router.push("/login");
+    } else {
+      fetch(`http://localhost:3005/claims/user/${sessionUser.id}`, {
+        method: "GET",
+        mode: "cors",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((result) => result.json())
+        .then((body) => setOwnClaims(body.result));
+    }
+  }, [user, router]);
 
   return (
     <div>
