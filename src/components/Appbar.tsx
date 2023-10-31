@@ -41,11 +41,11 @@ export const Appbar = ({ path, user }: AppbarParams) => {
         <Link
           data-testid={"create-claim-button"}
           href="/create-claim"
-          className="fact-gradient font-medium text-white px-5 rounded-2xl special-shadow mr-5 flex items-center"
+          className="fact-gradient font-medium text-white px-5 rounded-2xl special-shadow mr-5 flex items-center hover:scale-105 duration-200 ease-in-out"
         >
           Create Claim
         </Link>
-        <div className="flex justify-between items-center bg-white rounded-2xl shadow-md float-left gap-4 px-2 py-1">
+        <div className="flex justify-between items-center bg-white rounded-2xl shadow-md float-left gap-2 pl-4 pr-2 py-1 cursor-pointer">
           {user ? (
             <>
               <UserBar
@@ -85,7 +85,7 @@ const LinkButton = ({
     <Link
       data-testid={testId}
       href={path}
-      className="py-1 px-2 rounded-xl font-semibold"
+      className="py-1 px-2 rounded-xl font-semibold hover:scale-105 duration-150 ease-in-out"
       style={{
         backgroundColor: isActive ? "rgb(239, 237, 237)" : "rgba(0,0,0,0)",
         color: isActive ? "black" : "#535353",
@@ -116,11 +116,11 @@ const UserBar = ({ user, avatarClick, logout }: UserBarParams) => {
           className="object-cover rounded-full special-shadow"
         />
         <div className="absolute w-32 -ml-12 h-12" />
-        <div className="absolute hidden group-hover:flex flex-col special-shadow bg-white mt-8 -ml-20 w-32 rounded-xl py-3 gap-3 [&>*]:duration-300 [&>*]:ease-in-out [&>*]:mx-4 [&>*]:rounded-md">
-          <button className="hover:bg-blue-100" onClick={avatarClick}>
+        <div className="absolute hidden group-hover:flex flex-col special-shadow bg-white mt-12 -ml-20 w-32 rounded-xl py-3 gap-3 [&>*]:duration-300 [&>*]:ease-in-out [&>*]:mx-4 [&>*]:rounded-md">
+          <button className="hover:bg-blue-100 p-1" onClick={avatarClick}>
             Profile
           </button>
-          <button className="hover:bg-blue-100" onClick={logout}>
+          <button className="hover:bg-blue-100 p-1" onClick={logout}>
             Sign Out
           </button>
         </div>

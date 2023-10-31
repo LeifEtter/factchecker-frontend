@@ -13,8 +13,8 @@
 .fact-gradient {
   background: linear-gradient(
     77.39deg,
-    #21d6cc 26.19%,
-    rgba(125, 33, 207, 0.5) 81.85%
+    rgb(33, 212, 203) 26.19%,
+    rgba(125, 33, 207, 0.502) 81.85%
   );
 }
 

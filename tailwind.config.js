@@ -21,6 +21,15 @@ module.exports = {
         "fact-red-gr-2": "#FF5F5F",
         "fact-green-gr-1": "#81FBB8",
         "fact-green-gr-2": "#28C76F",
+        "fact-gradient-color-1": "#96d6d3",
+        "fact-gradient-color-2": "rgba(125, 33, 207, 0.502)",
+      },
+      backgroundSize: {
+        "size-200": "200% 200%",
+      },
+      backgroundPosition: {
+        "pos-0": "0% 0%",
+        "pos-100": "100% 100%",
       },
     },
   },

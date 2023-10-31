@@ -96,7 +96,7 @@ export default function Login() {
                 attemptLogin();
               }
             }}
-            className="bg-white rounded-2xl special-shadow mt-6 p-2"
+            className="bg-white rounded-2xl special-shadow mt-6 p-2 transition-all duration-500 bg-gradient-to-t to-white via-fact-gradient-color-1 from-fact-gradient-color-2 bg-size-200 bg-pos-0 hover:bg-pos-100 hover:text-white"
           >
             Submit
           </button>
