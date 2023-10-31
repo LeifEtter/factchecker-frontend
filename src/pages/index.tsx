@@ -2,9 +2,6 @@ import { ClaimCardWithImage } from "../components/ClaimCard";
 import { useEffect, useState } from "react";
 import { ClaimViewer } from "../components/ClaimViewer";
 
-const EXAMPLE_IMAGE =
-  "https://factchecker-images.s3.eu-central-1.amazonaws.com/6f409519-6546-4d6d-987d-2cddeabfac8b";
-
 export default function Home() {
   const [claims, setClaims] = useState([]);
 
@@ -69,7 +66,6 @@ export default function Home() {
         claim={claimBeingViewed}
       />
       <div className="flex flex-col items-center mt-32">
-        <button onClick={checkCookies}>Check Cookies</button>
         <div
           data-testid="claim-grid"
           className="inline-grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10"

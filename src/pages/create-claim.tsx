@@ -63,8 +63,6 @@ export default function CreateClaim() {
 
       if (result.status == 201) {
         const body = await result.json();
-        console.log("Claim Created:");
-        console.log(body);
         uploadImage(images, body.result[0].id);
       }
       if (result.status == 400) {
@@ -92,7 +90,6 @@ export default function CreateClaim() {
       }
     );
     const body = await uploadResult.json();
-    console.log(body);
   };
 
   return (
@@ -228,7 +225,6 @@ export default function CreateClaim() {
           setShowModal(false);
         }}
       />
-      <button onClick={() => uploadImage(images, 31398)}>Upload Test</button>
       <SnackBar snackbar={snackbar} setSnackbar={setSnackbar} />
     </>
   );

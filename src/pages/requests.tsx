@@ -1,5 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import jwtDecode from "jwt-decode";
+import React, { useContext, useEffect, useState } from "react";
 import { ClaimCardWithImage } from "../components/ClaimCard";
 import { useRouter } from "next/router";
 import { UserContext } from "../state/user";

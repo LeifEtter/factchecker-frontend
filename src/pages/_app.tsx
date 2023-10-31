@@ -55,7 +55,6 @@ export default function App({ Component, pageProps }) {
         <div className="ml-12 mr-12 mt-8">
           <Appbar path={path} user={user ?? null} />
         </div>
-        <h1>{user ? user.id : null}</h1>
         <Component {...pageProps} />
       </main>
     </UserContext.Provider>
