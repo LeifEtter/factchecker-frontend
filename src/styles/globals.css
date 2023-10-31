@@ -18,6 +18,13 @@
   );
 }
 
+.red-gradient {
+  background: linear-gradient(77.39deg, #f83d5c 26.19%, #fd4b2f 81.85%);
+}
+
+.green-gradient {
+  background: linear-gradient(77.39deg, #6eee87 26.19%, #5fc52e 81.85%);
+}
 /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;

@@ -11,18 +11,24 @@ export const Indicator = ({ validity }: IndicatorProps) => {
   useEffect(() => {
     if (validity < 30) {
       setText("False");
-      setColor("bg-red-500");
+      setColor("red-gradient");
     } else if (validity < 50) {
       setText("Likely False");
-      setColor("bg-red-300");
+      setColor("red-gradient");
     } else if (validity < 80) {
       setText("Likely True");
-      setColor("bg-green-300");
+      setColor("green-gradient");
     } else {
       setText("True");
-      setColor("bg-green-500");
+      setColor("green-gradient");
     }
   }, [validity]);
 
-  return <div className={`${color} p-2 rounded-2xl`}>{text}</div>;
+  return (
+    <div
+      className={`${color} text-white py-2 px-3 font-semibold rounded-2xl special-shadow`}
+    >
+      {text}
+    </div>
+  );
 };
