@@ -31,6 +31,9 @@ module.exports = {
         "pos-0": "0% 0%",
         "pos-100": "100% 100%",
       },
+      borderRadius: {
+        "4xl": "50px",
+      },
     },
   },
   plugins: [],
