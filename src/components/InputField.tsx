@@ -35,7 +35,9 @@ export const InputField = ({
           border: error != null ? "2px solid red" : "none",
         }}
       />
-      <p className="text-red-500">{error}</p>
+      <p className="text-red-500" data-testid={testId + "-error"}>
+        {error}
+      </p>
     </div>
   );
 };

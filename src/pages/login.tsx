@@ -68,7 +68,10 @@ export default function Login() {
     <>
       <div className="flex flex-col items-center">
         <div className="flex flex-col gap-2 w-80 mt-48">
-          <h1 className="font-bold text-2xl text-fact-text-medium text-center mb-5">
+          <h1
+            className="font-bold text-2xl text-fact-text-medium text-center mb-5"
+            data-testid="login-title"
+          >
             Login
           </h1>
           <InputField
