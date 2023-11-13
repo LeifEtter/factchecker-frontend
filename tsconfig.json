@@ -18,7 +18,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "cypress/e2e/user-flows.cy.js"
+    "cypress/e2e/user-flows.cy.js",
+    "jest"
   ],
   "exclude": ["node_modules"]
 }
