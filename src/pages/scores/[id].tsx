@@ -8,7 +8,16 @@ export default function Scores() {
   const scoreData = useScoreData(id as string);
   const [userLevel, setUserLevel] = useState(null);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (scoreData != null) {
+      const lvl =
+        scoreData.claimsCreated.length * 5 +
+        scoreData.commentsCreated.length * 8 +
+        scoreData.upvotesReceived * 10 -
+        scoreData.downvotesReceived * 10;
+      setUserLevel(lvl);
+    }
+  }, [scoreData]);
 
   if (scoreData == null) {
     return <p>Loading</p>;
