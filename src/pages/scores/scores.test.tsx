@@ -42,13 +42,15 @@ jest.mock("next/router", () => ({
   },
 }));
 
+const mockScoreData = {
+  claimsCreated: mockClaims,
+  commentsCreated: [],
+  upvotesReceived: 10,
+  downvotesReceived: 5,
+};
+
 jest.mock("../../hooks/useScoreData", () => ({
-  useScoreData: (): ScoreData => ({
-    claimsCreated: mockClaims,
-    commentsCreated: [],
-    upvotesReceived: 10,
-    downvotesReceived: 5,
-  }),
+  useScoreData: (): ScoreData => mockScoreData,
 }));
 
 describe("should test the scores page", () => {
