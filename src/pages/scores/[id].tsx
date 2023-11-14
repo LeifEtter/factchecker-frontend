@@ -32,7 +32,7 @@ export default function Scores() {
 
   return (
     <>
-      <h1 data-testid="user-title"></h1>
+      <h1 data-testid="user-title">{userTitle}</h1>
       <h1>Claims</h1>
       <p data-testid="user-level">User Level: {userLevel}</p>
       <div data-testid="claim-list">
