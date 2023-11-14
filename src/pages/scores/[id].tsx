@@ -12,7 +12,8 @@ export default function Scores() {
 
   useEffect(() => {
     if (scoreData != null) {
-      setUserLevel(calculateLevelFromScoreData(scoreData));
+      const level = calculateLevelFromScoreData(scoreData);
+      setUserLevel(level);
     }
   }, [scoreData]);
 
