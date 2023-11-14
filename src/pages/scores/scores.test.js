@@ -1,7 +1,19 @@
+import { render } from "@testing-library/react";
+import Scores from "./[id]";
+import "@testing-library/jest-dom/";
+
 jest.mock("next/router", () => ({
-  useRouter: jest.fn(),
+  useRouter() {
+    return {
+      route: jest.fn(),
+      pathname: jest.fn(),
+      query: "5",
+    };
+  },
 }));
 
-jest.mock("node-fetch");
-
-it("should test the scores page", () => {});
+describe("should test the scores page", () => {
+  it("should test the basic page setup", () => {
+    render(<Scores />);
+  });
+});
