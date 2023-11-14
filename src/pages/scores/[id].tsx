@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useScoreData } from "../../hooks/useScoreData";
+import { ScoreData, useScoreData } from "../../hooks/useScoreData";
 import { useRouter } from "next/router";
 
 export default function Scores() {
@@ -8,14 +8,18 @@ export default function Scores() {
   const scoreData = useScoreData(id as string);
   const [userLevel, setUserLevel] = useState(null);
 
+  const calculateLevelFromScoreData = (scoreData: ScoreData): number => {
+    return (
+      scoreData.claimsCreated.length * 5 +
+      scoreData.commentsCreated.length * 8 +
+      scoreData.upvotesReceived * 10 -
+      scoreData.downvotesReceived * 10
+    );
+  };
+
   useEffect(() => {
     if (scoreData != null) {
-      const lvl =
-        scoreData.claimsCreated.length * 5 +
-        scoreData.commentsCreated.length * 8 +
-        scoreData.upvotesReceived * 10 -
-        scoreData.downvotesReceived * 10;
-      setUserLevel(lvl);
+      setUserLevel(calculateLevelFromScoreData(scoreData));
     }
   }, [scoreData]);
 
