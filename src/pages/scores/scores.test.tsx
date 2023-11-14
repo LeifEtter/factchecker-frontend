@@ -52,7 +52,7 @@ jest.mock("../../hooks/useScoreData", () => ({
 }));
 
 describe("should test the scores page", () => {
-  const CORRECT_LEVEL: number = 95;
+  const CORRECT_LEVEL: number = 100;
 
   it("should test the basic page setup", () => {
     render(<Scores />);
@@ -62,6 +62,7 @@ describe("should test the scores page", () => {
 
     const userLevel = screen.getByTestId("user-level");
     expect(userLevel).toBeInTheDocument();
+    expect(userLevel).toHaveTextContent(`User Level: ${CORRECT_LEVEL}`);
   });
 
   it("should test if the right score is shown", () => {
