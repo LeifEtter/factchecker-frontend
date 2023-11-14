@@ -55,6 +55,7 @@ describe("should test the scores page", () => {
   it("should test the basic page setup", () => {
     render(<Scores />);
     const claimList = screen.getByTestId("claim-list");
+    expect(claimList).toBeInTheDocument();
     expect(claimList.children).toHaveLength(10);
   });
 });
