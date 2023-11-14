@@ -4,7 +4,10 @@ import "@testing-library/jest-dom/";
 import { LoremIpsum } from "lorem-ipsum";
 import { randomInt } from "crypto";
 import { ScoreData } from "../../hooks/useScoreData";
-import { calculateLevelFromScoreData } from "../../utils/scores";
+import {
+  calculateLevelFromScoreData,
+  determineUserTitleFromLevel,
+} from "../../utils/scores";
 
 const lorem = new LoremIpsum({
   wordsPerSentence: {
@@ -75,5 +78,8 @@ describe("should test the scores page", () => {
   it("should test if the right score is shown", () => {
     // Function should take in upvotes/downvotes/claims created and comments made and output a number value as a score
     expect(calculateLevelFromScoreData(mockScoreData)).toBe(100);
+
+    expect(determineUserTitleFromLevel(30)).toBe("Trusted Member");
+    expect(determineUserTitleFromLevel(100)).toBe("Beacon of Truth");
   });
 });
