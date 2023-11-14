@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { ScoreData, useScoreData } from "../../hooks/useScoreData";
 import { useRouter } from "next/router";
-import { calculateLevelFromScoreData } from "../../utils/scores";
+import {
+  calculateLevelFromScoreData,
+  determineUserTitleFromLevel,
+} from "../../utils/scores";
 
 export default function Scores() {
   const router = useRouter();
@@ -14,15 +17,8 @@ export default function Scores() {
     if (scoreData != null) {
       const level = calculateLevelFromScoreData(scoreData);
       setUserLevel(level);
-      if (level < 10) {
-        setUserTitle("Fact Seeker");
-      } else if (level < 50) {
-        setUserTitle("Trusted Member");
-      } else if (level < 100) {
-        setUserTitle("Verification Boss");
-      } else {
-        setUserTitle("Beacon of Truth");
-      }
+      const userTitle = determineUserTitleFromLevel(level);
+      setUserTitle(userTitle);
     }
   }, [scoreData]);
 
