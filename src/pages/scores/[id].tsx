@@ -12,6 +12,7 @@ export default function Scores() {
   const scoreData = useScoreData(id as string);
   const [userLevel, setUserLevel] = useState(null);
   const [userTitle, setUserTitle] = useState(null);
+  const [userDetails, setUserDetails] = useState<User>(null);
 
   useEffect(() => {
     if (scoreData != null) {
