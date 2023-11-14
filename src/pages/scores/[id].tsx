@@ -14,6 +14,15 @@ export default function Scores() {
     if (scoreData != null) {
       const level = calculateLevelFromScoreData(scoreData);
       setUserLevel(level);
+      if (level < 10) {
+        setUserTitle("Fact Seeker");
+      } else if (level < 50) {
+        setUserTitle("Trusted Member");
+      } else if (level < 100) {
+        setUserTitle("Verification Boss");
+      } else {
+        setUserTitle("Beacon of Truth");
+      }
     }
   }, [scoreData]);
 
