@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useScoreData } from "../../hooks/useScoreData";
 import { useRouter } from "next/router";
 
@@ -6,6 +6,7 @@ export default function Scores() {
   const router = useRouter();
   const { id } = router.query;
   const scoreData = useScoreData(id as string);
+  const [userLevel, setUserLevel] = useState(null);
 
   useEffect(() => {}, []);
 
