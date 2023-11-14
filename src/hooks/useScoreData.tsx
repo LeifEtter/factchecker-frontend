@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-interface ScoreData {
+export interface ScoreData {
   claimsCreated: Claim[];
   commentsCreated: Comment[];
   upvotesReceived: number;
