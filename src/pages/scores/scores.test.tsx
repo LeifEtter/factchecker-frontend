@@ -76,7 +76,6 @@ describe("should test the scores page", () => {
   });
 
   it("should test if the right score is shown", () => {
-    // Function should take in upvotes/downvotes/claims created and comments made and output a number value as a score
     expect(calculateLevelFromScoreData(mockScoreData)).toBe(100);
 
     expect(determineUserTitleFromLevel(30)).toBe("Trusted Member");
