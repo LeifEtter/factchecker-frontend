@@ -14,8 +14,14 @@ export default function Scores() {
 
   return (
     <>
-      <h1></h1>
-      <p>{scoreData.claimsCreated.length}</p>
+      <h1>Claims</h1>
+      <div data-testid="claim-list">
+        {scoreData.claimsCreated.map((claim) => (
+          <div key={`claim-${claim.id}`}>
+            <h2>{claim.statement}</h2>
+          </div>
+        ))}
+      </div>
     </>
   );
 }
