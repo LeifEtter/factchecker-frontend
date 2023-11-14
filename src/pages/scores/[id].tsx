@@ -21,6 +21,15 @@ export default function Scores() {
       const userTitle = determineUserTitleFromLevel(level);
       setUserTitle(userTitle);
     }
+    if (id != null) {
+      fetch(`http://localhost:3005/users/profile/${id}`, {
+        method: "GET",
+        mode: "cors",
+        credentials: "include",
+      })
+        .then((res) => res.json())
+        .then((user) => setUserDetails(user));
+    }
   }, [scoreData]);
 
   if (scoreData == null) {
