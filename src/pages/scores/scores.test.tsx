@@ -57,5 +57,8 @@ describe("should test the scores page", () => {
     const claimList = screen.getByTestId("claim-list");
     expect(claimList).toBeInTheDocument();
     expect(claimList.children).toHaveLength(10);
+
+    const userLevel = screen.getByTestId("user-level");
+    expect(userLevel).toBeInTheDocument();
   });
 });
