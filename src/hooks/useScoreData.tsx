@@ -21,7 +21,7 @@ export function useScoreData(userId: string) {
         .then((scores) => {
           setScoreData({
             claimsCreated: scores.claimsCreated,
-            commentsCreated: scores.commentsCreated,
+            commentsCreated: scores.commentsCreated ?? [],
             upvotesReceived: scores.upvotesReceived,
             downvotesReceived: scores.downvotesReceived,
           });
