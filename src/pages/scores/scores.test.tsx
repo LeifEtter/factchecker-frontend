@@ -66,6 +66,9 @@ describe("should test the scores page", () => {
     const userLevel = screen.getByTestId("user-level");
     expect(userLevel).toBeInTheDocument();
     expect(userLevel).toHaveTextContent(`User Level: ${CORRECT_LEVEL}`);
+
+    const userTitle = screen.getByTestId("user-title");
+    expect(userTitle).toBeInTheDocument();
   });
 
   it("should test if the right score is shown", () => {
