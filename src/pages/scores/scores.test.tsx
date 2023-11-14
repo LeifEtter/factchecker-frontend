@@ -52,6 +52,8 @@ jest.mock("../../hooks/useScoreData", () => ({
 }));
 
 describe("should test the scores page", () => {
+  const CORRECT_LEVEL: number = 95;
+
   it("should test the basic page setup", () => {
     render(<Scores />);
     const claimList = screen.getByTestId("claim-list");
