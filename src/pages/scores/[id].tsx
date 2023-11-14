@@ -1,12 +1,13 @@
-import { useContext } from "react";
+import { useEffect } from "react";
 import { useScoreData } from "../../hooks/useScoreData";
-import { UserContext } from "../../state/user";
 import { useRouter } from "next/router";
 
 export default function Scores() {
   const router = useRouter();
   const { id } = router.query;
   const scoreData = useScoreData(id as string);
+
+  useEffect(() => {}, []);
 
   if (scoreData == null) {
     return <p>Loading</p>;
