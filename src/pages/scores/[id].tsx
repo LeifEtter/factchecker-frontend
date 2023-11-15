@@ -12,6 +12,7 @@ import { useAuthentication } from "../../hooks/useAuthentication";
 import { InputFieldMultiline } from "../../components/InputField";
 import { ModalWrapper } from "../../components/ModalWrapper";
 import { SnackBar } from "../../components/Snackbar";
+import { API } from "../../assets/constants";
 
 export default function Scores() {
   const router = useRouter();
@@ -25,6 +26,29 @@ export default function Scores() {
   const [messageError, setMessageError] = useState(null);
   const [messagePopupOpen, setMessagePopupOpen] = useState(false);
   const [snackbar, setSnackbar] = useState(null);
+
+  const handleMessage = () => {
+    if (message == "" || message == null) {
+      setSnackbar({
+        title: "Message Empty",
+        description:
+          "Please enter some words you want to send the user or close the popup.",
+        type: "error",
+      });
+    } else {
+      fetch(`${API}/users/message/${id as string}`, {
+        method: "POST",
+        mode: "cors",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: message }),
+      })
+        .then((res) => res.json())
+        .then((res) => console.log(res));
+    }
+  };
 
   useEffect(() => {
     if (authenticated == false) {
@@ -85,7 +109,10 @@ export default function Scores() {
           resetError={() => setMessageError(null)}
         />
         <p className="text-red-500 font-semibold">{messageError}</p>
-        <button className="fact-gradient text-white font-semibold special-shadow rounded-2xl px-4 py-2 mt-3 ">
+        <button
+          onClick={() => handleMessage()}
+          className="fact-gradient text-white font-semibold special-shadow rounded-2xl px-4 py-2 mt-3 "
+        >
           Send Message
         </button>
       </ModalWrapper>
