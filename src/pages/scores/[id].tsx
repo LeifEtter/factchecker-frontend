@@ -27,7 +27,7 @@ export default function Scores() {
   const [messagePopupOpen, setMessagePopupOpen] = useState(false);
   const [snackbar, setSnackbar] = useState(null);
 
-  const handleMessage = () => {
+  const handleMessage = async () => {
     if (message == "" || message == null) {
       setSnackbar({
         title: "Message Empty",
@@ -36,7 +36,7 @@ export default function Scores() {
         type: "error",
       });
     } else {
-      fetch(`${API}/users/message/${id as string}`, {
+      const result = await fetch(`${API}/users/message/${id as string}`, {
         method: "POST",
         mode: "cors",
         credentials: "include",
@@ -44,9 +44,7 @@ export default function Scores() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ message: message }),
-      })
-        .then((res) => res.json())
-        .then((res) => console.log(res));
+      });
     }
   };
 
