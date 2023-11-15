@@ -68,22 +68,30 @@ export default function Scores() {
           </div>
         ))}
       </div>
-      <div className="fixed flex top-0 justify-center w-full h-full bg-gray-500 bg-opacity-50">
-        <div className="fixed top-0 flex justify-center w-full">
-          <div className="flex flex-col items-center fixed z-10 blue-background top-96 p-5 rounded-2xl w-full max-w-sm">
-            <InputFieldMultiline
-              testId="message-input"
-              value={message}
-              setValue={setMessage}
-              title="Message"
-              error={messageError}
-              resetError={() => setMessageError(null)}
-            />
-            <p className="text-red-500 font-semibold">{messageError}</p>
-            <button className="fact-gradient text-white font-semibold special-shadow rounded-2xl px-4 py-2 mt-3 ">
-              Send Message
-            </button>
-          </div>
+      <div
+        onClick={() => setMessagePopupOpen(false)}
+        className="absolute duration-200 ease-in-out w-full h-full backdrop-blur-sm bg-opacity-10 flex items-center justify-center"
+        style={{
+          opacity: messagePopupOpen ? "100%" : "0%",
+          top: messagePopupOpen ? "0px" : "-100%",
+        }}
+      >
+        <div
+          className="bg-white special-shadow w-6/12 flex-col p-5 rounded-2xl z-20"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <InputFieldMultiline
+            testId="message-input"
+            value={message}
+            setValue={setMessage}
+            title="Message"
+            error={messageError}
+            resetError={() => setMessageError(null)}
+          />
+          <p className="text-red-500 font-semibold">{messageError}</p>
+          <button className="fact-gradient text-white font-semibold special-shadow rounded-2xl px-4 py-2 mt-3 ">
+            Send Message
+          </button>
         </div>
       </div>
     </>
