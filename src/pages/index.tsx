@@ -47,7 +47,7 @@ export default function Home() {
   };
 
   const checkCookies = async () => {
-    const res = await fetch("${API}/users/cookies", {
+    const res = await fetch(`${API}/users/cookies`, {
       method: "GET",
       mode: "cors",
       credentials: "include",
