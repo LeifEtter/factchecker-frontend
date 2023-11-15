@@ -26,7 +26,12 @@ export default function Scores() {
     }
   }, [scoreData]);
 
-  if (scoreData == null) {
+  if (
+    scoreData == null ||
+    user == null ||
+    userLevel == null ||
+    userTitle == null
+  ) {
     return <p>Loading</p>;
   }
 
