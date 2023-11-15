@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ScoreData, useScoreData } from "../../hooks/useScoreData";
+import { useScoreData } from "../../hooks/useScoreData";
 import { useRouter } from "next/router";
 import {
   calculateLevelFromScoreData,
@@ -7,13 +7,6 @@ import {
 } from "../../utils/scores";
 import { useUserDetails } from "../../hooks/useUserDetails";
 import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faGavel,
-  faHandshake,
-  faQuestion,
-  faStar,
-} from "@fortawesome/free-solid-svg-icons";
 import { ScoreBar } from "../../components/ScoreBar";
 
 export default function Scores() {
