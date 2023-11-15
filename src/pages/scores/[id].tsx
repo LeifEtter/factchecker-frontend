@@ -22,7 +22,7 @@ export default function Scores() {
   const authenticated = useAuthentication();
   const [userLevel, setUserLevel] = useState(null);
   const [userTitle, setUserTitle] = useState(null);
-  const [message, setMessage] = useState(null);
+  const [message, setMessage] = useState("");
   const [messageError, setMessageError] = useState(null);
   const [messagePopupOpen, setMessagePopupOpen] = useState(false);
   const [snackbar, setSnackbar] = useState(null);
