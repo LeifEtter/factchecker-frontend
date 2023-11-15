@@ -9,6 +9,7 @@ import { useUserDetails } from "../../hooks/useUserDetails";
 import Image from "next/image";
 import { ScoreBar } from "../../components/ScoreBar";
 import { useAuthentication } from "../../hooks/useAuthentication";
+import { InputField, InputFieldMultiline } from "../../components/InputField";
 
 export default function Scores() {
   const router = useRouter();
@@ -18,6 +19,8 @@ export default function Scores() {
   const authenticated = useAuthentication();
   const [userLevel, setUserLevel] = useState(null);
   const [userTitle, setUserTitle] = useState(null);
+  const [message, setMessage] = useState(null);
+  const [messageError, setMessageError] = useState(null);
 
   useEffect(() => {
     if (authenticated == false) {
