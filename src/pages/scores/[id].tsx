@@ -104,7 +104,14 @@ export default function Scores() {
         />
       </div>
       <p data-testid="user-biography">{user.biography}</p>
-      <h1>Claims</h1>
+      <div className="flex flex-row">
+        <h1>Claims</h1>
+        {expandClaims ? (
+          <button onClick={() => setExpandClaims(false)}>Hide</button>
+        ) : (
+          <button onClick={() => setExpandClaims(true)}>Show All</button>
+        )}
+      </div>
       <div data-testid="claim-list">
         {scoreData.claimsCreated
           .slice(0, expandClaims ? -1 : 3)
