@@ -9,7 +9,7 @@ import { useUserDetails } from "../../hooks/useUserDetails";
 import Image from "next/image";
 import { ScoreBar } from "../../components/ScoreBar";
 import { useAuthentication } from "../../hooks/useAuthentication";
-import { InputField, InputFieldMultiline } from "../../components/InputField";
+import { InputFieldMultiline } from "../../components/InputField";
 import { ModalWrapper } from "../../components/ModalWrapper";
 
 export default function Scores() {
