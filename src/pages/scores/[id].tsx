@@ -45,6 +45,22 @@ export default function Scores() {
         },
         body: JSON.stringify({ message: message }),
       });
+      if (result.status == 201) {
+        setSnackbar({
+          title: "Message Sent",
+          description: "The User will now receive the message in their inbox!",
+          type: "success",
+        });
+        setMessage("");
+        setMessagePopupOpen(false);
+      } else {
+        setSnackbar({
+          title: "Couldn't send Message",
+          description:
+            "Something went wrong during the sending of the message, please try again later.",
+          type: "error",
+        });
+      }
     }
   };
 
