@@ -11,6 +11,7 @@ import { ScoreBar } from "../../components/ScoreBar";
 import { useAuthentication } from "../../hooks/useAuthentication";
 import { InputFieldMultiline } from "../../components/InputField";
 import { ModalWrapper } from "../../components/ModalWrapper";
+import { SnackBar } from "../../components/Snackbar";
 
 export default function Scores() {
   const router = useRouter();
@@ -23,6 +24,7 @@ export default function Scores() {
   const [message, setMessage] = useState(null);
   const [messageError, setMessageError] = useState(null);
   const [messagePopupOpen, setMessagePopupOpen] = useState(false);
+  const [snackbar, setSnackbar] = useState(null);
 
   useEffect(() => {
     if (authenticated == false) {
@@ -47,6 +49,7 @@ export default function Scores() {
 
   return (
     <>
+      <SnackBar snackbar={snackbar} setSnackbar={setSnackbar} />
       <ScoreBar scoreData={scoreData} userLevel={userLevel} />
       <h1 data-testid="user-title">{userTitle}</h1>
       <h1 data-testid="user-name">{user.name}</h1>
