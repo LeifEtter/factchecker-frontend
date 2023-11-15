@@ -11,7 +11,11 @@ import { ScoreBar } from "../../components/ScoreBar";
 import { useAuthentication } from "../../hooks/useAuthentication";
 import { InputFieldMultiline } from "../../components/InputField";
 import { ModalWrapper } from "../../components/ModalWrapper";
-import { SnackBar, SnackbarType } from "../../components/Snackbar";
+import {
+  SnackBar,
+  SnackbarDetails,
+  SnackbarType,
+} from "../../components/Snackbar";
 import { API } from "../../assets/constants";
 
 export default function Scores() {
@@ -20,17 +24,17 @@ export default function Scores() {
   const scoreData = useScoreData(id as string);
   const user = useUserDetails(id as string);
   const authenticated = useAuthentication();
-  const [userLevel, setUserLevel] = useState(null);
-  const [userTitle, setUserTitle] = useState(null);
-  const [message, setMessage] = useState("");
-  const [messageError, setMessageError] = useState(null);
-  const [messagePopupOpen, setMessagePopupOpen] = useState(false);
-  const [snackbar, setSnackbar] = useState(null);
-  const [expandClaims, setExpandClaims] = useState(false);
-  const [expandStatements, setExpandStatements] = useState(false);
+  const [userLevel, setUserLevel] = useState<number>(null);
+  const [userTitle, setUserTitle] = useState<string>(null);
+  const [message, setMessage] = useState<string>("");
+  const [messageError, setMessageError] = useState<string>(null);
+  const [messagePopupOpen, setMessagePopupOpen] = useState<boolean>(false);
+  const [snackbar, setSnackbar] = useState<SnackbarDetails>(null);
+  const [expandClaims, setExpandClaims] = useState<boolean>(false);
+  const [expandStatements, setExpandStatements] = useState<boolean>(false);
 
   const handleMessage = async () => {
-    if (message == "" || message == null) {
+    if (message == "") {
       setSnackbar({
         title: "Message Empty",
         description:
