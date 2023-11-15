@@ -70,7 +70,6 @@ export default function Scores() {
       </div>
       <p data-testid="user-biography">{user.biography}</p>
       <h1>Claims</h1>
-      <p data-testid="user-level">User Level: {userLevel}</p>
       <div data-testid="claim-list">
         {scoreData.claimsCreated.map((claim) => (
           <div key={`claim-${claim.id}`}>
