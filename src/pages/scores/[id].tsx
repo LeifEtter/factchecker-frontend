@@ -6,6 +6,7 @@ import {
   determineUserTitleFromLevel,
 } from "../../utils/scores";
 import { useUserDetails } from "../../hooks/useUserDetails";
+import Image from "next/image";
 
 export default function Scores() {
   const router = useRouter();
@@ -32,6 +33,16 @@ export default function Scores() {
     <>
       <h1 data-testid="user-title">{userTitle}</h1>
       <h1 data-testid="user-name">{user.name}</h1>
+      <div className="relative w-10 h-10">
+        <Image
+          src={user.avatar}
+          alt="user-profile-image"
+          data-testid="user-profile-image"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover"
+        />
+      </div>
       <h1>Claims</h1>
       <p data-testid="user-level">User Level: {userLevel}</p>
       <div data-testid="claim-list">
