@@ -8,17 +8,22 @@ import {
 import { useUserDetails } from "../../hooks/useUserDetails";
 import Image from "next/image";
 import { ScoreBar } from "../../components/ScoreBar";
+import { useAuthentication } from "../../hooks/useAuthentication";
 
 export default function Scores() {
   const router = useRouter();
   const { id } = router.query;
   const scoreData = useScoreData(id as string);
   const user = useUserDetails(id as string);
+  const authenticated = useAuthentication();
   const [userLevel, setUserLevel] = useState(null);
   const [userTitle, setUserTitle] = useState(null);
 
   useEffect(() => {
-    if (scoreData != null) {
+    if (authenticated == false) {
+      router.push("/login");
+    }
+    if (scoreData != null && authenticated == true) {
       const level = calculateLevelFromScoreData(scoreData);
       setUserLevel(level);
       const userTitle = determineUserTitleFromLevel(level);
