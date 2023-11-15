@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { UserContext } from "../state/user";
+import { API } from "../assets/constants";
 
 const Profile: React.FC = () => {
   const router = useRouter();
@@ -15,7 +16,7 @@ const Profile: React.FC = () => {
   useEffect(() => {
     if (user) {
       console.log(user);
-      fetch(`http://localhost:3005/users/${user.id}`, {
+      fetch(`${API}/users/${user.id}`, {
         method: "GET",
         mode: "cors",
         credentials: "include",

@@ -7,6 +7,7 @@ import { ImageChooser } from "../components/ImageChooser";
 import { v4 as uuidv4 } from "uuid";
 import { SnackBar } from "../components/Snackbar";
 import { UserContext } from "../state/user";
+import { API } from "../assets/constants";
 
 export default function CreateClaim() {
   const [snackbar, setSnackbar] = useState(null);
@@ -49,7 +50,7 @@ export default function CreateClaim() {
     try {
       const data = new FormData();
 
-      const result = await fetch(`http://localhost:3005/claims/create`, {
+      const result = await fetch(`${API}/claims/create`, {
         method: "POST",
         mode: "cors",
         credentials: "include",
@@ -81,7 +82,7 @@ export default function CreateClaim() {
     }
 
     const uploadResult = await fetch(
-      `http://localhost:3005/images/upload/multiple/${claimId}`,
+      `${API}/images/upload/multiple/${claimId}`,
       {
         method: "POST",
         credentials: "include",

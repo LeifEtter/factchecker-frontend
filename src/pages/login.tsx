@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../state/user";
+import { API } from "../assets/constants";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -30,7 +31,7 @@ export default function Login() {
   };
 
   const attemptLogin = async () => {
-    const loginResult = await fetch("http://localhost:3005/users/login", {
+    const loginResult = await fetch(`${API}/users/login`, {
       method: "POST",
       mode: "cors",
       credentials: "include",

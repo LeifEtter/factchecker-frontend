@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API } from "../assets/constants";
 
 export function useUserDetails(userId: string): User {
   const [user, setUser] = useState<User>(null);
@@ -6,7 +7,7 @@ export function useUserDetails(userId: string): User {
   useEffect(() => {
     if (userId != null) {
       try {
-        fetch(`http://localhost:3005/users/profile/${userId}`, {
+        fetch(`${API}/users/profile/${userId}`, {
           method: "GET",
           mode: "cors",
           credentials: "include",

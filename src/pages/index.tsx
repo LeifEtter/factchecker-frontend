@@ -1,6 +1,7 @@
 import { ClaimCardWithImage } from "../components/ClaimCard";
 import { useEffect, useState } from "react";
 import { ClaimViewer } from "../components/ClaimViewer";
+import { API } from "../assets/constants";
 
 export default function Home() {
   const [claims, setClaims] = useState([]);
@@ -22,7 +23,7 @@ export default function Home() {
   }, []);
 
   const getAllClaims = async () => {
-    const claimsResult = await fetch("http://localhost:3005/claims/", {
+    const claimsResult = await fetch(`${API}/claims/`, {
       method: "GET",
     });
     if (claimsResult.status == 200) {
@@ -33,12 +34,9 @@ export default function Home() {
 
   const getSingleClaim = async (id: number): Promise<Claim> => {
     try {
-      const claimResult = await fetch(
-        `http://localhost:3005/claims/view/${id}`,
-        {
-          method: "GET",
-        }
-      );
+      const claimResult = await fetch(`${API}/claims/view/${id}`, {
+        method: "GET",
+      });
       if (claimResult.status == 200) {
         const decodedClaim: Claim = await claimResult.json();
         return decodedClaim;
@@ -49,7 +47,7 @@ export default function Home() {
   };
 
   const checkCookies = async () => {
-    const res = await fetch("http://localhost:3005/users/cookies", {
+    const res = await fetch("${API}/users/cookies", {
       method: "GET",
       mode: "cors",
       credentials: "include",

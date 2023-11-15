@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { ClaimCardWithImage } from "../components/ClaimCard";
 import { useRouter } from "next/router";
 import { UserContext } from "../state/user";
+import { API } from "../assets/constants";
 
 const Requests: React.FC = () => {
   const router = useRouter();
@@ -13,7 +14,7 @@ const Requests: React.FC = () => {
     if (!sessionUser) {
       router.push("/login");
     } else {
-      fetch(`http://localhost:3005/claims/user/${sessionUser.id}`, {
+      fetch(`${API}/claims/user/${sessionUser.id}`, {
         method: "GET",
         mode: "cors",
         credentials: "include",

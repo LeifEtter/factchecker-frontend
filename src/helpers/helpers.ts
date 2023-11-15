@@ -14,7 +14,7 @@ export const isPassword = (password: String): boolean => {
 // }
 
 // export const isTokenValid: IsTokenValidType = async (token) => {
-//   const res = await fetch("http://localhost:3005/users/authenticate", {
+//   const res = await fetch(`${API}/users/authenticate`, {
 //     method: "GET",
 //     headers: {
 //       Authorization: `Bearer ${token}`,

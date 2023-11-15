@@ -3,6 +3,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { faShare } from "@fortawesome/free-solid-svg-icons";
 import { SourceButton, TruthFactorLabel } from "../../components/Buttons";
+import { API } from "../../assets/constants";
 
 interface ViewSingleClaimProps {
   claim: Claim;
@@ -97,7 +98,7 @@ interface PathParamsClaim {
 }
 
 export async function getStaticPaths() {
-  let res = await fetch(`http://localhost:3005/claims/`, { method: "GET" });
+  let res = await fetch(`${API}/claims/`, { method: "GET" });
   if (res.status == 200) {
     res = await res.json();
   }
@@ -112,7 +113,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }: PathParamsClaim) {
   let claim: Claim;
 
-  let result = await fetch(`http://localhost:3005/claims/view/${params.claim}`);
+  let result = await fetch(`${API}/claims/view/${params.claim}`);
   if (result.status == 200) {
     claim = await result.json();
   }

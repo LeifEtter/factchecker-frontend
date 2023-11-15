@@ -1,3 +1,4 @@
+import { API } from "../assets/constants";
 import { Appbar } from "../components/Appbar";
 import { UserContext } from "../state/user";
 import "../styles/globals.css";
@@ -18,7 +19,7 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     const syncUserInfo = async () => {
-      const res = await fetch("http://localhost:3005/users/authenticate", {
+      const res = await fetch(`${API}/users/authenticate`, {
         method: "GET",
         mode: "cors",
         credentials: "include",

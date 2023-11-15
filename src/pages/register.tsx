@@ -1,3 +1,4 @@
+import { API } from "../assets/constants";
 import { InputField } from "../components/InputField";
 import { SnackBar } from "../components/Snackbar";
 import { CustomErrors } from "../errors";
@@ -54,7 +55,7 @@ export default function Register() {
   };
 
   const attemptRegistration = async () => {
-    const registerResult = await fetch("http://localhost:3005/users/register", {
+    const registerResult = await fetch(`${API}/users/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

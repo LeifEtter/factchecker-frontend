@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { API } from "../assets/constants";
 
 export interface ScoreData {
   claimsCreated: Claim[];
@@ -13,7 +14,7 @@ export function useScoreData(userId: string) {
   useEffect(() => {
     if (userId != null) {
       try {
-        fetch(`http://localhost:3005/users/scores/${userId}`, {
+        fetch(`${API}/users/scores/${userId}`, {
           method: "GET",
           mode: "cors",
           credentials: "include",

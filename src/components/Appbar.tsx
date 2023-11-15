@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { MouseEventHandler, useContext } from "react";
 import { UserContext } from "../state/user";
+import { API } from "../assets/constants";
 
 interface AppbarParams {
   path: string;
@@ -15,7 +16,7 @@ export const Appbar = ({ path, user }: AppbarParams) => {
   const router = useRouter();
 
   const logout = async () => {
-    await fetch("http://localhost:3005/users/logout", {
+    await fetch(`${API}/users/logout`, {
       method: "POST",
       mode: "cors",
       credentials: "include",
