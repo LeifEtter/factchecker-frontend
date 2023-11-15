@@ -5,14 +5,15 @@ import {
   calculateLevelFromScoreData,
   determineUserTitleFromLevel,
 } from "../../utils/scores";
+import { useUserDetails } from "../../hooks/useUserDetails";
 
 export default function Scores() {
   const router = useRouter();
   const { id } = router.query;
   const scoreData = useScoreData(id as string);
+  const user = useUserDetails(id as string);
   const [userLevel, setUserLevel] = useState(null);
   const [userTitle, setUserTitle] = useState(null);
-  const [userDetails, setUserDetails] = useState<User>(null);
 
   useEffect(() => {
     if (scoreData != null) {
@@ -20,15 +21,6 @@ export default function Scores() {
       setUserLevel(level);
       const userTitle = determineUserTitleFromLevel(level);
       setUserTitle(userTitle);
-    }
-    if (id != null) {
-      fetch(`http://localhost:3005/users/profile/${id}`, {
-        method: "GET",
-        mode: "cors",
-        credentials: "include",
-      })
-        .then((res) => res.json())
-        .then((user) => setUserDetails(user));
     }
   }, [scoreData]);
 
