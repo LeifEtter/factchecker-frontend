@@ -35,7 +35,7 @@ export const ImageChooser = ({
           setError(null);
           resetImageChooser();
         }}
-        className="fixed flex top-0 justify-center w-full h-full bg-gray-500 opacity-50"
+        className="fixed flex top-0 justify-center w-full h-full bg-gray-500 bg-opacity-50"
       />
       <div className="fixed top-0 flex justify-center w-full">
         <div className="flex flex-col items-center fixed z-10 blue-background top-96 p-5 rounded-2xl w-full max-w-sm">
