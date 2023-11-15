@@ -11,7 +11,7 @@ import { ScoreBar } from "../../components/ScoreBar";
 import { useAuthentication } from "../../hooks/useAuthentication";
 import { InputFieldMultiline } from "../../components/InputField";
 import { ModalWrapper } from "../../components/ModalWrapper";
-import { SnackBar } from "../../components/Snackbar";
+import { SnackBar, SnackbarType } from "../../components/Snackbar";
 import { API } from "../../assets/constants";
 
 export default function Scores() {
@@ -35,7 +35,7 @@ export default function Scores() {
         title: "Message Empty",
         description:
           "Please enter some words you want to send the user or close the popup.",
-        type: "error",
+        type: SnackbarType.ERROR,
       });
     } else {
       const result = await fetch(`${API}/users/message/${id as string}`, {
@@ -51,7 +51,7 @@ export default function Scores() {
         setSnackbar({
           title: "Message Sent",
           description: "The User will now receive the message in their inbox!",
-          type: "success",
+          type: SnackbarType.SUCCESS,
         });
         setMessage("");
         setMessagePopupOpen(false);
@@ -60,7 +60,7 @@ export default function Scores() {
           title: "Couldn't send Message",
           description:
             "Something went wrong during the sending of the message, please try again later.",
-          type: "error",
+          type: SnackbarType.ERROR,
         });
       }
     }

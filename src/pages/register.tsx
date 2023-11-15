@@ -1,6 +1,6 @@
 import { API } from "../assets/constants";
 import { InputField } from "../components/InputField";
-import { SnackBar } from "../components/Snackbar";
+import { SnackBar, SnackbarType } from "../components/Snackbar";
 import { CustomErrors } from "../errors";
 import { isEmail, isPassword } from "../helpers/helpers";
 import { useState } from "react";
@@ -132,7 +132,7 @@ export default function Register() {
                 title: "Registration Successfull!",
                 description:
                   "You should have received an Email with a link to confirm your registration",
-                type: "success",
+                type: SnackbarType.SUCCESS,
               });
             }}
           >

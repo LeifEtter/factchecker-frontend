@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import { ImageChooser } from "../components/ImageChooser";
 import { v4 as uuidv4 } from "uuid";
-import { SnackBar } from "../components/Snackbar";
+import { SnackBar, SnackbarType } from "../components/Snackbar";
 import { UserContext } from "../state/user";
 import { API } from "../assets/constants";
 
@@ -163,7 +163,7 @@ export default function CreateClaim() {
                       title: "3 Image Maximum",
                       description:
                         "You are only allowed to add 3 images to a claim. Please delete existing images to add new ones.",
-                      type: "error",
+                      type: SnackbarType.ERROR,
                     });
                   } else {
                     setShowModal(true);

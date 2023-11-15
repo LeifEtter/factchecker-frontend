@@ -1,15 +1,30 @@
 import { useEffect, useState } from "react";
 
-export const SnackBar = ({ snackbar, setSnackbar }) => {
+export enum SnackbarType {
+  ERROR,
+  INFO,
+  SUCCESS,
+}
+export interface SnackbarDetails {
+  type: SnackbarType;
+  title: string;
+  description: string;
+}
+export interface SnackbarProps {
+  snackbar: SnackbarDetails;
+  setSnackbar: Function;
+}
+
+export const SnackBar = ({ snackbar, setSnackbar }: SnackbarProps) => {
   const [color, setColor] = useState("white");
 
   useEffect(() => {
     if (snackbar != null) {
-      if (snackbar.type == "error") {
+      if (snackbar.type == SnackbarType.ERROR) {
         setColor("#FF5A5F");
-      } else if (snackbar.type == "success") {
+      } else if (snackbar.type == SnackbarType.SUCCESS) {
         setColor("#50C878");
-      } else if (snackbar.type == "info") {
+      } else if (snackbar.type == SnackbarType.INFO) {
         setColor("#48cae4");
       }
       const timer = setTimeout(() => {
