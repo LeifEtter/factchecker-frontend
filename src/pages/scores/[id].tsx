@@ -81,6 +81,10 @@ export default function Scores() {
           error={messageError}
           resetError={() => setMessageError(null)}
         />
+        <p className="text-red-500 font-semibold">{messageError}</p>
+        <button className="fact-gradient text-white font-semibold special-shadow rounded-2xl px-4 py-2 mt-3 ">
+          Send Message
+        </button>
       </ModalWrapper>
       <button onClick={() => setMessagePopupOpen(true)}>Send Message</button>
     </>
