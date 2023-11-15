@@ -57,6 +57,18 @@ jest.mock("../../hooks/useScoreData", () => ({
   useScoreData: (): ScoreData => mockScoreData,
 }));
 
+const mockUser: User = {
+  id: 10,
+  name: "Leif Etter",
+  avatar:
+    "https://factchecker-images.s3.eu-central-1.amazonaws.com/246/513fec43-c4f8-4961-869c-69e7d8cae72c",
+  biography: lorem.generateWords(20),
+};
+
+jest.mock("../../hooks/useUserDetails", () => ({
+  useUserDetails: (): User => mockUser,
+}));
+
 describe("should test the scores page", () => {
   const CORRECT_LEVEL: number = 100;
 
