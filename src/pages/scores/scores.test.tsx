@@ -85,6 +85,9 @@ describe("should test the scores page", () => {
     const userTitle = screen.getByTestId("user-title");
     expect(userTitle).toBeInTheDocument();
     expect(userTitle).toHaveTextContent("Beacon of Truth");
+
+    const userName = screen.getByTestId("user-name");
+    expect(userName).toHaveTextContent("Leif Etter");
   });
 
   it("should test if the right score is shown", () => {
