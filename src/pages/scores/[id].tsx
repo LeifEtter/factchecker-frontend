@@ -21,6 +21,7 @@ export default function Scores() {
   const [userTitle, setUserTitle] = useState(null);
   const [message, setMessage] = useState(null);
   const [messageError, setMessageError] = useState(null);
+  const [messagePopupOpen, setMessagePopupOpen] = useState(false);
 
   useEffect(() => {
     if (authenticated == false) {
