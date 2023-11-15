@@ -26,6 +26,8 @@ export default function Scores() {
   const [messageError, setMessageError] = useState(null);
   const [messagePopupOpen, setMessagePopupOpen] = useState(false);
   const [snackbar, setSnackbar] = useState(null);
+  const [expandClaims, setExpandClaims] = useState(false);
+  const [expandStatements, setExpandStatements] = useState(false);
 
   const handleMessage = async () => {
     if (message == "" || message == null) {
@@ -104,11 +106,13 @@ export default function Scores() {
       <p data-testid="user-biography">{user.biography}</p>
       <h1>Claims</h1>
       <div data-testid="claim-list">
-        {scoreData.claimsCreated.map((claim) => (
-          <div key={`claim-${claim.id}`}>
-            <h2>{claim.statement}</h2>
-          </div>
-        ))}
+        {scoreData.claimsCreated
+          .slice(0, expandClaims ? -1 : 3)
+          .map((claim) => (
+            <div key={`claim-${claim.id}`}>
+              <h2>{claim.statement}</h2>
+            </div>
+          ))}
       </div>
       <ModalWrapper
         isOpen={messagePopupOpen}
