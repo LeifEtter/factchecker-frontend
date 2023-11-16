@@ -4,14 +4,20 @@ import { Indicator } from "./Indicator";
 interface SmallClaimCardProps {
   claim: Claim;
   onClick: Function;
+  width?: string;
 }
 
-export const SmallClaimCard = ({ claim, onClick }) => {
+export const SmallClaimCard = ({
+  claim,
+  onClick,
+  width,
+}: SmallClaimCardProps) => {
   return (
     <div
       className="flex flex-col rounded-2xl bg-white special-shadow h-36
              max-w-xs cursor-pointer"
       onClick={() => onClick()}
+      style={{ width: width ?? null }}
     >
       <div className="flex justify-end">
         <div className="absolute text-xs w-16 h-10">
