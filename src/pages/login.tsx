@@ -51,7 +51,7 @@ export default function Login() {
     } else {
       sessionStorage.setItem("user", JSON.stringify(body.user));
       setUser(body.user);
-      router.push("/");
+      router.back();
     }
   };
 
