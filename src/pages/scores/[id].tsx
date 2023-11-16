@@ -101,39 +101,46 @@ export default function Scores() {
       >
         {userTitle}
       </h1>
-
-      <ScoreBar scoreData={scoreData} userLevel={userLevel} />
-      <div className="flex flex-row gap-5 mt-6">
-        <div className="w-24 flex flex-col justify-center">
-          <div>
-            <h1
-              data-testid="user-name"
-              className="text-md font-semibold text-fact-text-medium"
+      <div className="w-72">
+        <ScoreBar scoreData={scoreData} userLevel={userLevel} />
+        <div className="flex flex-row gap-5 mt-6">
+          <div className="flex-1 flex flex-col justify-center">
+            <div>
+              <h1
+                data-testid="user-name"
+                className="text-md font-semibold text-fact-text-medium"
+              >
+                {user.name}
+              </h1>
+            </div>
+            <p className="text-gray-400 font-medium text-xs">
+              Joined November 2013
+            </p>
+            <button
+              onClick={() => setMessagePopupOpen(true)}
+              className="bg-white rounded-xl special-shadow py-1 text-sm font-medium mt-2"
             >
-              {user.name}
-            </h1>
+              Send a DM
+            </button>
           </div>
-          <p className="text-gray-400 font-medium text-xs">
-            Joined November 2013
-          </p>
-          <button
-            onClick={() => setMessagePopupOpen(true)}
-            className="bg-white rounded-xl special-shadow py-1 text-sm font-medium mt-2"
-          >
-            Send a DM
-          </button>
-        </div>
 
-        <div className="relative w-32 h-32 rounded-3xl">
-          <Image
-            src={user.avatar}
-            alt="user-profile-image"
-            data-testid="user-profile-image"
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover rounded-3xl special-shadow"
-          />
+          <div className="flex-1 relative w-32 h-32 rounded-3xl">
+            <Image
+              src={user.avatar}
+              alt="user-profile-image"
+              data-testid="user-profile-image"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover rounded-3xl special-shadow"
+            />
+          </div>
         </div>
+        <p
+          data-testid="user-biography"
+          className="font-medium text-fact-text-light text-sm mt-3"
+        >
+          {user.biography}
+        </p>
       </div>
 
       <p data-testid="user-biography">{user.biography}</p>
