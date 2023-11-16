@@ -92,7 +92,7 @@ export default function Scores() {
   }
 
   return (
-    <>
+    <div className="flex flex-col">
       <SnackBar snackbar={snackbar} setSnackbar={setSnackbar} />
       <ScoreBar scoreData={scoreData} userLevel={userLevel} />
       <h1 data-testid="user-title">{userTitle}</h1>
@@ -146,6 +146,6 @@ export default function Scores() {
         </button>
       </ModalWrapper>
       <button onClick={() => setMessagePopupOpen(true)}>Send Message</button>
-    </>
+    </div>
   );
 }
