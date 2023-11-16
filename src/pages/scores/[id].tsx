@@ -77,7 +77,7 @@ export default function Scores() {
     if (isAuthenticated == false) {
       router.push("/login");
     }
-    if (scoreData != null && authenticated == true && user != null) {
+    if (scoreData != null) {
       const level = calculateLevelFromScoreData(scoreData);
       setUserLevel(level);
       const userTitle = determineUserTitleFromLevel(level);
