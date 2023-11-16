@@ -140,7 +140,7 @@ export default function Scores() {
         </p>
       </div>
 
-      <div className="flex flex-row gap-5 mt-12 w-full max-w-3xl mb-3">
+      <div className="flex flex-row gap-5 mt-12 w-full max-w-3xl mb-3 px-2">
         <h1 className="font-bold text-fact-text-medium text-lg">
           {user.name.split(" ")[0]}s Claims
         </h1>
@@ -151,7 +151,7 @@ export default function Scores() {
       </div>
       <div
         data-testid="claim-list"
-        className="inline-grid lg:grid-cols-3 md:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-2 duration-100 max-w-3xl"
+        className="inline-grid lg:grid-cols-3 md:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-2 duration-100 max-w-3xl px-2"
       >
         {scoreData.claimsCreated
           .slice(0, expandClaims ? -1 : 3)
