@@ -140,7 +140,7 @@ export default function Scores() {
         </p>
       </div>
 
-      <div className="flex flex-row gap-5 mt-12 w-full max-w-3xl mb-3 px-2">
+      <div className="flex flex-row gap-5 mt-12 w-full max-w-4xl mb-3 px-2">
         <h1 className="font-bold text-fact-text-medium text-lg">
           {user.name.split(" ")[0]}s Claims
         </h1>
