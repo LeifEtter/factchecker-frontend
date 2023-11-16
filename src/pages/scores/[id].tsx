@@ -94,20 +94,47 @@ export default function Scores() {
 
   return (
     <div className="flex flex-col items-center">
+      <h1
+        data-testid="user-title"
+        className="text-2xl font-semibold text-fact-text-medium mt-16 mb-6"
+      >
+        {userTitle}
+      </h1>
       <SnackBar snackbar={snackbar} setSnackbar={setSnackbar} />
       <ScoreBar scoreData={scoreData} userLevel={userLevel} />
-      <h1 data-testid="user-title">{userTitle}</h1>
-      <h1 data-testid="user-name">{user.name}</h1>
-      <div className="relative w-10 h-10">
-        <Image
-          src={user.avatar}
-          alt="user-profile-image"
-          data-testid="user-profile-image"
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover"
-        />
+      <div className="flex flex-row gap-5 mt-6">
+        <div className="w-24 flex flex-col justify-center">
+          <div>
+            <h1
+              data-testid="user-name"
+              className="text-md font-semibold text-fact-text-medium"
+            >
+              {user.name}
+            </h1>
+          </div>
+          <p className="text-gray-400 font-medium text-xs">
+            Joined November 2013
+          </p>
+          <button
+            onClick={() => setMessagePopupOpen(true)}
+            className="bg-white rounded-xl special-shadow py-1 text-sm font-medium mt-2"
+          >
+            Send a DM
+          </button>
+        </div>
+
+        <div className="relative w-32 h-32 rounded-3xl">
+          <Image
+            src={user.avatar}
+            alt="user-profile-image"
+            data-testid="user-profile-image"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover rounded-3xl special-shadow"
+          />
+        </div>
       </div>
+
       <p data-testid="user-biography">{user.biography}</p>
       <div className="flex flex-row">
         <h1>Claims</h1>
@@ -178,7 +205,6 @@ export default function Scores() {
           Send Message
         </button>
       </ModalWrapper>
-      <button onClick={() => setMessagePopupOpen(true)}>Send Message</button>
     </div>
   );
 }
