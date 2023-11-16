@@ -148,9 +148,19 @@ export default function Scores() {
           {user.name.split(" ")[0]}s Claims
         </h1>
         {expandClaims ? (
-          <button onClick={() => setExpandClaims(false)}>Hide</button>
+          <button
+            onClick={() => setExpandClaims(false)}
+            className="text-blue-600 text-xs font-medium"
+          >
+            Hide
+          </button>
         ) : (
-          <button onClick={() => setExpandClaims(true)}>Show All</button>
+          <button
+            onClick={() => setExpandClaims(true)}
+            className="text-blue-600 text-xs font-medium"
+          >
+            Show All
+          </button>
         )}
       </div>
       <div
