@@ -74,7 +74,7 @@ export default function Scores() {
   };
 
   useEffect(() => {
-    if (authenticated == false) {
+    if (isAuthenticated == false) {
       router.push("/login");
     }
     if (scoreData != null && authenticated == true && user != null) {
