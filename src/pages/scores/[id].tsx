@@ -143,9 +143,10 @@ export default function Scores() {
         </p>
       </div>
 
-      <p data-testid="user-biography">{user.biography}</p>
-      <div className="flex flex-row">
-        <h1>Claims</h1>
+      <div className="flex flex-row gap-5 mt-12 w-full max-w-3xl mb-3">
+        <h1 className="font-bold text-fact-text-medium text-lg">
+          {user.name.split(" ")[0]}s Claims
+        </h1>
         {expandClaims ? (
           <button onClick={() => setExpandClaims(false)}>Hide</button>
         ) : (
