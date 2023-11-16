@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import {
   calculateLevelFromScoreData,
   determineUserTitleFromLevel,
+  sendMessage,
 } from "../../utils/scores";
 import { useUserDetails } from "../../hooks/useUserDetails";
 import Image from "next/image";
@@ -45,16 +46,11 @@ export default function Scores() {
         type: SnackbarType.ERROR,
       });
     } else {
-      const result = await fetch(`${API}/users/message/${id as string}`, {
-        method: "POST",
-        mode: "cors",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ message: message }),
+      const sendResult: boolean = await sendMessage({
+        message: message,
+        receiverId: id as string,
       });
-      if (result.status == 201) {
+      if (sendResult) {
         setSnackbar({
           title: "Message Sent",
           description: "The User will now receive the message in their inbox!",

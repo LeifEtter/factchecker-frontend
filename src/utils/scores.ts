@@ -1,3 +1,4 @@
+import { API } from "../assets/constants";
 import { ScoreData } from "../hooks/useScoreData";
 
 export const calculateLevelFromScoreData = (scoreData: ScoreData): number => {
@@ -18,5 +19,31 @@ export const determineUserTitleFromLevel = (level: number): string => {
     return "Verification Boss";
   } else {
     return "Beacon of Truth";
+  }
+};
+
+interface SendMessageProps {
+  message: string;
+  receiverId: string;
+}
+
+export const sendMessage = async ({
+  message,
+  receiverId,
+}: SendMessageProps): Promise<boolean> => {
+  const result = await fetch(`${API}/users/message/${receiverId}`, {
+    method: "POST",
+    mode: "cors",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ message: message }),
+  });
+  if (result.status == 200) {
+    return true;
+  } else {
+    console.error(await result.json());
+    return false;
   }
 };
