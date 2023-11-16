@@ -18,6 +18,7 @@ import {
 } from "../../components/Snackbar";
 import { API } from "../../assets/constants";
 import { Indicator } from "../../components/Indicator";
+import { ShowAllToggler } from "../../components/ShowAllToggler";
 
 export default function Scores() {
   const router = useRouter();
@@ -147,21 +148,10 @@ export default function Scores() {
         <h1 className="font-bold text-fact-text-medium text-lg">
           {user.name.split(" ")[0]}s Claims
         </h1>
-        {expandClaims ? (
-          <button
-            onClick={() => setExpandClaims(false)}
-            className="text-blue-600 text-xs font-medium"
-          >
-            Hide
-          </button>
-        ) : (
-          <button
-            onClick={() => setExpandClaims(true)}
-            className="text-blue-600 text-xs font-medium"
-          >
-            Show All
-          </button>
-        )}
+        <ShowAllToggler
+          setShowingAll={setExpandClaims}
+          showingAll={expandClaims}
+        />
       </div>
       <div
         data-testid="claim-list"
