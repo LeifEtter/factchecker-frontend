@@ -40,7 +40,7 @@ export const sendMessage = async ({
     },
     body: JSON.stringify({ message: message }),
   });
-  if (result.status == 200) {
+  if (result.status == 200 || result.status == 201) {
     return true;
   } else {
     console.error(await result.json());
