@@ -94,13 +94,14 @@ export default function Scores() {
 
   return (
     <div className="flex flex-col items-center">
+      <SnackBar snackbar={snackbar} setSnackbar={setSnackbar} />
       <h1
         data-testid="user-title"
         className="text-2xl font-semibold text-fact-text-medium mt-16 mb-6"
       >
         {userTitle}
       </h1>
-      <SnackBar snackbar={snackbar} setSnackbar={setSnackbar} />
+
       <ScoreBar scoreData={scoreData} userLevel={userLevel} />
       <div className="flex flex-row gap-5 mt-6">
         <div className="w-24 flex flex-col justify-center">
