@@ -165,7 +165,7 @@ export default function Scores() {
       </div>
       <div
         data-testid="claim-list"
-        className="inline-grid lg:grid-cols-3 md:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-2 border duration-100 max-w-3xl"
+        className="inline-grid lg:grid-cols-3 md:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-2 duration-100 max-w-3xl"
       >
         {scoreData.claimsCreated
           .slice(0, expandClaims ? -1 : 3)
