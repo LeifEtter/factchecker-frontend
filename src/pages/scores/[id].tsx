@@ -17,8 +17,6 @@ import {
   SnackbarDetails,
   SnackbarType,
 } from "../../components/Snackbar";
-import { API } from "../../assets/constants";
-import { Indicator } from "../../components/Indicator";
 import { ShowAllToggler } from "../../components/ShowAllToggler";
 import { SmallClaimCard } from "../../components/SmallClaimCard";
 
