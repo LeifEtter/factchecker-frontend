@@ -24,9 +24,9 @@ import { SmallClaimCard } from "../../components/SmallClaimCard";
 export default function Scores() {
   const router = useRouter();
   const { id } = router.query;
-  const scoreData = useScoreData(id as string);
-  const user = useUserDetails(id as string);
-  const authenticated = useAuthentication();
+  const [scoreDataIsLoading, scoreData] = useScoreData(id as string);
+  const [userIsLoading, user] = useUserDetails(id as string);
+  const [authIsLoading, isAuthenticated] = useAuthentication();
   const [userLevel, setUserLevel] = useState<number>(null);
   const [userTitle, setUserTitle] = useState<string>(null);
   const [message, setMessage] = useState<string>("");
@@ -35,7 +35,6 @@ export default function Scores() {
   const [snackbar, setSnackbar] = useState<SnackbarDetails>(null);
   const [expandClaims, setExpandClaims] = useState<boolean>(false);
   const [expandStatements, setExpandStatements] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState(true);
 
   const handleMessage = async () => {
     if (message == "") {
@@ -83,11 +82,15 @@ export default function Scores() {
       setUserLevel(level);
       const userTitle = determineUserTitleFromLevel(level);
       setUserTitle(userTitle);
-      setIsLoading(false);
     }
   }, [scoreData]);
 
-  if (isLoading) {
+  if (
+    !isAuthenticated ||
+    authIsLoading ||
+    scoreDataIsLoading ||
+    userIsLoading
+  ) {
     return <p>Loading</p>;
   }
 
