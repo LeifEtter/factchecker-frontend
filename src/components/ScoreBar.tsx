@@ -16,28 +16,28 @@ export const ScoreBar = ({
   scoreData,
   userLevel,
 }: ScoreBarProps): React.ReactElement => (
-  <div className=" bg-white special-shadow rounded-4xl flex items-center px-6 py-1 gap-3 justify-center font-semibold text-gray-800">
-    <div className="flex gap-1 items-center">
+  <div className="bg-white special-shadow rounded-4xl flex items-center px-6 py-1 gap-3 justify-center font-semibold text-gray-800 ">
+    <div className="flex items-center">
       <h3 data-testid="indicator-claims-created">
         {scoreData.claimsCreated.length}
       </h3>
-      <FontAwesomeIcon icon={faQuestion} className="text-blue-700" />
+      <FontAwesomeIcon icon={faQuestion} className="text-blue-700 w-4 h-4" />
     </div>
     <div className="flex gap-1 items-center">
       <h3 data-testid="indicator-comments-created">
         {scoreData.commentsCreated.length}
       </h3>
-      <FontAwesomeIcon icon={faGavel} className="text-red-700" />
+      <FontAwesomeIcon icon={faGavel} className="text-red-700 w-4 h-4" />
     </div>
     <div className="flex gap-1 items-center">
       <h3 data-testid="indicator-upvotes-received">
         {scoreData.upvotesReceived}
       </h3>
-      <FontAwesomeIcon icon={faHandshake} className="text-green-600" />
+      <FontAwesomeIcon icon={faHandshake} className="text-green-600 w-5 h-5" />
     </div>
     <div className="flex gap-1 items-center">
       <h3 data-testid="indicator-user-level">{userLevel}</h3>
-      <FontAwesomeIcon icon={faStar} className="text-yellow-400" />
+      <FontAwesomeIcon icon={faStar} className="text-yellow-400 w-4 h-4" />
     </div>
   </div>
 );
