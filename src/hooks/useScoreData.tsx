@@ -8,11 +8,13 @@ export interface ScoreData {
   downvotesReceived: number;
 }
 
-export function useScoreData(userId: string) {
+export function useScoreData(userId: string): [boolean, ScoreData] {
   const [scoreData, setScoreData] = useState<null | ScoreData>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     if (userId != null) {
+      setIsLoading(true);
       try {
         fetch(`${API}/users/scores/${userId}`, {
           method: "GET",
@@ -27,6 +29,7 @@ export function useScoreData(userId: string) {
               upvotesReceived: scores.upvotesReceived,
               downvotesReceived: scores.downvotesReceived,
             });
+            setIsLoading(false);
           });
       } catch (error) {
         console.error(error);
@@ -34,5 +37,5 @@ export function useScoreData(userId: string) {
     }
   }, [userId]);
 
-  return scoreData;
+  return [isLoading, scoreData];
 }
