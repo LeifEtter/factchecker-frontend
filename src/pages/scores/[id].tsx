@@ -35,6 +35,7 @@ export default function Scores() {
   const [snackbar, setSnackbar] = useState<SnackbarDetails>(null);
   const [expandClaims, setExpandClaims] = useState<boolean>(false);
   const [expandStatements, setExpandStatements] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleMessage = async () => {
     if (message == "") {
@@ -77,20 +78,16 @@ export default function Scores() {
     if (authenticated == false) {
       router.push("/login");
     }
-    if (scoreData != null && authenticated == true) {
+    if (scoreData != null && authenticated == true && user != null) {
       const level = calculateLevelFromScoreData(scoreData);
       setUserLevel(level);
       const userTitle = determineUserTitleFromLevel(level);
       setUserTitle(userTitle);
+      setIsLoading(false);
     }
   }, [scoreData]);
 
-  if (
-    scoreData == null ||
-    user == null ||
-    userLevel == null ||
-    userTitle == null
-  ) {
+  if (isLoading) {
     return <p>Loading</p>;
   }
 
