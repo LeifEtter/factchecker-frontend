@@ -83,7 +83,7 @@ export default function Scores() {
       const userTitle = determineUserTitleFromLevel(level);
       setUserTitle(userTitle);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, scoreDataIsLoading]);
 
   if (
     !isAuthenticated ||
