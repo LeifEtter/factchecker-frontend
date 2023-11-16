@@ -93,7 +93,7 @@ export default function Scores() {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col items-center">
       <SnackBar snackbar={snackbar} setSnackbar={setSnackbar} />
       <ScoreBar scoreData={scoreData} userLevel={userLevel} />
       <h1 data-testid="user-title">{userTitle}</h1>
