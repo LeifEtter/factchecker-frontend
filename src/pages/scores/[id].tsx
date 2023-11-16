@@ -154,6 +154,7 @@ export default function Scores() {
           .slice(0, expandClaims ? -1 : 3)
           .map((claim) => (
             <SmallClaimCard
+              width={"280px"}
               key={`claim-card-${claim.id}`}
               claim={claim}
               onClick={() => router.push(`/view-single-claim/${claim.id}`)}
