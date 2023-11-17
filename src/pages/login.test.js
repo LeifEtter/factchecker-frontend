@@ -1,0 +1,33 @@
+import { render, screen } from "@testing-library/react";
+import Login from "./login";
+import { UserContext } from "../state/user";
+import "@testing-library/jest-dom/";
+import userEvent from "@testing-library/user-event";
+
+jest.mock("next/router", () => ({
+  useRouter: jest.fn(),
+}));
+
+it("should test login page functionality", async () => {
+  const user = null;
+  const setUser = () => {};
+  render(
+    <UserContext.Provider value={{ user, setUser }}>
+      <Login />
+    </UserContext.Provider>
+  );
+
+  const emailInput = screen.getByTestId("email-field");
+  const passwordInput = screen.getByTestId("password-field");
+  const loginButton = screen.getByTestId("submit-login");
+  const emailError = screen.getByTestId("email-field-error");
+
+  expect(emailInput).toBeInTheDocument();
+  expect(passwordInput).toBeInTheDocument();
+
+  await userEvent.type(emailInput, "username");
+  await userEvent.type(passwordInput, "badPassword");
+  await userEvent.click(loginButton);
+
+  expect(emailError).toHaveTextContent("Please Enter a valid email");
+});
