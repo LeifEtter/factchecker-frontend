@@ -49,11 +49,13 @@ export default function CreateClaim() {
   const submitClaim = async () => {
     try {
       const data = new FormData();
-
       const result = await fetch(`${API}/claims/create`, {
         method: "POST",
         mode: "cors",
         credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           statement: title,
           description: description,
