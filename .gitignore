@@ -44,3 +44,4 @@ next-env.d.ts
 
 /src/pages/scores/scores.test.tsx
 /src/utils/utils.test.ts
+/src/pages/login.test.js
