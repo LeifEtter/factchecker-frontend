@@ -150,7 +150,10 @@ export default function Scores() {
           showingAll={expandClaims}
         />
       </div>
-      <div className="flex gap-5 flex-wrap max-w-4xl mx-2">
+      <div
+        data-testid="claim-list"
+        className="flex gap-5 flex-wrap max-w-4xl mx-2"
+      >
         {scoreData.claimsCreated
           .slice(0, expandClaims ? -1 : 3)
           .map((claim) => (
