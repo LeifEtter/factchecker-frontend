@@ -1,5 +1,5 @@
 import { InputField } from "../components/InputField";
-import { CustomErrors } from "../errors";
+import { CustomErrors } from "../types/errors";
 import { isEmail } from "../helpers/helpers";
 import Link from "next/link";
 import { useRouter } from "next/router";

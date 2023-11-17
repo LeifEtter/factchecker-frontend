@@ -1,7 +1,7 @@
 import { API } from "../assets/constants";
 import { InputField } from "../components/InputField";
 import { SnackBar, SnackbarType } from "../components/Snackbar";
-import { CustomErrors } from "../errors";
+import { CustomErrors } from "../types/errors";
 import { isEmail, isPassword } from "../helpers/helpers";
 import { useState } from "react";
 
