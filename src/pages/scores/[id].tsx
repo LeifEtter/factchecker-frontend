@@ -19,6 +19,7 @@ import {
 } from "../../components/Snackbar";
 import { ShowAllToggler } from "../../components/ShowAllToggler";
 import { SmallClaimCard } from "../../components/SmallClaimCard";
+import { PLACEHOLDER_DATE } from "../../assets/constants";
 
 export default function Scores() {
   const router = useRouter();
@@ -110,7 +111,7 @@ export default function Scores() {
               </h1>
             </div>
             <p className="text-gray-400 font-medium text-xs">
-              Joined November 2013
+              {PLACEHOLDER_DATE}
             </p>
             <button
               data-testid="send-message-button"
