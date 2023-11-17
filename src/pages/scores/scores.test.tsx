@@ -47,7 +47,7 @@ jest.mock("next/router", () => ({
   },
 }));
 
-const mockScoreData = {
+export const mockScoreData = {
   claimsCreated: mockClaims,
   commentsCreated: [],
   upvotesReceived: 10,
