@@ -1,13 +1,12 @@
 # Fact Checker Threat Model
 
-**Application Version:** 1.0 **Description:** The Fact Checker provides a plattform, on which users can check statements (recent and frequent on the internet), for their validity. Users can also post statements themselves and get ratings from other users. **Document Owner:** Leif Etter
+**Application Version:** 1.0 **Description:** The Fact Checker App provides a plattform, on which users can check statements (recent and frequent on the internet), for their validity. Users can also post statements themselves and get ratings from other users. **Document Owner:** Leif Etter
 
 ## Table Of Contents
 
-- Introduction
+- [Introduction](craftdocs://open?blockId=72FB7E28-7F31-4308-AF8C-82AC275A8241&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
 - [External Dependencies](craftdocs://open?blockId=D45826F8-47FB-4696-B4F3-8B0A2DA434BC&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
 - [Entry Points](craftdocs://open?blockId=0FEEFB51-235E-42A7-A258-5A10E978E6B5&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
-- [Exit Points](craftdocs://open?blockId=AE8DE0A0-A14D-416F-9293-8168F079D64C&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
 - [Assets](craftdocs://open?blockId=24A13371-2F03-4A66-9312-9ADE474C3298&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
 - [Trust Levels](craftdocs://open?blockId=960ECB67-399B-4A56-8E74-48359A8495AA&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
 - [STRIDE Threat Analysis](craftdocs://open?blockId=C4C91F17-8CCE-45F6-A798-D72C44E40EA0&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
@@ -17,14 +16,13 @@
   - [Information Disclosure](craftdocs://open?blockId=7FAF5684-4B4D-429B-A51C-5BAD6AB74489&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
   - [Denial of Service](craftdocs://open?blockId=F0FE61A0-D2DA-479A-8755-56244B48A652&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
   - [Elevation of Privilege](craftdocs://open?blockId=1E8932EA-6E8F-4FB3-9727-2BEBBBF70A45&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
-- Analyzing Attack Techniques
-  - Graphical Overview
-  - XSS Attacks
-- Implemented Methods
+- [Graphical Overview](craftdocs://open?blockId=395A4756-F1AA-4B84-A6A8-7B4E542BDD3E&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
+- [XSS Attacks](craftdocs://open?blockId=EE6ED47C-0554-413F-84D4-9B68056FBC4B&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
+- [Implemented Measures](craftdocs://open?blockId=E6A57CCC-D40C-4E5B-9F86-93E635649112&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
 
 ### Introduction
 
-In this Threat Model, I take a mixed approach of traditional modeling as documented by OWASP, as well as my own approach to analyzing attack techniques themselves using flow diagrams to help me illustrate and analyze.
+In this Threat Model, I take a mixed approach of traditional modeling as documented by OWASP, as well as my own approach to analyzing attack techniques themselves using flow diagrams to help me illustrate and analyze all the threats the Factchecker App could face.
 
 ## External Dependencies
 
@@ -35,40 +33,41 @@ In this Threat Model, I take a mixed approach of traditional modeling as documen
 | 3      | The Postgres Database is hosted inside the AWS [insert here] and is password protected [insert sql permissions] |
 | 4      | Image Uploads are stored in an AWS S3 Bucket, which has access permissions [insert here].                       |
 | 5      | The Backend and the Frontend communicate over HTTPS.                                                            |
-| 6      | The Backend uploads images to the …                                                                             |
 | 7      | Github Server which installed packages are updated from                                                         |
 
 ## Entry Points
 
-## Exit Points
+| **ID** | **Name**   | **Description**                                                                        |
+| ------ | ---------- | -------------------------------------------------------------------------------------- |
+| 1      | HTTPS Port | Backend is Available over HTTPS Port, to access any backend route HTTPS has to be used |
+| 2      | Web App    | The NextJS webapp that communicated with the Backend thorugh HTTPS                     |
 
 ## Assets
 
-| **ID** | **Name**                                             | **Description**                                                                                                                       | Trust Levels |
-| ------ | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| 1      | Users and Admins                                     |                                                                                                                                       |              |
-| 1.1    | User Login Details                                   |                                                                                                                                       |              |
-| 1.2    | Admin Login Details                                  |                                                                                                                                       |              |
-| 2      | System Assets                                        | Assets realating to the AWS System                                                                                                    |              |
-| 2.1    | Availability of FactChecker Website                  |                                                                                                                                       |              |
-| 2.2    | Ability to Execute Code                              |                                                                                                                                       |              |
-| 2.3    | Ability to Execute SQL as a Database Read/Write User | The ability to execute SQL queries such as Select, Insert, and Update, and access any information stored in the FactChecker Database. |              |
-| 2.4    | Ability to Read/Write to S3                          | The ability to store images on S3 and retrieve all images, as well as delete images.                                                  |              |
-| 2.5    | Logs                                                 | Ability to access all Logs containing information about all parts of the system                                                       |              |
-| 3      | Fact Checker Website                                 | Assets relating to the Fact Checker Website                                                                                           |              |
-| 3.1    | Login Session                                        | The Login Session is identifyable by a jwt token used for authentication.                                                             |              |
-| 3.2    |                                                      |                                                                                                                                       |              |
+| **ID** | **Name**                                             | **Description**                                                                                                                       | Trust Levels  |
+| ------ | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| **1**  | **Users and Admins**                                 | **Assets relating to all users**                                                                                                      |               |
+| 1.1    | User Login Details                                   |                                                                                                                                       | 2, 3, 4, 5    |
+| 1.2    | Admin Login Details                                  |                                                                                                                                       | 3, 4, 5       |
+| 1.3    | Verified Claims and Public Statements                | Public Claims and Statements made by users                                                                                            | 1, 2, 3, 4, 5 |
+| 1.4    | Unverified Claims                                    | Claims that haven't been switched to public yet because they haven't been verified                                                    | 2, 3, 4, 5    |
+| 1.5    | Avatar, Name and Biography of users                  | All Details a user has chosen to show publicly                                                                                        | 1, 2, 3, 4, 5 |
+| 2      | **System Assets**                                    | **Assets relating to the AWS System**                                                                                                 |               |
+| 2.1    | Availability of FactChecker Website                  | Availability of both the backend and frontend                                                                                         | 4, 5          |
+| 2.2    | Ability to Execute Code                              | Ability to execute code on the server                                                                                                 | 4, 5          |
+| 2.3    | Ability to Execute SQL as a Database Read/Write User | The ability to execute SQL queries such as Select, Insert, and Update, and access any information stored in the FactChecker Database. | 4             |
+| 2.4    | Ability to Read/Write to S3                          | The ability to store images on S3 and retrieve all images, as well as delete images.                                                  | 4             |
+| 2.5    | Logs                                                 | Ability to access all Logs containing information about all parts of the system                                                       | 4, 5          |
 
 ## Trust Levels
 
-| **ID** | **Name**                           | **Description**                                                                                                                                                   |
-| ------ | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1      | Anonymous Web User                 | User who visits the fact checker web app, but isn't logged in.                                                                                                    |
-| 2      | User with Valid Login Credentials  | A user who has logged into the Web App and has logged in, receiving an http-only cookie containing a jwt token for authentication.                                |
-| 3      | Admin                              | The admin is logged in and has an admin role, which allows him to access routes to view personal information and do actions such as deleting accounts and claims. |
-| 4      | AWS Account Administrator          | Has full access to the Backend, S3 Storage Bucket and Database.                                                                                                   |
-| 5      | Vercel Account Administrator       | Has full access to the hosted next.js frontend.                                                                                                                   |
-| 6      | [Insert Database Read/Write Users] |                                                                                                                                                                   |
+| **ID** | **Name**                          | **Description**                                                                                                                                                   |
+| ------ | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1      | Anonymous Web User                | User who visits the fact checker web app, but isn't logged in.                                                                                                    |
+| 2      | User with Valid Login Credentials | A user who has logged into the Web App and has logged in, receiving an http-only cookie containing a jwt token for authentication.                                |
+| 3      | Admin                             | The admin is logged in and has an admin role, which allows him to access routes to view personal information and do actions such as deleting accounts and claims. |
+| 4      | AWS Account Administrator         | Has full access to the Node Backend, S3 Storage Bucket and Database.                                                                                              |
+| 5      | Vercel Account Administrator      | Has full access to the hosted next.js frontend.                                                                                                                   |
 
 ## STRIDE Threat Analysis
 
@@ -110,13 +109,13 @@ Means the Attacker acquires higher privileges than he would normally have.
 
 ![Possible Threats (2).png](https://res.craft.do/user/full/b0e62220-21e7-3e79-e368-d4886dca007e/doc/5267FCC8-0B65-4C27-9855-543EC545503B/45460EE2-5E49-4519-A23C-97BBC56BE12B_2/SSCt8OnbKTt40ZrSE6gOAqQSvybkKp18nLlZUGelvz4z/Possible%20Threats%202.png)
 
-### Graphical Overview
+## Graphical Overview
 
 Going more into analyzing the attack technique aspect, I found that making a graphical representation of the app system's architecture, and sketching the different vectors of attack made me find more vulnerabilities.
 
 ![Threat Model Fact-Checker Webapp.png](https://res.craft.do/user/full/b0e62220-21e7-3e79-e368-d4886dca007e/doc/5267FCC8-0B65-4C27-9855-543EC545503B/E1BAB569-9943-4C41-9BFA-D693CCC1B788_2/RyQXqEvrGFycqVRrx6Y59WQS8tDA2XxhRyFixmpqBDsz/Threat%20Model%20Fact-Checker%20Webapp.png)
 
-#### XSS Attack
+## XSS Attack (Example Analysis)
 
 To analyze the vulnerability of an XSS Attack, I created the flow of a user visiting the perpretrators profile.
 
@@ -132,25 +131,19 @@ In the first example, validation is used to prevent the perpretrator from inputt
 
 I then imagine, how the perpretrator could get around this barrier. In the second example I show how the perpretrator could remove the validation function, and execute the request with the malicious code. Then I show how additional validation on the backend could eliminate this vulnerability.
 
-**CSRF Attack**
-
 ## Implemented Measures
 
 ---
 
-Measure: React XSS Safety Features
-Description: React is automatically protected against XSS attacks, as the React DOM will automatically convert anything into a string before rendering it. The only way around this is (as the developer themselves) is to use "dangerouslySetInnerHTML" in a tag, which i don't.
+Measure: **React XSS Safety Features** Description: React is automatically protected against XSS attacks, as the React DOM will automatically convert anything into a string before rendering it. The only way around this is (as the developer themselves) is to use "dangerouslySetInnerHTML" in a tag, which i don't.
 
 ---
 
-Measure: Authentication
-Methods Used:
+Measure: **Authentication** Methods Used:
 
-- Login per Email and Password: User needs to set email and password to register and login with details
-- Creation of JWT Token, used for authorization, that is valid for 2 hours
-- Secure, HTTP-Only Cookies to store the JWT Token, and prevent XSS Attacks (cookie can'T be retrieved per XSS)
-
-Description: Authentication - When a user logs in with their user details, the backend checks if the username and password are correct, and if so, sends a JWT Token back to the frontend. This token is stored in a http-only cookie, that can't be retrieved through an xss attack.
+- Registration/Login via Email and Password: User needs to set email and password to register and login with details
+- Creation of JWT Token upon login that is valid for 2 hours
+- Secure, HTTP-Only Cookies to store the JWT Token, and prevent XSS Attacks (cookie can't be retrieved per XSS)
 
 Implementation:
 
@@ -186,13 +179,13 @@ const authenticate = async (req, res, next) => {
 
 ---
 
-Measure: Authorization
+Measure: **Authorization**
 
 Methods Used:
 
 - Check for certain roles on frontend, before letting user visit a page
 - Check for roles on backend requests using the jwt token stored in the cookie
-- The Method used allows passing the allowed roles for the route in question, and allows setting "allowSelf", which only allows users that have the same id as they pass in req.params.id
+- The middleware used allows passing the allowed roles for the route in question, and allows setting "allowSelf", which only allows users that have the same id as they pass in req.params.id
 
 Implementation:
 
@@ -218,7 +211,7 @@ const allowRoles = (allowedRoles, allowSelf) => {
 
 ---
 
-Measure: Brute Force Protection
+Measure: **Brute Force Protection**
 
 Method:
 
@@ -242,7 +235,7 @@ Other Possible Measures: Using generic error messages to prevent email farming.
 
 ---
 
-Measure: Email Verification
+Measure: **Email Verification**
 
 Method:
 
@@ -278,7 +271,7 @@ router.get("/verify", async (req, res) => {
 
 ---
 
-Measure: Password Encryption
+Measure: **Password Encryption**
 
 Method:
 
@@ -300,7 +293,7 @@ const passwordMatches = await bcrypt.compare(password, result.rows[0].password);
 
 ---
 
-Measure: Rate Limiting
+Measure: **Rate Limiting**
 
 Method:
 
@@ -319,7 +312,7 @@ app.use("/api/", apiLimiter);
 
 ---
 
-Measure: Auditing Node Packages
+Measure: **Auditing Node Packages**
 
 Method:
 
@@ -327,7 +320,7 @@ Method:
 
 ---
 
-Measure: Hiding Sensitive Info
+Measure: **Hiding Sensitive Info**
 
 Method:
 
@@ -335,7 +328,7 @@ Method:
 
 ---
 
-Measure: Sanitization and Validation
+Measure: **Sanitization and Validation**
 
 Method:
 
@@ -397,3 +390,28 @@ module.exports = checkValidId = (req, res, next) => {
 param("id").exists().escape().isString(),param("id").exists().escape().isString(),
 checkValidId,
 ```
+
+---
+
+Measure: **Strong Passwords when settings up AWS services**
+
+Methods: Use Password generator to generate strong passwords for EC2 Instance, Database etc, and make sure that no keys or passwords are exposed anywhere.
+
+---
+
+Measure: **Strong Security Protocols**
+
+Methods:
+
+- Only allow connection to RDS Database from EC2 Instance itself
+- Only open HTTPS port for EC2 hosted Backend
+
+---
+
+Possible Measure: **File Upload Security Measures**
+
+Possible Methods:
+
+- Limit File Type to .png and .jpg
+- Limit File size to 5mb
+- Limit number of files
