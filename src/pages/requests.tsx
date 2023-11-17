@@ -14,7 +14,7 @@ const Requests: React.FC = () => {
     if (!sessionUser) {
       router.push("/login");
     } else {
-      fetch(`${API}/claims/user/${sessionUser.id}`, {
+      fetch(`${API}/claims/requests`, {
         method: "GET",
         mode: "cors",
         credentials: "include",
