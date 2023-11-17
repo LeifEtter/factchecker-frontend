@@ -404,7 +404,24 @@ Measure: **Strong Security Protocols**
 Methods:
 
 - Only allow connection to RDS Database from EC2 Instance itself
-- Only open HTTPS port for EC2 hosted Backend
+- Only open HTTPS port for EC2 hosted Backend (not in testing environment) to provide encrypted communication
+
+---
+
+Measure: **CORS Policy**
+
+Methods:
+
+- Only allow specified origins to make requests
+
+```javascript
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
+```
 
 ---
 
@@ -415,3 +432,13 @@ Possible Methods:
 - Limit File Type to .png and .jpg
 - Limit File size to 5mb
 - Limit number of files
+
+---
+
+Measure: **Personal Security**
+
+Methods:
+
+- Use of Password Manager
+- Security Procedures for Logging into AWS Account and Password Manager
+- Being aware of Phishing
