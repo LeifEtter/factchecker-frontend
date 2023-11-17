@@ -1,5 +1,7 @@
 # Fact Checker Frontend Documentation
 
+**IMPORTANT:** For the Clean Code Contribution please refer to src/pages/scores. This feature contains a better atomic commit history, tests and cleaner code and should be regarded as the contribution to the assessment.
+
 **Table of Contents**
 
 - [Setup](craftdocs://open?blockId=DDD6FD0A-A264-4611-A992-612389F75C73&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
