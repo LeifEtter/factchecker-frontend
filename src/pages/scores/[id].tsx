@@ -35,7 +35,7 @@ export default function Scores() {
   const [expandClaims, setExpandClaims] = useState<boolean>(false);
   const [expandStatements, setExpandStatements] = useState<boolean>(false);
 
-  const handleMessageSending = async () => {
+  const handleMessageSending = async (message: string) => {
     if (!message) {
       setSnackbar({
         title: "Message Empty",
@@ -179,7 +179,7 @@ export default function Scores() {
         />
         <p className="text-red-500 font-semibold">{messageError}</p>
         <button
-          onClick={() => handleMessageSending()}
+          onClick={() => handleMessageSending(message)}
           className="fact-gradient text-white font-semibold special-shadow rounded-2xl px-4 py-2 mt-3 "
         >
           Send Message
