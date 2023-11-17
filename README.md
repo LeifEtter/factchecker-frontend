@@ -1,38 +1,105 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Fact Checker Frontend Documentation
 
-## Getting Started
+**Table of Contents**
 
-First, run the development server:
+- [Setup](craftdocs://open?blockId=DDD6FD0A-A264-4611-A992-612389F75C73&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
+- [Glossary](craftdocs://open?blockId=5FD3F794-9B4B-4C19-AC1C-3A49BD43078E&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
+- [Introduction](craftdocs://open?blockId=21B98BAC-F478-44B2-B3C0-170B1F996815&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
+- [Infrastructure](craftdocs://open?blockId=5A639987-829D-4686-B087-DF50758C8FC3&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
+- [Roles](craftdocs://open?blockId=B17987A4-66B8-477F-9971-DE410A2599E2&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
+- [Pages](craftdocs://open?blockId=B293E7A2-41FF-4BC1-B633-EAAA5F09FEEE&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
+- [Folder Structure](craftdocs://open?blockId=89BDCD57-B3AB-4E01-90C2-801F96749F60&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+## Setup
+
+Prerequisites:
+
+- [Node](https://nodejs.org/en) Installed on system
+- Backend Installed on System
+
+Installation
+
+Create File **.env.local** and add this line:
+
+```javascript
+NEXT_PUBLIC_API_URL = "http://localhost:3005";
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Install All Packages by executing this command inside the project directory:
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```dart
+npm i
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Start Development Server
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```dart
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Then visit the url `http://localhost:3005`
 
-## Learn More
+## Glossary
 
-To learn more about Next.js, take a look at the following resources:
+| **Term**  | **Meaning**                                                                                                               |
+| --------- | ------------------------------------------------------------------------------------------------------------------------- |
+| Claim     | Information that can be either true or false                                                                              |
+| Statement | Commentary on a claim where a user can state their opinion wether a claim is true or false                                |
+| Comment   | Same Meaning as Statement                                                                                                 |
+| Source    | Information that gives the Claim/Statement/Comment context, referring to where the user has received the information from |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Introduction
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+The Fact Checker Web App provides users a platform to find the validity of claims/supposed facts made all around the internet. Users are able to look at Trending claims and are able to see the the answers of other users, and their statements, of why the claim might be false or true.
 
-## Deploy on Vercel
+## Infrastructure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Programming Language: **Typescript (Transpiled to Javascript)** Framework: **NextJS** Linting: **ESLint**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Notable Libraries:
+
+- Tailwind for Styling
+- Fontawesome for Icons
+- Cypress for End-to-End Testing
+- React Testing Library for Testing
+- Jest for Testing
+
+## Roles
+
+All Roles also have permissions from roles above.
+
+| **Role**  | **Description**                                                               | **Permissions**                                                                      |
+| --------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| Anonymous | Anynomous user that doesn't have a role                                       | View Limited Nr. of Pages; Login/Register;                                           |
+| User      | User that is logged in and has a valid JWT token stored in a http-only cookie | Create Claims and Statements; View Profile Pages; View Claims Created by Themselves; |
+| Admin     | Typically only one admin                                                      | Delete other users Claims and Statements; Delete other users;                        |
+
+## Pages
+
+| **Route**                     | **Description**                                                                                                                | **Required Role** |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------- |
+| /                             | Shows all verified claims by all Users                                                                                         | \-                |
+| /requests                     | Shows all Claims that user which is logged in has submitted                                                                    | User              |
+| /create-claim                 | Lets user create a claim themselves                                                                                            | User              |
+| /profile                      | Gives user options to change their avatar, biography and password and request account deletion                                 | User              |
+| /login                        | Lets Users Login                                                                                                               | \-                |
+| /register                     | Lets Users Register                                                                                                            | \-                |
+| /logout                       | Lets Users Logout                                                                                                              | User              |
+| /view-single-claim/[claim Id] | Page for Viewing a claim and all statements made on it                                                                         | \-                |
+| /scores/[user Id]             | Page for Viewing a users contributions, scores, name, avatar and date of joining;<br>Provides ability to send message to user; | User              |
+
+## Folder Structure
+
+![Image.png](https://res.craft.do/user/full/b0e62220-21e7-3e79-e368-d4886dca007e/doc/B85592C0-D78F-4580-B2A8-DCA6A1A8AC60/5839BDCF-93FE-4C1F-B40D-0DA72BC22E84_2/UItvgCllJ6gaXMWieNgFSWBO6utU4A6WyzPPRLWhY1Uz/Image.png)
+
+| **Folder** | **Contents**                         |
+| ---------- | ------------------------------------ |
+| assets     | Constants                            |
+| components | React Components                     |
+| helpers    | Various Helper Functions             |
+| hooks      | Custom Hooks for Data Fetching       |
+| pages      | Pages and NextJS Proprietary Widgets |
+| state      | Context for State Management         |
+| styles     | Style Sheets                         |
+| types      | Interfaces for Typing                |
+| utils      | Various Utility Functions            |
