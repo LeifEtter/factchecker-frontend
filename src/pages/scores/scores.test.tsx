@@ -100,5 +100,11 @@ describe("should test the scores page", () => {
     expect(userName).toHaveTextContent("Leif Etter");
   });
 
+  it("should test the user flow for sending a message to the user being viewed", async () => {
+    render(<Scores />);
+    const sendMessageButton = screen.getByTestId("send-message-button");
+    await userEvent.click(sendMessageButton);
+    const modalWrapper = screen.getByTestId("modal-wrapper");
+    expect(modalWrapper).toHaveStyle("top: 0px;");
   });
 });
