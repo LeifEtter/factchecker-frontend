@@ -9,6 +9,7 @@ export const ShowAllToggler = ({
 }: ShowAllTogglerProps) => {
   return showingAll ? (
     <button
+      data-testid="show-toggler-claims"
       onClick={() => setShowingAll(false)}
       className="text-blue-600 text-xs font-medium"
     >
@@ -16,6 +17,7 @@ export const ShowAllToggler = ({
     </button>
   ) : (
     <button
+      data-testid="show-toggler-claims"
       onClick={() => setShowingAll(true)}
       className="text-blue-600 text-xs font-medium"
     >
