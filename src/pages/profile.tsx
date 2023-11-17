@@ -15,7 +15,6 @@ const Profile: React.FC = () => {
 
   useEffect(() => {
     if (user) {
-      console.log(user);
       fetch(`${API}/users/${user.id}`, {
         method: "GET",
         mode: "cors",
@@ -68,7 +67,6 @@ const Profile: React.FC = () => {
           Change Password
         </button>
       </div>
-      <button onClick={() => setEditingPopupOpen(true)}>Set Display</button>
       <div
         onClick={() => setEditingPopupOpen(false)}
         className="absolute duration-200 ease-in-out w-full h-full backdrop-blur-sm bg-opacity-10 flex items-center justify-center"

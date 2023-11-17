@@ -62,7 +62,6 @@ export default function Register() {
       },
       body: JSON.stringify({ name, email, password }),
     });
-    console.log(registerResult);
 
     if (registerResult.status == 400) {
       const body = await registerResult.json();
