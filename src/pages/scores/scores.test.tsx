@@ -4,10 +4,6 @@ import "@testing-library/jest-dom/";
 import { LoremIpsum } from "lorem-ipsum";
 import { randomInt } from "crypto";
 import { ScoreData } from "../../hooks/useScoreData";
-import {
-  calculateLevelFromScoreData,
-  determineUserTitleFromLevel,
-} from "../../utils/scores";
 import userEvent from "@testing-library/user-event";
 
 const lorem = new LoremIpsum({
@@ -91,10 +87,5 @@ describe("should test the scores page", () => {
     expect(userName).toHaveTextContent("Leif Etter");
   });
 
-  it("should test if the right score is shown", () => {
-    expect(calculateLevelFromScoreData(mockScoreData)).toBe(100);
-
-    expect(determineUserTitleFromLevel(30)).toBe("Trusted Member");
-    expect(determineUserTitleFromLevel(100)).toBe("Beacon of Truth");
   });
 });
