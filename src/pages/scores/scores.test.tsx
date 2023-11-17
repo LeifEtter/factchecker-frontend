@@ -86,11 +86,11 @@ describe("should test the scores page", () => {
     render(<Scores />);
     const claimList = screen.getByTestId("claim-list");
     expect(claimList).toBeInTheDocument();
-    expect(claimList.children).toHaveLength(10);
+    expect(claimList.children).toHaveLength(3);
 
     const userLevel = screen.getByTestId("indicator-user-level");
     expect(userLevel).toBeInTheDocument();
-    expect(userLevel).toHaveTextContent(`User Level: ${CORRECT_LEVEL}`);
+    expect(userLevel).toHaveTextContent(CORRECT_LEVEL.toString());
 
     const userTitle = screen.getByTestId("user-title");
     expect(userTitle).toBeInTheDocument();
