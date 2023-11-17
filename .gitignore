@@ -41,3 +41,6 @@ next-env.d.ts
 .VSCodeCounter
 
 .eslintrc.json
+
+/src/pages/scores/scores.test.tsx
+/src/utils/utils.test.ts
