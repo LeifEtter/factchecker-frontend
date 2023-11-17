@@ -1,37 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import Scores from "./[id]";
 import "@testing-library/jest-dom/";
-import { LoremIpsum } from "lorem-ipsum";
-import { randomInt } from "crypto";
 import { ScoreData } from "../../hooks/useScoreData";
 import userEvent from "@testing-library/user-event";
-
-const lorem = new LoremIpsum({
-  wordsPerSentence: {
-    min: 5,
-    max: 16,
-  },
-});
-
-const mockClaims: Claim[] = Array(10)
-  .fill(0)
-  .map((_) => {
-    const id: number = randomInt(999999);
-    return {
-      id,
-      source: lorem.generateWords(3),
-      statement: lorem.generateWords(10),
-      description: lorem.generateWords(50),
-      images: [
-        {
-          id,
-          link: "https://factchecker-images.s3.eu-central-1.amazonaws.com/246/513fec43-c4f8-4961-869c-69e7d8cae72c",
-          source: lorem.generateWords(2),
-          claimId: 0,
-        },
-      ],
-    };
-  });
+import { mockScoreData } from "../../mocks/scoreData";
+import { lorem } from "../../mocks/lorem";
+import { mockClaims } from "../../mocks/claims";
 
 jest.mock("next/router", () => ({
   useRouter() {
@@ -42,13 +16,6 @@ jest.mock("next/router", () => ({
     };
   },
 }));
-
-export const mockScoreData = {
-  claimsCreated: mockClaims,
-  commentsCreated: [],
-  upvotesReceived: 10,
-  downvotesReceived: 5,
-};
 
 jest.mock("../../hooks/useScoreData", () => ({
   useScoreData: (): [boolean, ScoreData] => [false, mockScoreData],
