@@ -29,7 +29,7 @@ const mockClaims: Claim[] = Array(10)
       images: [
         {
           id,
-          link: lorem.generateWords(1),
+          link: "https://factchecker-images.s3.eu-central-1.amazonaws.com/246/513fec43-c4f8-4961-869c-69e7d8cae72c",
           source: lorem.generateWords(2),
           claimId: 0,
         },
