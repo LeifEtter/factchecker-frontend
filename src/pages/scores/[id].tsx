@@ -155,7 +155,7 @@ export default function Scores() {
         className="flex gap-5 flex-wrap max-w-4xl mx-2"
       >
         {scoreData.claimsCreated
-          .slice(0, expandClaims ? -1 : 3)
+          .slice(0, expandClaims ? scoreData.claimsCreated.length + 1 : 3)
           .map((claim) => (
             <SmallClaimCard
               width={"280px"}
