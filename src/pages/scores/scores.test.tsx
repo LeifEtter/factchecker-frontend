@@ -51,7 +51,7 @@ export const mockScoreData = {
 };
 
 jest.mock("../../hooks/useScoreData", () => ({
-  useScoreData: (): ScoreData => mockScoreData,
+  useScoreData: (): [boolean, ScoreData] => [false, mockScoreData],
 }));
 
 const mockUser: User = {
@@ -62,8 +62,21 @@ const mockUser: User = {
   biography: lorem.generateWords(20),
 };
 
+jest.mock("../../hooks/useAuthentication", () => ({
+  useAuthentication: (): [boolean, boolean] => [false, true],
+}));
+
 jest.mock("../../hooks/useUserDetails", () => ({
-  useUserDetails: (): User => mockUser,
+  useUserDetails: (): [boolean, User] => [false, mockUser],
+}));
+
+jest.mock("../../utils/scores", () => ({
+  sendMessage: () => true,
+}));
+
+jest.mock("../../utils/scores", () => ({
+  calculateLevelFromScoreData: () => 100,
+  determineUserTitleFromLevel: () => "Beacon of Truth",
 }));
 
 describe("should test the scores page", () => {
