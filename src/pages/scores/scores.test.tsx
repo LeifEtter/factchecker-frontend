@@ -8,6 +8,7 @@ import {
   calculateLevelFromScoreData,
   determineUserTitleFromLevel,
 } from "../../utils/scores";
+import userEvent from "@testing-library/user-event";
 
 const lorem = new LoremIpsum({
   wordsPerSentence: {
