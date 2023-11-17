@@ -36,7 +36,7 @@ export default function Scores() {
   const [expandStatements, setExpandStatements] = useState<boolean>(false);
 
   const handleMessage = async () => {
-    if (message == "") {
+    if (!message) {
       setSnackbar({
         title: "Message Empty",
         description:
