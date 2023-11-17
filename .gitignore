@@ -42,6 +42,3 @@ next-env.d.ts
 
 .eslintrc.json
 
-/src/pages/scores/scores.test.tsx
-/src/utils/utils.test.ts
-/src/pages/login.test.js
