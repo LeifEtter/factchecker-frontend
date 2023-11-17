@@ -113,6 +113,7 @@ export default function Scores() {
               Joined November 2013
             </p>
             <button
+              data-testid="send-message-button"
               onClick={() => setMessagePopupOpen(true)}
               className="bg-white rounded-xl special-shadow py-1 text-sm font-medium mt-2"
             >

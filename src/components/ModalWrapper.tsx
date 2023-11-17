@@ -7,6 +7,7 @@ interface ModalWrapperProps {
 export const ModalWrapper = (props: ModalWrapperProps) => {
   return (
     <div
+      data-testid="modal-wrapper"
       onClick={() => props.closeModal()}
       className="absolute duration-200 ease-in-out w-full h-full backdrop-blur-sm bg-opacity-10 flex items-center justify-center"
       style={{
