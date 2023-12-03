@@ -11,7 +11,7 @@
 # testing temporary (due to bug)
 /src/pages/login.test.js
 /src/utils/utils.test.ts
-/src/scores/scores.test.tsx
+/src/pages/scores/scores.test.tsx
 
 # next.js
 /.next/
