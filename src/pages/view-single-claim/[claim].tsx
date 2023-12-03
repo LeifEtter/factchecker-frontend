@@ -98,10 +98,13 @@ interface PathParamsClaim {
 }
 
 export async function getStaticPaths() {
+  console.log();
   let res = await fetch(`${API}/claims/`, { method: "GET" });
   if (res.status == 200) {
     res = await res.json();
   }
+
+  console.log(res);
 
   const paths = res["result"].map((claim: Claim): PathParamsClaim => {
     return { params: { claim: claim.id.toString() } };
