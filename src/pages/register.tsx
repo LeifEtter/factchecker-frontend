@@ -20,6 +20,13 @@ export default function Register() {
 
   const [snackbar, setSnackbar] = useState(null);
 
+  const clearAllFields = () => {
+    setName("");
+    setEmail("");
+    setPassword("");
+    setRepeatPassword("");
+  };
+
   const validate = () => {
     if (!name) {
       setNameError("Name is required");
