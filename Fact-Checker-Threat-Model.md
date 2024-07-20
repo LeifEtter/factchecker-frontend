@@ -399,12 +399,15 @@ Methods: Use Password generator to generate strong passwords for EC2 Instance, D
 
 ---
 
-Measure: **Strong Security Protocols**
+Measure: **Strong Security Protocols** (HTTPS, VPC)
 
 Methods:
 
 - Only allow connection to RDS Database from EC2 Instance itself
 - Only open HTTPS port for EC2 hosted Backend (not in testing environment) to provide encrypted communication
+- Backup RDS Database securely
+- IAM Policy
+- Amazon Inspector to Scan EC2
 
 ---
 
@@ -442,3 +445,9 @@ Methods:
 - Use of Password Manager
 - Security Procedures for Logging into AWS Account and Password Manager
 - Being aware of Phishing
+
+---
+
+Methods: Testing
+
+- Using Postman to test routes with different inputs

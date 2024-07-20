@@ -1,11 +1,11 @@
 import { render, screen } from "@testing-library/react";
-import Scores from "./[id]";
-import "@testing-library/jest-dom/";
-import { ScoreData } from "../../hooks/useScoreData";
+import Scores from "../src/pages/scores/[id]";
+import { ScoreData } from "../src/hooks/useScoreData";
 import userEvent from "@testing-library/user-event";
-import { mockScoreData } from "../../mocks/scoreData";
-import { lorem } from "../../mocks/lorem";
-import { mockClaims } from "../../mocks/claims";
+import { mockScoreData } from "../src/mocks/scoreData";
+import { lorem } from "../src/mocks/lorem";
+import { mockClaims } from "../src/mocks/claims";
+import "@testing-library/jest-dom";
 
 jest.mock("next/router", () => ({
   useRouter() {
