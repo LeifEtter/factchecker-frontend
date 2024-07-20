@@ -4,8 +4,11 @@ import { SnackBar, SnackbarType } from "../components/Snackbar";
 import { CustomErrors } from "../types/errors";
 import { isEmail, isPassword } from "../helpers/helpers";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function Register() {
+  const router = useRouter();
+
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState(null);
 
@@ -19,6 +22,13 @@ export default function Register() {
   const [repeatPasswordError, setRepeatPasswordError] = useState(null);
 
   const [snackbar, setSnackbar] = useState(null);
+
+  const clearAllFields = () => {
+    setName("");
+    setEmail("");
+    setPassword("");
+    setRepeatPassword("");
+  };
 
   const validate = () => {
     if (!name) {
@@ -68,6 +78,9 @@ export default function Register() {
       if (body.errorCode == CustomErrors.EmailAlreadyExists) {
         setEmailError("Email Does Already Exist");
       }
+    } else {
+      clearAllFields();
+      router.push({ pathname: "/login", query: { popup: "Login Successful" } });
     }
   };
 
