@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../state/user";
 import { API } from "../assets/constants";
+import { SnackBar, SnackbarType } from "../components/Snackbar";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -15,6 +16,8 @@ export default function Login() {
   const [passwordError, setPasswordError] = useState(null);
 
   const { setUser } = useContext(UserContext);
+
+  const [snackbar, setSnackbar] = useState(null);
 
   const router = useRouter();
 
@@ -56,6 +59,15 @@ export default function Login() {
   };
 
   useEffect(() => {
+    let query: Object = router.query;
+    if (query.hasOwnProperty("popup")) {
+      setSnackbar({
+        title: "Registration Successfull!",
+        description:
+          "You should have received an Email with a link to confirm your registration",
+        type: SnackbarType.SUCCESS,
+      });
+    }
     if (
       process.env.NEXT_PUBLIC_TESTING_EMAIL &&
       process.env.NEXT_PUBLIC_TESTING_PASSWORD
@@ -63,11 +75,12 @@ export default function Login() {
       setEmail(process.env.NEXT_PUBLIC_TESTING_EMAIL);
       setPassword(process.env.NEXT_PUBLIC_TESTING_PASSWORD);
     }
-  }, []);
+  }, [router.query, router.isReady]);
 
   return (
     <>
       <div className="flex flex-col items-center">
+        <SnackBar snackbar={snackbar} setSnackbar={setSnackbar} />
         <div className="flex flex-col gap-2 w-80 mt-48">
           <h1
             className="font-bold text-2xl text-fact-text-medium text-center mb-5"
