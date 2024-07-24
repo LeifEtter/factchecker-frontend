@@ -31,10 +31,16 @@ export const Appbar = ({ path, user }: AppbarParams) => {
       <div className="mt-5 flex justify-between">
         <div className="flex justify-between bg-white rounded-2xl shadow-md float-left gap-5 py-2 px-3">
           <LinkButton path="/" title="Home" isActive={path == "/"} />
+          {user ? (
+            <LinkButton
+              path="/submitted"
+              title="Your Claims"
+              isActive={path == "/submitted"}
+            />
+          ) : (
+            <></>
+          )}
           <LinkButton
-            path="/requests"
-            title="Requests"
-            isActive={path == "/requests"}
           />
         </div>
         <div className="flex-1"></div>

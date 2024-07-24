@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ClaimCardWithImage } from "../components/ClaimCard";
+import { ClaimCardWithImage } from "../components/ClaimCardWithImage";
 import { useRouter } from "next/router";
 import { UserContext } from "../state/user";
 import { API } from "../assets/constants";
+import { ClaimCard } from "../components/ClaimCard";
 
 const Requests: React.FC = () => {
   const router = useRouter();
@@ -14,7 +15,7 @@ const Requests: React.FC = () => {
     if (!sessionUser) {
       router.push("/login");
     } else {
-      fetch(`${API}/claims/requests`, {
+      fetch(`${API}/claims/own`, {
         method: "GET",
         mode: "cors",
         credentials: "include",
@@ -23,7 +24,7 @@ const Requests: React.FC = () => {
         },
       })
         .then((result) => result.json())
-        .then((body) => setOwnClaims(body.result));
+        .then((body) => setOwnClaims(body));
     }
   }, [user, router]);
 
@@ -37,17 +38,13 @@ const Requests: React.FC = () => {
           <h1 className="text-2xl font-medium">Your Submitted Claims</h1>
           <div className="hidden xl:block"></div>
           <div className="hidden md:block"></div>
-          {ownClaims.map((claim) => (
-            <ClaimCardWithImage
-              key={claim.id}
-              images={claim.images}
-              statement={claim.statement}
-              source={claim.source}
-              description={claim.description}
-              onClick={() => {}}
-              userId={1}
-            />
-          ))}
+          {ownClaims.length > 0 ? (
+            ownClaims.map((claim) => (
+              <ClaimCard key={claim.id} claim={claim} onClick={() => {}} />
+            ))
+          ) : (
+            <p>You haven`t submitted any claims yet</p>
+          )}
         </div>
       </div>
     </div>

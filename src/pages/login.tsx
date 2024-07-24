@@ -44,11 +44,13 @@ export default function Login() {
       body: JSON.stringify({ email, password }),
     });
     const body = await loginResult.json();
-
-    if (loginResult.status == 400) {
+    if (loginResult.status != 200) {
       if (body.errorCode == CustomErrors.EmailNotExist) {
         setEmailError("Email Does Not Exist");
-      } else if (body.errorCode == CustomErrors.InvalidPassword) {
+      } else if (
+        body.errorCode == CustomErrors.InvalidPassword ||
+        body.errorCode == CustomErrors.InvalidInput
+      ) {
         setPasswordError("Password Does Not Match");
       }
     } else {
