@@ -1,53 +1,14 @@
-import { useEffect, useState } from "react";
+import { ClaimCardWithImage } from "./ClaimCardWithImage";
+import { ClaimCardWithoutImage } from "./ClaimCardWithoutImage";
 
-import { default as Image } from "next/image";
-import { Indicator } from "./Indicator";
-
-// TODO Implement Claim Card without images
-
-interface ClaimCardWithImageProps {
-  images: ClaimImage[];
-  statement: string;
-  description: string;
-  userId: number;
-  source: string;
+interface ClaimCard {
+  claim: Claim;
   onClick: () => void;
 }
 
-export const ClaimCardWithImage = ({
-  images,
-  statement,
-  description,
-  userId,
-  source,
-  onClick,
-}: ClaimCardWithImageProps) => (
-  <div>
-    <div
-      className="flex flex-col bg-white rounded-2xl special-shadow max-w-sm h-72 overflow-hidden"
-      onClick={onClick}
-    >
-      <div className="absolute z-10 h-10">
-        <Indicator validity={35} />
-      </div>
-      <div className="basis-6/12 w-full flex flex-row">
-        {images.map((image, index) => (
-          <div className="flex-1 relative" key={image + "-container" + index}>
-            <Image
-              priority
-              src={image.link}
-              alt={`${image}-image`}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover"
-            />
-          </div>
-        ))}
-      </div>
-      <div className="basis-7/12 flex flex-col p-3">
-        <h1 className="text-xl font-semibold">{statement}</h1>
-        <p>{description.slice(0, 80) + "..."}</p>
-      </div>
-    </div>
-  </div>
-);
+export const ClaimCard = ({ claim, onClick }) =>
+  claim.images.length > 0 ? (
+    <ClaimCardWithImage claim={claim} onClick={onClick} />
+  ) : (
+    <ClaimCardWithoutImage claim={claim} onClick={onClick} />
+  );
