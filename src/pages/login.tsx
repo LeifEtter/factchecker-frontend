@@ -52,6 +52,13 @@ export default function Login() {
         body.errorCode == CustomErrors.InvalidInput
       ) {
         setPasswordError("Password Does Not Match");
+      } else if (body.error == "Please Verify your email first") {
+        setSnackbar({
+          title: "Verify Email",
+          description:
+            "Before logging in, make sure you have verified your email. Click the link provided in the email sent to you.",
+          type: SnackbarType.ERROR,
+        });
       }
     } else {
       sessionStorage.setItem("user", JSON.stringify(body.user));
