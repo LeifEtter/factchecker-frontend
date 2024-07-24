@@ -4,4 +4,5 @@ interface ClaimComment {
   statement: string;
   user_id: number;
   claim_id: number;
+  claim?: Claim;
 }

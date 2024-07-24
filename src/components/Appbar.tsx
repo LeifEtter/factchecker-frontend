@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import { MouseEventHandler, useContext } from "react";
 import { UserContext } from "../state/user";
 import { API } from "../assets/constants";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 
 interface AppbarParams {
   path: string;
@@ -41,16 +43,25 @@ export const Appbar = ({ path, user }: AppbarParams) => {
             <></>
           )}
           <LinkButton
+            path="/scoreboard"
+            title="Scoreboard"
+            isActive={path == "/scoreboard"}
+          />
+          <LinkButton
+            path="/explore"
+            title="Explore"
+            icon={faSearch}
+            isActive={path == "/explore"}
           />
         </div>
         <div className="flex-1"></div>
-        <Link
+        {/* <Link
           data-testid="view-scores-3-button"
           href="/scores/3"
           className="flex justify-between items-center bg-white rounded-2xl shadow-md float-left gap-2 pl-4 pr-2 py-1 cursor-pointer mr-4"
         >
           View User 3 Scores (Demonstration)
-        </Link>
+        </Link> */}
         <Link
           data-testid={"create-claim-button"}
           href="/create-claim"
@@ -86,6 +97,7 @@ type LinkButtonProps = {
   path: string;
   isActive: boolean;
   testId?: string;
+  icon?: IconDefinition;
 };
 
 const LinkButton = ({
@@ -93,18 +105,24 @@ const LinkButton = ({
   path,
   isActive,
   testId = "",
+  icon,
 }: LinkButtonProps) => {
   return (
     <Link
       data-testid={testId}
       href={path}
-      className="py-1 px-2 rounded-xl font-semibold hover:scale-105 duration-150 ease-in-out"
+      className="py-1 px-2 rounded-xl font-semibold hover:scale-105 duration-150 ease-in-out flex items-center"
       style={{
         backgroundColor: isActive ? "rgb(239, 237, 237)" : "rgba(0,0,0,0)",
         color: isActive ? "black" : "#535353",
       }}
     >
       {title}
+      {icon != null ? (
+        <FontAwesomeIcon className="ml-2" icon={icon} width={18} />
+      ) : (
+        <></>
+      )}
     </Link>
   );
 };

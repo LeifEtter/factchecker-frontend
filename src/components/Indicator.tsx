@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 
 interface IndicatorProps {
   validity: number;
+  fullWidth?: boolean;
 }
 
-export const Indicator = ({ validity }: IndicatorProps) => {
+export const Indicator = ({ validity, fullWidth = false }: IndicatorProps) => {
   const [text, setText] = useState("");
   const [color, setColor] = useState("");
 
@@ -24,9 +25,15 @@ export const Indicator = ({ validity }: IndicatorProps) => {
     }
   }, [validity]);
 
-  return (
+  return fullWidth ? (
     <div
-      className={`${color} text-white py-2 px-3 font-semibold rounded-2xl special-shadow`}
+      className={`${color} text-white py-2 px-3 w-full font-semibold rounded-2xl special-shadow text-center`}
+    >
+      {text}
+    </div>
+  ) : (
+    <div
+      className={`${color} text-white py-2 px-3 font-semibold rounded-2xl special-shadow `}
     >
       {text}
     </div>

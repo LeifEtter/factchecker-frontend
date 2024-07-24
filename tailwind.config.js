@@ -22,6 +22,7 @@ module.exports = {
         "fact-background": "#F6F9FB",
         "fact-red-gr-1": "#FD4B18",
         "fact-red-gr-2": "#FF5F5F",
+        "fact-red-gr-3": "#FF9494",
         "fact-green-gr-1": "#81FBB8",
         "fact-green-gr-2": "#28C76F",
         "fact-gradient-color-1": "#96d6d3",

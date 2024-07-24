@@ -3,7 +3,7 @@ import { API } from "../assets/constants";
 
 export interface ScoreData {
   claimsCreated: Claim[];
-  commentsCreated: Comment[];
+  commentsCreated: ClaimComment[];
   upvotesReceived: number;
   downvotesReceived: number;
 }
@@ -16,7 +16,7 @@ export function useScoreData(userId: string): [boolean, ScoreData] {
     if (userId != null) {
       setIsLoading(true);
       try {
-        fetch(`${API}/users/scores/${userId}`, {
+        fetch(`${API}/users/profile/${userId}`, {
           method: "GET",
           mode: "cors",
           credentials: "include",
@@ -25,7 +25,7 @@ export function useScoreData(userId: string): [boolean, ScoreData] {
           .then((scores) => {
             setScoreData({
               claimsCreated: scores.claimsCreated,
-              commentsCreated: scores.commentsCreated ?? [],
+              commentsCreated: scores.commentsCreated,
               upvotesReceived: scores.upvotesReceived,
               downvotesReceived: scores.downvotesReceived,
             });

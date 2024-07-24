@@ -29,7 +29,7 @@ export const SnackBar = ({ snackbar, setSnackbar }: SnackbarProps) => {
       }
       const timer = setTimeout(() => {
         setSnackbar(null);
-      }, 5000);
+      }, 4000);
       return () => clearTimeout(timer);
     }
   }, [snackbar, setSnackbar]);
