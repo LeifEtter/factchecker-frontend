@@ -5,6 +5,7 @@ import { CustomErrors } from "../types/errors";
 import { isEmail, isPassword } from "../helpers/helpers";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function Register() {
   const router = useRouter();
@@ -138,15 +139,11 @@ export default function Register() {
           >
             Submit
           </button>
-          <button
-            onClick={() => {
-              setSnackbar({
-                title: "Registration Successfull!",
-                description:
-                  "You should have received an Email with a link to confirm your registration",
-                type: SnackbarType.SUCCESS,
-              });
-            }}
+
+          <h1 className="text-center">Already have an account?</h1>
+          <Link
+            href="/login"
+            className="underline text-blue-600 font-semibold text-center"
           >
             Click here to Login
           </Link>
