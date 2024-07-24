@@ -15,13 +15,11 @@ const Profile: React.FC = () => {
 
   useEffect(() => {
     if (user) {
-      fetch(`${API}/users/${user.id}`, {
+      fetch(`${API}/users/profile/${user.id}`, {
         method: "GET",
         mode: "cors",
         credentials: "include",
-      })
-        .then((res) => res.json())
-        .then((res) => console.log(res));
+      }).then((res) => res.json());
     }
   }, [user]);
 

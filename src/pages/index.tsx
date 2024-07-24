@@ -1,7 +1,7 @@
-import { ClaimCardWithImage } from "../components/ClaimCard";
 import { useEffect, useState } from "react";
 import { ClaimViewer } from "../components/ClaimViewer";
 import { API } from "../assets/constants";
+import { ClaimCard } from "../components/ClaimCard";
 
 export default function Home() {
   const [claims, setClaims] = useState([]);
@@ -23,12 +23,15 @@ export default function Home() {
   }, []);
 
   const getAllClaims = async () => {
-    const claimsResult = await fetch(`${API}/claims/`, {
-      method: "GET",
-    });
+    const claimsResult = await fetch(
+      `${API}/claims/query?limit=50&orderBy=comment_amount&category=&orderByDirection=ASC`,
+      {
+        method: "GET",
+      }
+    );
     if (claimsResult.status == 200) {
       const claims = await claimsResult.json();
-      setClaims(claims.result);
+      setClaims(claims);
     }
   };
 
@@ -62,13 +65,9 @@ export default function Home() {
           <div className="hidden xl:block"></div>
           <div className="hidden md:block"></div>
           {claims.map((claim) => (
-            <ClaimCardWithImage
-              images={[]}
-              statement={claim.statement}
-              description={claim.description}
-              source={claim.source}
-              userId={claim.user_id}
+            <ClaimCard
               key={claim.id}
+              claim={claim}
               onClick={() => viewClaim(claim.id)}
             />
           ))}
