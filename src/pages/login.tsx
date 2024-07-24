@@ -43,6 +43,7 @@ export default function Login() {
       },
       body: JSON.stringify({ email, password }),
     });
+
     const body = await loginResult.json();
     if (loginResult.status != 200) {
       if (body.errorCode == CustomErrors.EmailNotExist) {

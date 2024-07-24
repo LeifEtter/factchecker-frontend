@@ -148,8 +148,6 @@ export default function Register() {
               });
             }}
           >
-            Show popup
-          </button>
         </div>
       </div>
     </>
