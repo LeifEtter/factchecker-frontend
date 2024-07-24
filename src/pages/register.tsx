@@ -148,6 +148,8 @@ export default function Register() {
               });
             }}
           >
+            Click here to Login
+          </Link>
         </div>
       </div>
     </>
