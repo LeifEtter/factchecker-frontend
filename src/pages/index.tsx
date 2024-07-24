@@ -23,12 +23,15 @@ export default function Home() {
   }, []);
 
   const getAllClaims = async () => {
-    const claimsResult = await fetch(`${API}/claims/`, {
-      method: "GET",
-    });
+    const claimsResult = await fetch(
+      `${API}/claims/query?limit=50&orderBy=comment_amount&category=&orderByDirection=ASC`,
+      {
+        method: "GET",
+      }
+    );
     if (claimsResult.status == 200) {
       const claims = await claimsResult.json();
-      setClaims(claims.result);
+      setClaims(claims);
     }
   };
 
