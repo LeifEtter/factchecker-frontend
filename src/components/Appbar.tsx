@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import { MouseEventHandler, useContext } from "react";
 import { UserContext } from "../state/user";
 import { API } from "../assets/constants";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 
 interface AppbarParams {
   path: string;
