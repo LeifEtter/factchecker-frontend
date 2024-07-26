@@ -18,8 +18,10 @@ import {
   SnackbarType,
 } from "../../components/Snackbar";
 import { ShowAllToggler } from "../../components/ShowAllToggler";
-import { SmallClaimCard } from "../../components/SmallClaimCard";
+import { SmallClaimCardWithImage } from "../../components/SmallClaimCardWithImage";
 import { PLACEHOLDER_AVATAR, PLACEHOLDER_DATE } from "../../assets/constants";
+import { SmallClaimCardWithoutImage } from "../../components/SmallClaimCardWithoutImage";
+import { ClaimCardHighlightedComment } from "../../components/ClaimCardHighlightedComment";
 
 export default function Scores() {
   const router = useRouter();
@@ -155,16 +157,44 @@ export default function Scores() {
         data-testid="claim-list"
         className="flex gap-5 flex-wrap max-w-4xl mx-2"
       >
-        {scoreData.claimsCreated
-          .slice(0, expandClaims ? scoreData.claimsCreated.length + 1 : 3)
-          .map((claim) => (
-            <SmallClaimCard
-              width={"280px"}
-              key={`claim-card-${claim.id}`}
+        {scoreData.claimsCreated.map((claim) =>
+          claim.images.length > 0 ? (
+            <SmallClaimCardWithImage
               claim={claim}
-              onClick={() => router.push(`/view-single-claim/${claim.id}`)}
+              width="280px"
+              key={claim.id}
+              onClick={() => {}}
             />
-          ))}
+          ) : (
+            <SmallClaimCardWithoutImage
+              claim={claim}
+              width="280px"
+              key={claim.id}
+              onClick={() => {}}
+            />
+          )
+        )}
+      </div>
+      <div className="flex flex-row gap-5 mt-12 w-full max-w-4xl mb-3 px-2">
+        <h1 className="font-bold text-fact-text-medium text-lg">
+          {user.name.split(" ")[0]}s Comments
+        </h1>
+        <ShowAllToggler
+          setShowingAll={setExpandClaims}
+          showingAll={expandClaims}
+        />
+      </div>
+      <div
+        data-testid="comment-list"
+        className="flex gap-5 flex-wrap max-w-4xl mx-2"
+      >
+        {scoreData.commentsCreated.map((comment) => (
+          <ClaimCardHighlightedComment
+            claim={comment.claim}
+            key={comment.id}
+            onClick={() => {}}
+          />
+        ))}
       </div>
       <ModalWrapper
         isOpen={messagePopupOpen}
