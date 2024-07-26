@@ -55,13 +55,6 @@ export const Appbar = ({ path, user }: AppbarParams) => {
           />
         </div>
         <div className="flex-1"></div>
-        {/* <Link
-          data-testid="view-scores-3-button"
-          href="/scores/3"
-          className="flex justify-between items-center bg-white rounded-2xl shadow-md float-left gap-2 pl-4 pr-2 py-1 cursor-pointer mr-4"
-        >
-          View User 3 Scores (Demonstration)
-        </Link> */}
         <Link
           data-testid={"create-claim-button"}
           href="/create-claim"
