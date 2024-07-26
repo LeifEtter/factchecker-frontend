@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ClaimCardWithImage } from "../components/ClaimCardWithImage";
 import { useRouter } from "next/router";
 import { UserContext } from "../state/user";
 import { API } from "../assets/constants";
