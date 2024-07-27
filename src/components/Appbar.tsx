@@ -1,11 +1,11 @@
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { MouseEventHandler, useContext } from "react";
+import { useContext } from "react";
 import { UserContext } from "../state/user";
 import { API } from "../assets/constants";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { LinkButton } from "./appbar/LinkButton";
+import { UserBar } from "./appbar/UserBar";
 
 interface AppbarParams {
   path: string;
@@ -36,7 +36,7 @@ export const Appbar = ({ path, user }: AppbarParams) => {
           {user ? (
             <LinkButton
               path="/submitted"
-              title="Your Claims"
+              title="Submissions"
               isActive={path == "/submitted"}
             />
           ) : (
@@ -58,9 +58,16 @@ export const Appbar = ({ path, user }: AppbarParams) => {
         <Link
           data-testid={"create-claim-button"}
           href="/create-claim"
-          className="fact-gradient font-medium text-white px-5 rounded-2xl special-shadow mr-5 flex items-center hover:scale-105 duration-200 ease-in-out"
+          className="hidden md:flex fact-gradient font-medium text-white px-5 rounded-2xl special-shadow mr-5 items-center hover:scale-105 duration-200 ease-in-out"
         >
           Create Claim
+        </Link>
+        <Link
+          data-testid={"create-claim-button"}
+          href="/create-claim"
+          className="flex md:hidden fact-gradient font-medium text-white px-5 rounded-2xl special-shadow mr-5 items-center hover:scale-105 duration-200 ease-in-out"
+        >
+          +
         </Link>
         <div className="flex justify-between items-center bg-white rounded-2xl shadow-md float-left gap-2 pl-4 pr-2 py-1 cursor-pointer">
           {user ? (
@@ -69,7 +76,8 @@ export const Appbar = ({ path, user }: AppbarParams) => {
                 user={user}
                 avatarClick={() => router.push("/profile")}
                 logout={logout}
-              ></UserBar>
+                collapse={true}
+              />
             </>
           ) : (
             <LinkButton
