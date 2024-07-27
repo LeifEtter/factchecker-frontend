@@ -6,6 +6,7 @@ import "../styles/shadows.css";
 import { Roboto_Mono } from "next/font/google";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { AppbarCollapsed } from "../components/AppbarCollapsed";
 
 const robotoMono = Roboto_Mono({
   subsets: ["latin"],
@@ -53,8 +54,14 @@ export default function App({ Component, pageProps }) {
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <main className={`${robotoMono.className} mb-10`}>
-        <div className="ml-12 mr-12 mt-8">
-          <Appbar path={path} user={user ?? null} />
+        <div className="mx-4 md:mx-12 mt-8">
+          {/* TODO Show Burger Menu beyond certain breakpoint*/}
+          <div className="hidden sm:block">
+            <Appbar path={path} user={user ?? null} />
+          </div>
+          <div className="flex-col w-full sm:hidden">
+            <AppbarCollapsed path={path} user={user} />
+          </div>
         </div>
         <Component {...pageProps} />
       </main>
