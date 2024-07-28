@@ -17,7 +17,6 @@ export const ClaimViewer = ({
   closeClaimViewer,
   claim,
 }: ClaimViewerProps) => {
-  console.log(claim);
   return claimViewerOpen ? (
     <div
       className="z-50 bg-gray-400 bg-opacity-10 backdrop-blur-sm w-full h-full fixed left-0 top-0 flex items-center flex-col"
