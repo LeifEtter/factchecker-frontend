@@ -9,6 +9,7 @@ interface ImageChooserParams {
   setImageChooserData: Function;
   resetImageChooser: Function;
   saveImage: Function;
+  requestSource?: boolean;
 }
 
 export const ImageChooser = ({
@@ -17,6 +18,7 @@ export const ImageChooser = ({
   setImageChooserData,
   resetImageChooser,
   saveImage,
+  requestSource = false,
 }: ImageChooserParams) => {
   const [error, setError] = useState(false);
 
@@ -40,19 +42,24 @@ export const ImageChooser = ({
       <div className="fixed top-0 flex justify-center w-full">
         <div className="flex flex-col items-center fixed z-10 blue-background top-96 p-5 rounded-2xl w-full max-w-sm">
           <h2 className="text-xl font-semibold mb-5">Add Image</h2>
-          <p>Source:</p>
-          <input
-            className="special-shadow bg-white rounded-md py-1 px-2 mt-1 w-full"
-            type="text"
-            value={imageChooserData.source ?? ""}
-            onChange={(e) =>
-              setImageChooserData({
-                ...imageChooserData,
-                source: e.target.value,
-              })
-            }
-          />
-
+          {requestSource ? (
+            <>
+              <p>Source:</p>
+              <input
+                className="special-shadow bg-white rounded-md py-1 px-2 mt-1 w-full"
+                type="text"
+                value={imageChooserData.source ?? ""}
+                onChange={(e) =>
+                  setImageChooserData({
+                    ...imageChooserData,
+                    source: e.target.value,
+                  })
+                }
+              />
+            </>
+          ) : (
+            <></>
+          )}
           {imageChooserData.file != null ? (
             <div className="relative w-full h-36 mt-4 rounded-xl">
               <Image

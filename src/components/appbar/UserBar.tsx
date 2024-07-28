@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { MouseEventHandler } from "react";
+import DefaultAvatar from "../../../assets/default_avatar.jpg";
 
 interface UserBarParams {
   user: User;
@@ -23,7 +24,7 @@ export const UserBar = ({
       )}
       <div className="group relative w-10 h-10" onClick={avatarClick}>
         <Image
-          src={user.avatar}
+          src={user.avatar ?? DefaultAvatar}
           priority
           alt={`avatar-image-appbar`}
           fill
