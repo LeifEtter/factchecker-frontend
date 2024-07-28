@@ -22,6 +22,7 @@ import { SmallClaimCardWithImage } from "../../components/SmallClaimCardWithImag
 import { PLACEHOLDER_AVATAR, PLACEHOLDER_DATE } from "../../assets/constants";
 import { SmallClaimCardWithoutImage } from "../../components/SmallClaimCardWithoutImage";
 import { ClaimCardHighlightedComment } from "../../components/ClaimCardHighlightedComment";
+import DefaultAvatar from "../../../assets/default_avatar.jpg";
 
 export default function Scores() {
   const router = useRouter();
@@ -126,7 +127,7 @@ export default function Scores() {
 
           <div className="flex-1 relative w-32 h-32 rounded-3xl">
             <Image
-              src={user.avatar ?? PLACEHOLDER_AVATAR}
+              src={user.avatar ?? DefaultAvatar}
               alt="user-profile-image"
               data-testid="user-profile-image"
               fill
