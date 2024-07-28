@@ -201,6 +201,7 @@ export default function CreateClaim() {
         </div>
       </main>
       <ImageChooser
+        requestSource={true}
         showModal={showModal}
         imageChooserData={imageChooserData}
         setImageChooserData={setImageChooserData}
