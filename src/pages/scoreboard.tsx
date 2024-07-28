@@ -8,6 +8,7 @@ import {
 import { RankCard } from "../components/cards/RankCard";
 import { UserContext } from "../state/user";
 import { useRouter } from "next/router";
+import DefaultAvatar from "../../assets/default_avatar.jpg";
 
 export default function Scoreboard() {
   const [userScores, setUserScores] = useState([]);
@@ -73,9 +74,7 @@ export default function Scoreboard() {
               rank={index}
               name={userScore["user_name"]}
               scores={userScore}
-              profileImage={
-                "https://factchecker-images.s3.eu-central-1.amazonaws.com/246/513fec43-c4f8-4961-869c-69e7d8cae72c"
-              }
+              profileImage={user.avatar ?? DefaultAvatar}
               backgroundColor={color}
               onClick={() => router.push(`/scores/${userScore["user_id"]}`)}
             />

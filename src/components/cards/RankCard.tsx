@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { ScoreBar } from "../ScoreBar";
 import { calculateLevelFromScoreData } from "../../utils/scores";
 import { ScoreData } from "../../hooks/useScoreData";
@@ -8,7 +8,7 @@ interface RankCardProps {
   name: string;
   userId: number;
   scores: Object;
-  profileImage: string;
+  profileImage: string | StaticImageData;
   backgroundColor: string;
   onClick: Function;
 }
@@ -50,7 +50,7 @@ export const RankCard = ({
               <Image
                 alt={`profile-user-${userId}`}
                 className="object-cover rounded-3xl"
-                src="https://factchecker-images.s3.eu-central-1.amazonaws.com/246/513fec43-c4f8-4961-869c-69e7d8cae72c"
+                src={profileImage}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />

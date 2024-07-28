@@ -81,6 +81,11 @@ export const AppbarCollapsed = ({ path, user }: AppbarCollapsedParams) => {
           <>
             {/* <p>{user.name}</p> */}
             <LinkButton
+              path={`scores/${user.id}`}
+              title="My Stats"
+              isActive={path == `/scores/${user.id}`}
+            />
+            <LinkButton
               path="/profile"
               title="Profile"
               isActive={path == "/profile"}

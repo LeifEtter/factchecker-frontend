@@ -5,6 +5,7 @@ import DefaultAvatar from "../../../assets/default_avatar.jpg";
 interface UserBarParams {
   user: User;
   avatarClick: MouseEventHandler;
+  viewStats: MouseEventHandler;
   logout: MouseEventHandler;
   collapse?: Boolean;
 }
@@ -12,6 +13,7 @@ interface UserBarParams {
 export const UserBar = ({
   user,
   avatarClick,
+  viewStats,
   logout,
   collapse = false,
 }: UserBarParams) => {
@@ -33,6 +35,9 @@ export const UserBar = ({
         />
         <div className="absolute w-32 -ml-12 h-12" />
         <div className="absolute hidden group-hover:flex flex-col special-shadow bg-white mt-12 -ml-20 w-32 rounded-xl py-3 gap-3 [&>*]:duration-300 [&>*]:ease-in-out [&>*]:mx-4 [&>*]:rounded-md">
+          <button className="hover:bg-blue-100 p-1" onClick={viewStats}>
+            My Stats
+          </button>
           <button className="hover:bg-blue-100 p-1" onClick={avatarClick}>
             Profile
           </button>
