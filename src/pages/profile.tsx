@@ -5,115 +5,223 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { UserContext } from "../state/user";
 import { API } from "../assets/constants";
+import { ImageChooser } from "../components/ImageChooser";
+import DefaultAvatar from "../../assets/default_avatar.jpg";
+import { SnackBar, SnackbarType } from "../components/Snackbar";
 
 const Profile: React.FC = () => {
   const router = useRouter();
   const { user, setUser } = useContext(UserContext);
-  const [editingPopupOpen, setEditingPopupOpen] = useState<boolean>(false);
 
-  const chooseNewProfilePic = () => {};
+  const [newBiography, setNewBiography] = useState<string>(null);
+  const [newPassword, setNewPassword] = useState<string>(null);
 
-  useEffect(() => {
-    if (user) {
-      fetch(`${API}/users/profile/${user.id}`, {
-        method: "GET",
-        mode: "cors",
-        credentials: "include",
-      }).then((res) => res.json());
+  const [editingPopupProps, setEditingPopupProps] =
+    useState<EditingPopupProps>(null);
+
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [imageChooserData, setImageChooserData] = useState<ClaimImageFile>({
+    id: null,
+    file: null,
+    source: null,
+  });
+
+  const [snackbar, setSnackbar] = useState(null);
+
+  const saveChanges = async () => {
+    if (imageChooserData.file != null) {
+      uploadAvatar();
     }
-  }, [user]);
+    const result = await fetch(`${API}/users/profile/update`, {
+      method: "PATCH",
+      mode: "cors",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        password: newPassword,
+        biography: newBiography,
+      }),
+    });
+    setSnackbar({
+      title: "Profile Updated!",
+      description:
+        "You should have received an Email with a link to confirm your registration",
+      type: SnackbarType.SUCCESS,
+    });
+  };
+
+  const uploadAvatar = async () => {
+    const form = new FormData();
+    form.append("avatar", imageChooserData.file);
+    const uploadResult = await fetch(`${API}/users/profile/avatar`, {
+      method: "PATCH",
+      credentials: "include",
+      mode: "cors",
+      body: form,
+    });
+  };
+
+  // useEffect(() => {
+  //   if (user) {
+  //     fetch(`${API}/users/profile/${user.id}`, {
+  //       method: "GET",
+  //       mode: "cors",
+  //       credentials: "include",
+  //     }).then((res) => res.json());
+  //   }
+  // }, [user]);
 
   return !user ? (
     <></>
   ) : (
     <>
       <div className="flex flex-col items-center">
+        <SnackBar snackbar={snackbar} setSnackbar={setSnackbar} />
         <div className="flex flex-col gap-2 w-82 mt-20">
           <h1 className="font-bold text-2xl text-fact-text-medium text-center mb-5">
             Your Profile
           </h1>
-          <div className="relative h-56 w-56">
+          <div
+            className="relative h-56 w-56"
+            onClick={() => {
+              setShowModal(true);
+            }}
+          >
             <Image
-              src="https://factchecker-images.s3.eu-central-1.amazonaws.com/246/513fec43-c4f8-4961-869c-69e7d8cae72c"
+              src={
+                imageChooserData.file != null
+                  ? window.URL.createObjectURL(imageChooserData.file)
+                  : user.avatar ?? DefaultAvatar
+              }
               priority
               alt={`avatar-image`}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="absolute object-cover rounded-4xl special-shadow"
             />
-            <div
-              className="cursor-pointer opacity-0 hover:opacity-30 ease-in-out duration-200 absolute border rounded-3xl bg-white h-56 w-56 flex justify-center items-center"
-              onClick={chooseNewProfilePic}
-            >
+            <div className="cursor-pointer opacity-0 hover:opacity-30 ease-in-out duration-200 absolute border rounded-3xl bg-white h-56 w-56 flex justify-center items-center">
               <FontAwesomeIcon icon={faEdit} className="w-10" />
             </div>
           </div>
         </div>
         <h2 className="text-2xl font-bold mt-10">{user.name}</h2>
         <p className="text-md font-medium mt-6 max-w-sm text-center">
-          {user.biography}
+          {newBiography ?? user.biography}
         </p>
         <button
           onClick={() => {
-            setEditingPopupOpen(true);
+            setEditingPopupProps({
+              title: "Edit Biography",
+              value: user.biography,
+              onSubmit: (value: string) => {
+                console.log(value);
+                setEditingPopupProps(null);
+                setNewBiography(value);
+              },
+              isTextField: true,
+              cancel: () => setEditingPopupProps(null),
+            });
           }}
           className="bg-white py-3 rounded-3xl special-shadow mt-10 text-lg font-medium w-60 hover:scale-105"
         >
           Edit Biography
         </button>
-        <button className="bg-white py-3 rounded-3xl special-shadow mt-4 text-lg font-medium w-60 hover:scale-105">
+        <button
+          onClick={() => {
+            setEditingPopupProps({
+              title: "Edit Password",
+              value: "",
+              onSubmit: (value: string) => {
+                setEditingPopupProps(null);
+                setNewPassword(value);
+              },
+              isTextField: false,
+              cancel: () => setEditingPopupProps(null),
+            });
+          }}
+          className="bg-white py-3 rounded-3xl special-shadow mt-4 text-lg font-medium w-60 hover:scale-105"
+        >
           Change Password
         </button>
+        <button
+          onClick={saveChanges}
+          className="fact-gradient text-white py-3 rounded-3xl special-shadow mt-4 text-lg font-medium w-60 hover:scale-105"
+        >
+          Save Changes
+        </button>
       </div>
+
       <div
-        onClick={() => setEditingPopupOpen(false)}
+        onClick={() => setEditingPopupProps(null)}
         className="absolute duration-200 ease-in-out w-full h-full backdrop-blur-sm bg-opacity-10 flex items-center justify-center"
         style={{
-          opacity: editingPopupOpen ? "100%" : "0%",
-          top: editingPopupOpen ? "0px" : "-100%",
+          opacity: editingPopupProps != null ? "100%" : "0%",
+          top: editingPopupProps != null ? "0px" : "-100%",
         }}
       >
-        <EditingPopup
-          title={"Edit Biography"}
-          value={user.biography}
-          isTextField={true}
-          setEditingPopupOpen={setEditingPopupOpen}
-        />
+        <EditingPopup {...editingPopupProps} />
       </div>
+      <ImageChooser
+        showModal={showModal}
+        imageChooserData={imageChooserData}
+        setImageChooserData={setImageChooserData}
+        saveImage={() => {
+          setShowModal(false);
+        }}
+        resetImageChooser={() => {
+          setImageChooserData({ id: null, file: null, source: null });
+          setShowModal(false);
+        }}
+      />
     </>
   );
 };
 
 interface EditingPopupProps {
   title: string;
-  value: string;
+  value?: string;
   isTextField: boolean;
-  setEditingPopupOpen: Function;
+  onSubmit: Function;
+  cancel: Function;
 }
 
-const EditingPopup = ({
-  title,
-  value,
-  isTextField,
-  setEditingPopupOpen,
-}: EditingPopupProps) => {
+const EditingPopup = ({ title, value = "", isTextField, onSubmit, cancel }) => {
+  const [currentValue, setCurrentValue] = useState("");
   return (
     <div
-      className="bg-white special-shadow w-6/12 flex-col p-5 rounded-2xl z-20"
+      className="bg-white special-shadow w10/12 md:w-6/12 flex-col p-5 rounded-2xl z-20"
       onClick={(e) => e.stopPropagation()}
     >
-      <h2>{title}</h2>
+      <h2 className="text-lg font-medium mb-3">{title}</h2>
       {isTextField ? (
         <textarea
-          className="border w-full p-2"
+          className="border-2 rounded-md w-full p-2"
           name="biography"
           rows={3}
-          value={value}
+          defaultValue={value ?? ""}
+          onChange={(e) => setCurrentValue(e.target.value)}
         />
       ) : (
-        <input value={value} />
+        <input
+          onChange={(e) => setCurrentValue(e.target.value)}
+          defaultValue={value}
+          className="p-1 border w-full"
+        />
       )}
-      <button>Save</button>
+      <button
+        className="mt-3 border fact-gradient rounded-xl text-white px-3 py-1"
+        onClick={() => onSubmit(currentValue)}
+      >
+        Save
+      </button>
+      <button
+        className="ml-3 mt-3 border bg-red-500 rounded-xl text-white px-3 py-1"
+        onClick={cancel}
+      >
+        Cancel
+      </button>
     </div>
   );
 };
