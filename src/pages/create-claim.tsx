@@ -92,6 +92,12 @@ export default function CreateClaim() {
       if (result.status == 201) {
         const body = await result.json();
         uploadImage(images, body.result[0].id);
+        setSnackbar({
+          title: "Claim Submitted",
+          description:
+            "Claim was successfully submitted and is ready to be reviewed.",
+          type: SnackbarType.SUCCESS,
+        });
       }
       if (result.status == 400) {
         console.log(await result.json());
