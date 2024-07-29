@@ -3,6 +3,9 @@ import { ClaimViewer } from "../components/ClaimViewer";
 import { API } from "../assets/constants";
 import { ClaimCard } from "../components/ClaimCard";
 
+/**
+ * @returns Page containing claims received from backend
+ */
 export default function Home() {
   const [claims, setClaims] = useState([]);
 

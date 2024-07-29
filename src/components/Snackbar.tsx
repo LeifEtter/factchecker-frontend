@@ -15,6 +15,12 @@ export interface SnackbarProps {
   setSnackbar: Function;
 }
 
+/**
+ * @param snackbar - Snackbar Details Object containing snackbar state, and messages
+ * @param setSnackbar - Callback used to manipulate snackbar state in parent component
+ *
+ * @returns Animated Colored Snackbar with messages that is self removed after certain amount of time
+ */
 export const SnackBar = ({ snackbar, setSnackbar }: SnackbarProps) => {
   const [color, setColor] = useState("white");
 

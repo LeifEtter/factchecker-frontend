@@ -5,6 +5,11 @@ interface SourceButtonParams {
   link: String;
 }
 
+/**
+ * @param link - Text or link containing the source of the claim
+ *
+ * @returns Button Containing Claims Source as a link or text
+ */
 export const SourceButton = ({ link }: SourceButtonParams) => (
   <div className="shadow-md text-blue-500 px-4 py-1 rounded-xl flex flex-row justify-center items-center">
     Source: {link}
@@ -17,6 +22,12 @@ interface TruthFactorLabelParams {
   value: number;
 }
 
+/**
+ * @param label - Text to show, in this case text indicating how true claim is
+ * @param value - Value from 1-100 containing value on how true claim probably is
+ *
+ * @returns Styled label that shows different color depending on value passed
+ */
 export const TruthFactorLabel = ({ label, value }: TruthFactorLabelParams) => (
   <div
     className="ml-5 rounded-xl px-4 py-1"

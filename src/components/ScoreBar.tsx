@@ -12,6 +12,12 @@ interface ScoreBarProps {
   userLevel: number;
 }
 
+/**
+ * @param scoreData - Object containing users contributions, up- and downvotes
+ * @param userLevel - Value representing the users overall level
+ *
+ * @returns Bar containing the users scores and level
+ */
 export const ScoreBar = ({
   scoreData,
   userLevel,

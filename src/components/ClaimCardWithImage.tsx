@@ -8,6 +8,12 @@ interface ClaimCardWithImageProps {
   onClick: () => void;
 }
 
+/**
+ * @param claim - Claim
+ * @param onClick - Callback for when card is clicked
+ *
+ * @returns Claim Card with images
+ */
 export const ClaimCardWithImage = ({
   claim,
   onClick,

@@ -7,6 +7,14 @@ interface SmallClaimCardWithImageProps {
   width?: string;
 }
 
+/**
+ * @param claim - Claim with Images
+ * @param onClick - Callback for when card is clicked
+ * @param width - Width of claim card
+ *
+ * @returns Smaller claim card with images, shown on screens where claim cards
+ * have less available space
+ */
 export const SmallClaimCardWithImage = ({
   claim,
   onClick,

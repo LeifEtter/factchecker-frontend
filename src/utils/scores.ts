@@ -1,6 +1,13 @@
 import { API } from "../assets/constants";
 import { ScoreData } from "../hooks/useScoreData";
 
+/**
+ * Calculates a Level representing total contributions
+ *
+ * @param scoreData - Object containing users contributions, up- and downvotes
+ *
+ * @returns number containing level
+ */
 export const calculateLevelFromScoreData = (scoreData: ScoreData): number => {
   return (
     scoreData.claimsCreated.length * 2 +
@@ -10,6 +17,13 @@ export const calculateLevelFromScoreData = (scoreData: ScoreData): number => {
   );
 };
 
+/**
+ * Takes level and produces an appropriate label
+ *
+ * @param level - Level Representing total Contributions
+ *
+ * @returns Text Label representing user level
+ */
 export const determineUserTitleFromLevel = (level: number): string => {
   if (level < 10) {
     return "Fact Seeker";
@@ -27,6 +41,14 @@ interface SendMessageProps {
   receiverId: string;
 }
 
+/**
+ * Facilitates messaging another user
+ *
+ * @param message - Message to a specific user
+ * @param receiverId - Id of user to receive messsage
+ *
+ * @returns Boolean wether sending of message was successful
+ */
 export const sendMessage = async ({
   message,
   receiverId,

@@ -24,6 +24,9 @@ import { SmallClaimCardWithoutImage } from "../../components/SmallClaimCardWitho
 import { ClaimCardHighlightedComment } from "../../components/ClaimCardHighlightedComment";
 import DefaultAvatar from "../../../assets/default_avatar.jpg";
 
+/**
+ * @returns Page containing specific users details, scores and contributions
+ */
 export default function Scores() {
   const router = useRouter();
   const { id } = router.query;

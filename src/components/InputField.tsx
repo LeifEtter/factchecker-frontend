@@ -8,6 +8,17 @@ export type InputFieldProps = {
   testId: string;
 };
 
+/**
+ * @param value - InputField Value
+ * @param setValue - Callback used to update value change
+ * @param title - Title over input field
+ * @param error - If error string is passed, error message is shown
+ * @param resetError - Callback that removes error message
+ * @param obscure - Boolean deciding wether or not input is obscured; important for sensitive info
+ * @param testId - Test ID
+ *
+ * @returns Simple Styled InputField facilitating custom error messages
+ */
 export const InputField = ({
   value,
   setValue,
@@ -42,6 +53,18 @@ export const InputField = ({
   );
 };
 
+/**
+ * Multiline Styled InputField facilitating custom error messages
+ *
+ * @param testId - Test ID
+ * @param value - InputField Value
+ * @param setValue - Callback used to update value change
+ * @param title - Title over input field
+ * @param error - If error string is passed, error message is shown
+ * @param resetError - Callback that removes error message
+ *
+ * @returns InputFieldMultiline
+ */
 export const InputFieldMultiline = ({
   testId,
   value,

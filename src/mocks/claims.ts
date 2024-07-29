@@ -1,6 +1,7 @@
 import { randomInt } from "crypto";
 import { lorem } from "./lorem";
 
+// Generate Mock Claims | Outdated
 export const mockClaims: Claim[] = Array(10)
   .fill(0)
   .map((_) => {

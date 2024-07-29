@@ -7,6 +7,9 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
+/**
+ * @returns Page containing registration functionality
+ */
 export default function Register() {
   const router = useRouter();
 

@@ -4,6 +4,9 @@ import { UserContext } from "../state/user";
 import { API } from "../assets/constants";
 import { ClaimCard } from "../components/ClaimCard";
 
+/**
+ * @returns Page containing Currently logged in users submitted claims
+ */
 const Requests: React.FC = () => {
   const router = useRouter();
   const { user } = useContext(UserContext);

@@ -6,6 +6,13 @@ interface ClaimCardHighlightedCommentProps {
   width?: string;
 }
 
+/**
+ * @param claim - Claim containing the comments
+ * @param onClick - Callback for when card is clicked
+ * @param width - Width of the card
+ *
+ * @returns Claim Card with the highlighted comment overlayed
+ */
 export const ClaimCardHighlightedComment = ({
   claim,
   onClick,

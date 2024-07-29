@@ -13,6 +13,18 @@ interface RankCardProps {
   onClick: Function;
 }
 
+/**
+ * @param rank - Users rank determined by scores
+ * @param name - Users name
+ * @param userId - Users id
+ * @param scores - Object containing the users contributions, up- and donwvotes
+ * @param profileImage - Users profile image
+ * @param backgroundColor - Cards background color; different colors for ranks 1-3, and 4+
+ * @param onClick - Callback to handle when card is clicked
+ *
+ * @returns Card containing a specific users rank, stats profile image and Name
+ * Used in Scoreboard page
+ */
 export const RankCard = ({
   rank,
   name,

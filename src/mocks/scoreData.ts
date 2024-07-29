@@ -1,5 +1,6 @@
 import { mockClaims } from "./claims";
 
+// Dummy Score Data
 export const mockScoreData = {
   claimsCreated: mockClaims,
   commentsCreated: [],

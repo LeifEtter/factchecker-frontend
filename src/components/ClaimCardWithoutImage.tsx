@@ -10,6 +10,12 @@ interface ClaimCardWithoutImageProps {
   onClick: () => void;
 }
 
+/**
+ * @param claim - Claim
+ * @param onClick - Callback for when card is clicked
+ *
+ * @returns Claim Card with only text
+ */
 export const ClaimCardWithoutImage = ({
   claim,
   onClick,

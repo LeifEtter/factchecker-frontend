@@ -9,6 +9,10 @@ import { ImageChooser } from "../components/ImageChooser";
 import DefaultAvatar from "../../assets/default_avatar.jpg";
 import { SnackBar, SnackbarType } from "../components/Snackbar";
 
+/**
+ * @returns Screen containing the logged in users profile information as well as
+ * the functionality to change avatar, biography, password
+ */
 const Profile: React.FC = () => {
   const router = useRouter();
   const { user, setUser } = useContext(UserContext);

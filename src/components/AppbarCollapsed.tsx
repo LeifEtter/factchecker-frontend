@@ -13,6 +13,12 @@ interface AppbarCollapsedParams {
   user: User;
 }
 
+/**
+ * @param path - Path currently visited
+ * @param user - User currently logged in
+ *
+ * @returns Collapsed version of Appbar, that opens through click on a Burger Menu
+ */
 export const AppbarCollapsed = ({ path, user }: AppbarCollapsedParams) => {
   const [menuOpen, setMenuOpen] = useState<Boolean>(false);
   const router = useRouter();

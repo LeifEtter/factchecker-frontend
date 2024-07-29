@@ -8,6 +8,10 @@ export interface ScoreData {
   downvotesReceived: number;
 }
 
+/**
+ * @param userId current users id
+ * @returns Hook used for getting the currently logged in users scores
+ */
 export function useScoreData(userId: string): [boolean, ScoreData] {
   const [scoreData, setScoreData] = useState<null | ScoreData>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);

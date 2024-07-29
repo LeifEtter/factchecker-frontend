@@ -5,4 +5,7 @@ export interface UserContextType {
   setUser: Function;
 }
 
+/**
+ * Context containing currently logged in users information
+ */
 export const UserContext = createContext<UserContextType | null>(null);
