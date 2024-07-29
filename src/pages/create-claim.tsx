@@ -1,5 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAdd, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAdd,
+  faEdit,
+  faRemove,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { InputField, InputFieldMultiline } from "../components/InputField";
 import { useContext, useEffect, useState } from "react";
 import Image from "next/image";
@@ -30,7 +35,14 @@ export default function CreateClaim() {
     source: null,
   });
 
+  const [categories, setCategories] = useState([]);
+  const [chosenCategories, setChosenCategories] = useState([]);
+
   const { user, setUser } = useContext(UserContext);
+
+  useEffect(() => {
+    initializeCategories();
+  }, []);
 
   const validate = async () => {
     if (title == "") {
@@ -46,9 +58,22 @@ export default function CreateClaim() {
     return true;
   };
 
+  const initializeCategories = async () => {
+    if (categories.length == 0) {
+      const result = await fetch(`${API}/category`, {
+        method: "GET",
+        mode: "cors",
+        credentials: "include",
+      });
+      const body = await result.json();
+      if (result.status == 200) {
+        setCategories(body);
+      }
+    }
+  };
+
   const submitClaim = async () => {
     try {
-      const data = new FormData();
       const result = await fetch(`${API}/claims/create`, {
         method: "POST",
         mode: "cors",
@@ -61,12 +86,18 @@ export default function CreateClaim() {
           description: description,
           user_id: user.id,
           source: source,
+          categories: chosenCategories.map((cat) => cat.name),
         }),
       });
-
       if (result.status == 201) {
         const body = await result.json();
         uploadImage(images, body.result[0].id);
+        setSnackbar({
+          title: "Claim Submitted",
+          description:
+            "Claim was successfully submitted and is ready to be reviewed.",
+          type: SnackbarType.SUCCESS,
+        });
       }
       if (result.status == 400) {
         console.log(await result.json());
@@ -78,10 +109,15 @@ export default function CreateClaim() {
 
   const uploadImage = async (images: ClaimImageFile[], claimId: number) => {
     const data = new FormData();
+    let sources = [];
     for (let image of images) {
-      data.append("images", image.file);
-      data.append("sources", image.source);
+      data.append(image.file.name, image.file);
+      sources.push({
+        fileName: image.file.name,
+        source: image.source,
+      });
     }
+    data.append("sources", JSON.stringify(sources));
 
     const uploadResult = await fetch(
       `${API}/images/upload/multiple/${claimId}`,
@@ -187,7 +223,45 @@ export default function CreateClaim() {
             error={sourceError}
             resetError={() => setSourceError(null)}
           />
-
+          <p>Categories</p>
+          <div className="flex justify-start flex-wrap gap-4">
+            {categories.map((category) => (
+              <div
+                key={`cat-button-${category.id}`}
+                className="p-1 bg-white rounded-md shadow-md cursor-pointer"
+                onClick={() => {
+                  setChosenCategories([...chosenCategories, category]);
+                  const newCats = categories.filter(
+                    (cat) => cat.id != category.id
+                  );
+                  setCategories([...newCats]);
+                }}
+              >
+                {category.name}
+              </div>
+            ))}
+          </div>
+          <p>Chosen Categories</p>
+          <div className="flex justify-start flex-wrap gap-2">
+            {chosenCategories.length == 0
+              ? "-"
+              : chosenCategories.map((category) => (
+                  <div
+                    key={`cat-button-chosen-${category.id}`}
+                    className="bg-white shadow-md rounded-md p-1 cursor-pointer"
+                    onClick={() => {
+                      setCategories([...categories, category]);
+                      const newCats = chosenCategories.filter(
+                        (cat) => cat.id != category.id
+                      );
+                      setChosenCategories([...newCats]);
+                    }}
+                  >
+                    {category.name}
+                    {<FontAwesomeIcon className="ml-1" icon={faRemove} />}
+                  </div>
+                ))}
+          </div>
           <button
             className="special-shadow fact-gradient rounded-xl text-white p-3 w-full"
             onClick={() => {
