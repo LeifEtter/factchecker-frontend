@@ -100,10 +100,15 @@ export default function CreateClaim() {
 
   const uploadImage = async (images: ClaimImageFile[], claimId: number) => {
     const data = new FormData();
+    let sources = [];
     for (let image of images) {
-      data.append("images", image.file);
-      data.append("sources", image.source);
+      data.append(image.file.name, image.file);
+      sources.push({
+        fileName: image.file.name,
+        source: image.source,
+      });
     }
+    data.append("sources", JSON.stringify(sources));
 
     const uploadResult = await fetch(
       `${API}/images/upload/multiple/${claimId}`,
