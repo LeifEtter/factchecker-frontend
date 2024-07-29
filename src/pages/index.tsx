@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ClaimViewer } from "../components/ClaimViewer";
 import { API } from "../assets/constants";
-import { ClaimCard } from "../components/ClaimCard";
+import { ClaimCard } from "../components/cards/ClaimCard";
 
 /**
  * @returns Page containing claims received from backend

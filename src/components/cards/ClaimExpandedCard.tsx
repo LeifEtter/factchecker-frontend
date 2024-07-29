@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { Indicator } from "./Indicator";
-import { SourceButton } from "./Buttons";
+import { Indicator } from "../Indicator";
+import { SourceButton } from "../Buttons";
 
 interface ClaimExpandedProps {
   claim: Claim;

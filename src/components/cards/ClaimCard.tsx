@@ -1,6 +1,5 @@
 import { ClaimCardWithImage } from "./ClaimCardWithImage";
 import { ClaimCardWithoutImage } from "./ClaimCardWithoutImage";
-
 interface ClaimCard {
   claim: Claim;
   onClick: () => void;

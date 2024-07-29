@@ -3,7 +3,7 @@ import { Indicator } from "./Indicator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComments } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import { ClaimExpanded } from "./ClaimExpandedCard";
+import { ClaimExpanded } from "./cards/ClaimExpandedCard";
 import { HighlightCard } from "./HighlightCard";
 
 interface ClaimViewerProps {

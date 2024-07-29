@@ -1,12 +1,12 @@
 import { API } from "../assets/constants";
-import { Appbar } from "../components/Appbar";
+import { Appbar } from "../components/appbar/Appbar";
 import { UserContext } from "../state/user";
 import "../styles/globals.css";
 import "../styles/shadows.css";
 import { Roboto_Mono } from "next/font/google";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { AppbarCollapsed } from "../components/AppbarCollapsed";
+import { AppbarCollapsed } from "../components/appbar/AppbarCollapsed";
 
 const robotoMono = Roboto_Mono({
   subsets: ["latin"],
