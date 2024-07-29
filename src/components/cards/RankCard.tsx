@@ -11,6 +11,7 @@ interface RankCardProps {
   profileImage: string | StaticImageData;
   backgroundColor: string;
   onClick: Function;
+  level: number;
 }
 
 /**
@@ -33,6 +34,7 @@ export const RankCard = ({
   profileImage,
   backgroundColor,
   onClick,
+  level,
 }: RankCardProps) => {
   const scoreData: ScoreData = {
     claimsCreated: scores["claims_created"],
@@ -40,7 +42,7 @@ export const RankCard = ({
     upvotesReceived: scores["upvotesReceived"],
     downvotesReceived: scores["downvotesReceived"],
   };
-  const userLevel = calculateLevelFromScoreData(scoreData);
+
   return (
     <div
       className="w-full h-48 rounded-4xl flex flex-row cursor-pointer shadow-lg p-4"
@@ -69,7 +71,7 @@ export const RankCard = ({
             </div>
           </div>
         </div>
-        <ScoreBar userLevel={userLevel} scoreData={scoreData} />
+        <ScoreBar userLevel={level} scoreData={scoreData} />
       </div>
     </div>
   );
