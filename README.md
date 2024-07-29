@@ -26,8 +26,7 @@ Prerequisites:
 Create File **.env.local** and add this line:
 
 ```javascript
-NEXT_PUBLIC_API_URL =
-  "http://ec2-18-153-69-44.eu-central-1.compute.amazonaws.com:8080";
+NEXT_PUBLIC_API_URL = "https://factchecker-app.com";
 ```
 
 Install All Packages by executing this command inside the project directory:
