@@ -9,6 +9,7 @@ import { RankCard } from "../components/cards/RankCard";
 import { UserContext } from "../state/user";
 import { useRouter } from "next/router";
 import DefaultAvatar from "../../assets/default_avatar.jpg";
+import { calculateLevelFromScoreData } from "../utils/scores";
 
 /**
  * @returns Page containing scores of the best 50 reviewers
@@ -35,7 +36,16 @@ export default function Scoreboard() {
       }
     );
     if (result.status == 200) {
-      const userScores = await result.json();
+      const userScores: Array<any> = await result.json();
+      for (let user of userScores) {
+        user.level = calculateLevelFromScoreData({
+          claimsCreated: user["claims_created"],
+          commentsCreated: user["comments_created"],
+          upvotesReceived: user["upvotesReceived"],
+          downvotesReceived: user["downvotesReceived"],
+        });
+      }
+      userScores.sort((a, b) => b.level - a.level);
       setUserScores(userScores);
     }
   };
@@ -77,9 +87,10 @@ export default function Scoreboard() {
               rank={index}
               name={userScore["user_name"]}
               scores={userScore}
-              profileImage={user.avatar ?? DefaultAvatar}
+              profileImage={userScore.avatar ?? DefaultAvatar}
               backgroundColor={color}
               onClick={() => router.push(`/scores/${userScore["user_id"]}`)}
+              level={userScore.level}
             />
           );
         })}
