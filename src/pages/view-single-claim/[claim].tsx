@@ -1,18 +1,15 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import { faShare } from "@fortawesome/free-solid-svg-icons";
-import { SourceButton, TruthFactorLabel } from "../../components/Buttons";
-import { API } from "../../assets/constants";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import Image from "next/image";
+// import React, { useEffect, useState } from "react";
+// import { faShare } from "@fortawesome/free-solid-svg-icons";
+// import { SourceButton, TruthFactorLabel } from "../../components/Buttons";
+// import { API } from "../../assets/constants";
 
-interface ViewSingleClaimProps {
-  claim: Claim;
-}
+export default function ViewSingleClaim() {}
 
-export default function ViewSingleClaim() {
-  return <></>;
-}
-
+// interface ViewSingleClaimProps {
+//   claim: Claim;
+// }
 /**
  * @returns Page containing single claim to be viewed in-depth as well as comments
  */
