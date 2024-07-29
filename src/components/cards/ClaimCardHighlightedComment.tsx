@@ -1,5 +1,5 @@
 import { default as Image } from "next/image";
-import { Indicator } from "./Indicator";
+import { Indicator } from "../Indicator";
 interface ClaimCardHighlightedCommentProps {
   claim: Claim;
   onClick: Function;

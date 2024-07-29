@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Indicator } from "./Indicator";
+import { Indicator } from "../Indicator";
 
 interface SmallClaimCardWithoutImageProps {
   claim: Claim;

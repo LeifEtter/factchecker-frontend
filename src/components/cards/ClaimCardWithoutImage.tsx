@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { default as Image } from "next/image";
-import { Indicator } from "./Indicator";
+import { Indicator } from "../Indicator";
 
 // TODO Implement Claim Card without images
 
