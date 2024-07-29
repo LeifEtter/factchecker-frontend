@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { UserContext } from "../state/user";
 import { API } from "../assets/constants";
-import { ClaimCard } from "../components/ClaimCard";
+import { ClaimCard } from "../components/cards/ClaimCard";
 
 /**
  * @returns Page containing Currently logged in users submitted claims
