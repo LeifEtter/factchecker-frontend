@@ -30,7 +30,14 @@ export default function CreateClaim() {
     source: null,
   });
 
+  const [categories, setCategories] = useState([]);
+  const [chosenCategories, setChosenCategories] = useState([]);
+
   const { user, setUser } = useContext(UserContext);
+
+  useEffect(() => {
+    initializeCategories();
+  }, []);
 
   const validate = async () => {
     if (title == "") {
@@ -44,6 +51,20 @@ export default function CreateClaim() {
       return false;
     }
     return true;
+  };
+
+  const initializeCategories = async () => {
+    if (categories.length == 0) {
+      const result = await fetch(`${API}/category`, {
+        method: "GET",
+        mode: "cors",
+        credentials: "include",
+      });
+      const body = await result.json();
+      if (result.status == 200) {
+        setCategories(body);
+      }
+    }
   };
 
   const submitClaim = async () => {
@@ -61,6 +82,7 @@ export default function CreateClaim() {
           description: description,
           user_id: user.id,
           source: source,
+          categories: chosenCategories.map((cat) => cat.name),
         }),
       });
 
@@ -188,6 +210,45 @@ export default function CreateClaim() {
             resetError={() => setSourceError(null)}
           />
 
+          <p>Categories</p>
+          <div className="flex justify-start flex-wrap gap-4">
+            {categories.map((category) => (
+              <div
+                key={`cat-button-${category.id}`}
+                className="p-1 bg-white rounded-md shadow-md cursor-pointer"
+                onClick={() => {
+                  setChosenCategories([...chosenCategories, category]);
+                  const newCats = categories.filter(
+                    (cat) => cat.id != category.id
+                  );
+                  setCategories([...newCats]);
+                }}
+              >
+                {category.name}
+              </div>
+            ))}
+          </div>
+          <p>Chosen Categories</p>
+          <div className="flex justify-start flex-wrap gap-2">
+            {chosenCategories.length == 0
+              ? "-"
+              : chosenCategories.map((category) => (
+                  <div
+                    key={`cat-button-chosen-${category.id}`}
+                    className="bg-white shadow-md rounded-md p-1 cursor-pointer"
+                    onClick={() => {
+                      setCategories([...categories, category]);
+                      const newCats = chosenCategories.filter(
+                        (cat) => cat.id != category.id
+                      );
+                      setChosenCategories([...newCats]);
+                    }}
+                  >
+                    {category.name}
+                    {<FontAwesomeIcon className="ml-1" icon={faRemove} />}
+                  </div>
+                ))}
+          </div>
           <button
             className="special-shadow fact-gradient rounded-xl text-white p-3 w-full"
             onClick={() => {
