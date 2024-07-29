@@ -74,7 +74,6 @@ export default function CreateClaim() {
 
   const submitClaim = async () => {
     try {
-      const data = new FormData();
       const result = await fetch(`${API}/claims/create`, {
         method: "POST",
         mode: "cors",
@@ -90,7 +89,6 @@ export default function CreateClaim() {
           categories: chosenCategories.map((cat) => cat.name),
         }),
       });
-
       if (result.status == 201) {
         const body = await result.json();
         uploadImage(images, body.result[0].id);
@@ -219,7 +217,6 @@ export default function CreateClaim() {
             error={sourceError}
             resetError={() => setSourceError(null)}
           />
-
           <p>Categories</p>
           <div className="flex justify-start flex-wrap gap-4">
             {categories.map((category) => (
