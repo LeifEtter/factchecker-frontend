@@ -14,6 +14,9 @@ const robotoMono = Roboto_Mono({
   display: "auto",
 });
 
+/**
+ * @returns Mein App containing logic for user authentication, State Management and Appbar
+ */
 export default function App({ Component, pageProps }) {
   const path = useRouter().pathname;
   const [user, setUser] = useState<User>(null);

@@ -12,6 +12,16 @@ interface ImageChooserParams {
   requestSource?: boolean;
 }
 
+/**
+ * @param showModal - Open/Closed state of imageChooser
+ * @param imageChooserData - Data containing currently selected image, source string and id
+ * @param setImageChooserData - Callback used to mutate imageChooserData
+ * @param resetImageChooser - Callback that resets selections made
+ * @param saveImage - Callback to save selected image
+ * @param requestResource - Boolean deciding wether or not to show an input field asking for an image source
+ *
+ * @returns Image Choosing Overlay used in multiple pages that facilitates file selection, temporary upload etc
+ */
 export const ImageChooser = ({
   showModal,
   imageChooserData,

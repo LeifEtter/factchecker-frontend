@@ -3,6 +3,12 @@ interface ShowAllTogglerProps {
   setShowingAll: Function;
 }
 
+/**
+ * @param showingAll - Boolean indicating wether or not toggler is open
+ * @param setShowingAll - Callback to change open state of toggler
+ *
+ * @returns Toggler either set to open or close
+ */
 export const ShowAllToggler = ({
   showingAll,
   setShowingAll,

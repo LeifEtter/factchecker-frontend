@@ -13,6 +13,9 @@ export default function ViewSingleClaim() {
   return <></>;
 }
 
+/**
+ * @returns Page containing single claim to be viewed in-depth as well as comments
+ */
 // export default function ViewSingleClaim({ claim }: ViewSingleClaimProps) {
 //   const [truthValue, setTruthValue] = React.useState<null | number>(null);
 //   const [truthLabel, setTruthLabel] = React.useState<null | string>(null);

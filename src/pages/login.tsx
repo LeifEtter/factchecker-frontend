@@ -8,6 +8,9 @@ import { UserContext } from "../state/user";
 import { API } from "../assets/constants";
 import { SnackBar, SnackbarType } from "../components/Snackbar";
 
+/**
+ * @returns Page containing login functionality
+ */
 export default function Login() {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(null);

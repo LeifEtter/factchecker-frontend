@@ -10,6 +10,9 @@ import { UserContext } from "../state/user";
 import { useRouter } from "next/router";
 import DefaultAvatar from "../../assets/default_avatar.jpg";
 
+/**
+ * @returns Page containing scores of the best 50 reviewers
+ */
 export default function Scoreboard() {
   const [userScores, setUserScores] = useState([]);
   const { user, setUser } = useContext(UserContext);

@@ -12,6 +12,14 @@ interface ClaimViewerProps {
   claim: Claim;
 }
 
+/**
+ * @param claimViewerOpen - Boolean representing open state of ClaimViewer
+ * @param closeClaimViewer - Callback function that closes the ClaimViewer
+ * @param claim - Claim to be viewed
+ *
+ * @returns Component that overlays over the current page;
+ * Serves to view claims more in-depth, without having to navigate to new page
+ */
 export const ClaimViewer = ({
   claimViewerOpen,
   closeClaimViewer,

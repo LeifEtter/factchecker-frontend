@@ -4,7 +4,13 @@ interface IndicatorProps {
   validity: number;
   fullWidth?: boolean;
 }
-
+/**
+ * @param validity - Value pertaining to the validity of a claim
+ * @param fullWidth - Boolean deciding wether indicator should use fullwidth of parent or not
+ *
+ * @returns Indicator representing likelyhood of claim being True/False;
+ * Reddish colors represent false claims, while greenish colors represent true claims
+ */
 export const Indicator = ({ validity, fullWidth = false }: IndicatorProps) => {
   const [text, setText] = useState("");
   const [color, setColor] = useState("");

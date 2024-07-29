@@ -14,6 +14,9 @@ import { SnackBar, SnackbarType } from "../components/Snackbar";
 import { UserContext } from "../state/user";
 import { API } from "../assets/constants";
 
+/**
+ * @returns Page containing a form to submit claims, providing text and images
+ */
 export default function CreateClaim() {
   const [snackbar, setSnackbar] = useState(null);
 

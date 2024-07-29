@@ -4,6 +4,11 @@ interface ModalWrapperProps {
   closeModal: Function;
 }
 
+/**
+ * @param props - Any Components needed to be wrapped
+ *
+ * @returns ModalWrapper that darkens and blurs background; Used for multiple overlay components
+ */
 export const ModalWrapper = (props: ModalWrapperProps) => {
   return (
     <div

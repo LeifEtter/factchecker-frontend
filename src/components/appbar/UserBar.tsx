@@ -9,7 +9,16 @@ interface UserBarParams {
   logout: MouseEventHandler;
   collapse?: Boolean;
 }
-
+/**
+ * @param user - User currently logged in
+ * @param avatarClick - Callback function called on selecting to navigate to profile
+ * @param viewStats - Callback function, called on selecting to navigate to Stats page
+ * @param logout - Logout Callback
+ * @param collapse - Boolean that tells user bar to hide name if screen is to small
+ *
+ * @returns Appbar Component showing the users name and profile image, and providing
+ * extra navigation to user specific pages
+ */
 export const UserBar = ({
   user,
   avatarClick,

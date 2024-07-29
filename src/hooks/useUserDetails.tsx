@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { API } from "../assets/constants";
 
+/**
+ * @param userId - currently logged in users id
+ *
+ * @returns Hook used for getting currently logged in users user details
+ */
 export function useUserDetails(userId: string): [boolean, User] {
   const [user, setUser] = useState<User>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);

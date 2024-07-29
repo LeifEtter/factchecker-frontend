@@ -10,6 +10,15 @@ type LinkButtonProps = {
   icon?: IconDefinition;
 };
 
+/**
+ * @param title - Name of page to be navigated to
+ * @param path - Path of page to be navigated to
+ * @param isActive - Boolean representing if path if currently being visited
+ * @param testId - Test Id
+ * @param icon - Optional icon that will show next to name of page
+ *
+ * @returns Button used in Appbar to navigate to different pages
+ */
 export const LinkButton = ({
   title,
   path,

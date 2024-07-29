@@ -12,6 +12,12 @@ interface AppbarParams {
   user: User;
 }
 
+/**
+ * @param path - Path currently visited
+ * @param user - User currently logged in
+ *
+ * @returns Appbar containing buttons to navigate to different pages, as well as some user info
+ */
 export const Appbar = ({ path, user }: AppbarParams) => {
   const { setUser } = useContext(UserContext);
 

@@ -6,6 +6,11 @@ interface ClaimExpandedProps {
   claim: Claim;
 }
 
+/**
+ * @param claim - Claim to be displayed
+ *
+ * @returns Expanded Claim Card that shows more information about the claim
+ */
 export const ClaimExpanded = ({ claim }: ClaimExpandedProps) => (
   <div
     onClick={(e) => e.stopPropagation()}

@@ -7,6 +7,14 @@ interface SmallClaimCardWithoutImageProps {
   width?: string;
 }
 
+/**
+ * @param claim - Claim without images
+ * @param onClick - Callback for when card is clicked
+ * @param width - Width of claim card
+ *
+ * @returns Smaller claim card with only Text, shown on screens where claim cards
+ * have less available space
+ */
 export const SmallClaimCardWithoutImage = ({
   claim,
   onClick,
