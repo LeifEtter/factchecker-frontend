@@ -5,6 +5,8 @@
 // import { SourceButton, TruthFactorLabel } from "../../components/Buttons";
 // import { API } from "../../assets/constants";
 
+export default function ViewSingleClaim() {}
+
 // interface ViewSingleClaimProps {
 //   claim: Claim;
 // }
