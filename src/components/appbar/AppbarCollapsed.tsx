@@ -1,12 +1,12 @@
 import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useState } from "react";
-import { LinkButton } from "./appbar/LinkButton";
-import { UserBar } from "./appbar/UserBar";
+import { LinkButton } from "./LinkButton";
+import { UserBar } from "./UserBar";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { API } from "../assets/constants";
-import { UserContext } from "../state/user";
+import { API } from "../../assets/constants";
+import { UserContext } from "../../state/user";
 
 interface AppbarCollapsedParams {
   path: string;
@@ -70,12 +70,12 @@ export const AppbarCollapsed = ({ path, user }: AppbarCollapsedParams) => {
           title="Scoreboard"
           isActive={path == "/scoreboard"}
         />
-        <LinkButton
+        {/* <LinkButton
           path="/explore"
           title="Explore"
           icon={faSearch}
           isActive={path == "/explore"}
-        />
+        /> */}
         <Link
           data-testid={"create-claim-button"}
           href="/create-claim"

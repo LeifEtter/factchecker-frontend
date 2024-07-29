@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext } from "react";
-import { UserContext } from "../state/user";
-import { API } from "../assets/constants";
+import { UserContext } from "../../state/user";
+import { API } from "../../assets/constants";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { LinkButton } from "./appbar/LinkButton";
-import { UserBar } from "./appbar/UserBar";
+import { LinkButton } from "./LinkButton";
+import { UserBar } from "./UserBar";
 
 interface AppbarParams {
   path: string;
@@ -53,12 +53,12 @@ export const Appbar = ({ path, user }: AppbarParams) => {
             title="Scoreboard"
             isActive={path == "/scoreboard"}
           />
-          <LinkButton
+          {/* <LinkButton
             path="/explore"
             title="Explore"
             icon={faSearch}
             isActive={path == "/explore"}
-          />
+          /> */}
         </div>
         <div className="flex-1"></div>
         <Link
@@ -79,7 +79,10 @@ export const Appbar = ({ path, user }: AppbarParams) => {
           {user ? (
             <>
               <UserBar
-                viewStats={() => router.push(`/scores/${user.id}`)}
+                viewStats={() => {
+                  console.log("Viewing Stats");
+                  router.push(`/scores/${user.id}`);
+                }}
                 user={user}
                 avatarClick={() => router.push("/profile")}
                 logout={logout}
