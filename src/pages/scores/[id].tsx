@@ -19,7 +19,7 @@ import {
 } from "../../components/Snackbar";
 import { ShowAllToggler } from "../../components/ShowAllToggler";
 import { SmallClaimCardWithImage } from "../../components/cards/SmallClaimCardWithImage";
-import { PLACEHOLDER_AVATAR, PLACEHOLDER_DATE } from "../../assets/constants";
+import { PLACEHOLDER_DATE } from "../../assets/constants";
 import { SmallClaimCardWithoutImage } from "../../components/cards/SmallClaimCardWithoutImage";
 import { ClaimCardHighlightedComment } from "../../components/cards/ClaimCardHighlightedComment";
 import DefaultAvatar from "../../../assets/default_avatar.jpg";
