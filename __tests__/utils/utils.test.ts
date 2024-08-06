@@ -1,8 +1,8 @@
-import { mockScoreData } from "../src/mocks/scoreData";
+import { mockScoreData } from "../../src/mocks/scoreData";
 import {
   calculateLevelFromScoreData,
   determineUserTitleFromLevel,
-} from "../src/utils/scores";
+} from "../../src/utils/scores";
 
 describe("testing utils", () => {
   it("should test if the right score is shown", () => {

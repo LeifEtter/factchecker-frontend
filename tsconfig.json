@@ -19,7 +19,8 @@
     "**/*.ts",
     "**/*.tsx",
     "cypress/e2e/user-flows.cy.js",
-    "jest"
+    "jest",
+    "__tests__/helpers/helpers.js"
   ],
   "exclude": ["node_modules"]
 }
