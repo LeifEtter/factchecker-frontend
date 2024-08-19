@@ -6,6 +6,7 @@ import { Indicator } from "../Indicator";
 interface ClaimCardWithImageProps {
   claim: Claim;
   onClick: () => void;
+  truthFactor: number;
 }
 
 /**
@@ -17,6 +18,7 @@ interface ClaimCardWithImageProps {
 export const ClaimCardWithImage = ({
   claim,
   onClick,
+  truthFactor,
 }: ClaimCardWithImageProps) => (
   <div>
     <div
@@ -24,7 +26,7 @@ export const ClaimCardWithImage = ({
       onClick={onClick}
     >
       <div className="absolute z-10 h-10">
-        <Indicator validity={35} />
+        <Indicator validity={truthFactor} />
       </div>
       <div className="basis-6/12 w-full flex flex-row">
         {claim.images.map((image, index) => (

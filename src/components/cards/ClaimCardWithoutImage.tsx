@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react";
-
-import { default as Image } from "next/image";
 import { Indicator } from "../Indicator";
 
 // TODO Implement Claim Card without images
@@ -8,6 +5,7 @@ import { Indicator } from "../Indicator";
 interface ClaimCardWithoutImageProps {
   claim: Claim;
   onClick: () => void;
+  truthFactor: number;
 }
 
 /**
@@ -19,6 +17,7 @@ interface ClaimCardWithoutImageProps {
 export const ClaimCardWithoutImage = ({
   claim,
   onClick,
+  truthFactor,
 }: ClaimCardWithoutImageProps) => (
   <div>
     <div
@@ -26,7 +25,7 @@ export const ClaimCardWithoutImage = ({
       onClick={onClick}
     >
       <div className="relative z-10 h-10 w-full">
-        <Indicator validity={35} fullWidth={true} />
+        <Indicator validity={truthFactor} fullWidth={true} />
       </div>
       <div className="basis-7/12 flex flex-col p-3">
         <h1 className="text-xl font-semibold">{claim.statement}</h1>

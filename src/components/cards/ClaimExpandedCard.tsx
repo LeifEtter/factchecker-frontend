@@ -4,6 +4,8 @@ import { SourceButton } from "../Buttons";
 
 interface ClaimExpandedProps {
   claim: Claim;
+  truthFactor: number;
+  viewSource: Function;
 }
 
 /**
@@ -11,7 +13,11 @@ interface ClaimExpandedProps {
  *
  * @returns Expanded Claim Card that shows more information about the claim
  */
-export const ClaimExpanded = ({ claim }: ClaimExpandedProps) => (
+export const ClaimExpanded = ({
+  claim,
+  truthFactor,
+  viewSource,
+}: ClaimExpandedProps) => (
   <div
     onClick={(e) => e.stopPropagation()}
     className="w-10/12 bg-white bg-opacity-100 rounded-3xl shadow-lg p-5 max-w-4xl mt-32"
@@ -19,9 +25,9 @@ export const ClaimExpanded = ({ claim }: ClaimExpandedProps) => (
     <div className="flex justify-between">
       <h1 className="font-bold">Claim</h1>
       <div className="flex-grow"></div>
-      <SourceButton link={claim.source} />
+      <SourceButton link={claim.source} onClick={viewSource} />
       <div className="w-5" />
-      <Indicator validity={35} />
+      <Indicator validity={truthFactor} />
     </div>
     <p className="text-xl mt-2 mb-1">{claim.statement}</p>
     <p>{claim.description}</p>
