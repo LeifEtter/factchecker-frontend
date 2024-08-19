@@ -1,10 +1,9 @@
 interface HighlightCard {
-  claim: Claim;
   comment: ClaimComment;
 }
 
 /**
- * @param claim - Claim being evaluated
+ * @param comment - Comment of Claim being evaluated
  *
  * @returns Card used in ClaimViewer that represents the highlighted comment on why something is False/True
  */

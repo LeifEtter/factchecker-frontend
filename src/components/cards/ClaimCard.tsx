@@ -9,6 +9,7 @@ interface ClaimCard {
 /**
  * @param claim - Claim to be determined
  * @param onClick - Callback for when claim is clicked
+ * @param truthFactor - Number from 0-100 with 0 representing least true, and 100 most true
  *
  * @returns Component that returns ClaimCard with or without image depending if
  * images are contained in the pack or not

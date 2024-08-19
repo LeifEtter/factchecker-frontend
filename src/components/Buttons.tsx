@@ -8,6 +8,7 @@ interface SourceButtonParams {
 
 /**
  * @param link - Text or link containing the source of the claim
+ * @param onClick - Callback for opening Modal view containing source
  *
  * @returns Button Containing Claims Source as a link or text
  */

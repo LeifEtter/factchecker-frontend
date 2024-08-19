@@ -12,6 +12,7 @@ interface ClaimCardWithImageProps {
 /**
  * @param claim - Claim
  * @param onClick - Callback for when card is clicked
+ * @param truthFactor - Number from 0-100 with 0 representing least true, and 100 most true
  *
  * @returns Claim Card with images
  */

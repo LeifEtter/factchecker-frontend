@@ -18,6 +18,7 @@ interface ClaimViewerProps {
  * @param claimViewerOpen - Boolean representing open state of ClaimViewer
  * @param closeClaimViewer - Callback function that closes the ClaimViewer
  * @param claim - Claim to be viewed
+ * @param truthFactor - Number from 0-100 with 0 representing least true, and 100 most true
  *
  * @returns Component that overlays over the current page;
  * Serves to view claims more in-depth, without having to navigate to new page
@@ -41,7 +42,7 @@ export const ClaimViewer = ({
         viewSource={() => setViewingSource(true)}
       />
       {claim.comments && claim.comments.length > 0 ? (
-        <HighlightCard claim={claim} comment={claim.comments[0]} />
+        <HighlightCard comment={claim.comments[0]} />
       ) : (
         <></>
       )}

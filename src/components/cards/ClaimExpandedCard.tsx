@@ -10,6 +10,8 @@ interface ClaimExpandedProps {
 
 /**
  * @param claim - Claim to be displayed
+ * @param truthFactor - Number from 0-100 with 0 representing least true, and 100 most true
+ * @param viewSource - Callback used for opening modal containing claims source
  *
  * @returns Expanded Claim Card that shows more information about the claim
  */

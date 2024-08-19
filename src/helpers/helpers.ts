@@ -41,4 +41,11 @@ export const isPassword = (password: String): boolean => {
 //   }
 // };
 
+/**
+ * Function that evaluates wether a string is a valid url or not
+ *
+ * @param url - string to be evaluated
+ *
+ * @returns Boolean representing wether or not url is valid
+ */
 export const isValidUrl = (url: string) => /^[a-z]+:\/\//i.test(url);
