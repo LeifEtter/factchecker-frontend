@@ -13,7 +13,10 @@ export const ModalWrapper = (props: ModalWrapperProps) => {
   return (
     <div
       data-testid="modal-wrapper"
-      onClick={() => props.closeModal()}
+      onClick={(e) => {
+        e.stopPropagation();
+        props.closeModal();
+      }}
       className="absolute duration-200 ease-in-out w-full h-full backdrop-blur-sm bg-opacity-10 flex items-center justify-center"
       style={{
         opacity: props.isOpen ? "100%" : "0%",
