@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface SourceButtonParams {
   link: String;
+  onClick: Function;
 }
 
 /**
@@ -10,10 +11,12 @@ interface SourceButtonParams {
  *
  * @returns Button Containing Claims Source as a link or text
  */
-export const SourceButton = ({ link }: SourceButtonParams) => (
-  <div className="shadow-md text-blue-500 px-4 py-1 rounded-xl flex flex-row justify-center items-center">
-    Source: {link}
-    {/* <FontAwesomeIcon icon={faShare} className="pl-2 w-5" /> */}
+export const SourceButton = ({ link, onClick }: SourceButtonParams) => (
+  <div
+    className="shadow-md text-blue-500 px-4 py-1 rounded-xl flex flex-row justify-center items-center cursor-pointer hover:scale-110 font-semibold"
+    onClick={() => onClick()}
+  >
+    Source
   </div>
 );
 
