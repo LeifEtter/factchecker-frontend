@@ -1,11 +1,11 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { faCaretRight, faShare } from "@fortawesome/free-solid-svg-icons";
 import { SourceButton, TruthFactorLabel } from "../../components/Buttons";
 import { API } from "../../assets/constants";
 import { CommentCard } from "../../components/cards/CommentCard";
 import { ModalWrapper } from "../../components/ModalWrapper";
+import { isValidUrl } from "../../helpers/helpers";
+import Link from "next/link";
 
 interface ViewSingleClaimProps {
   claim: Claim;
@@ -16,10 +16,6 @@ interface ViewSingleClaimProps {
 export default function ViewSingleClaim({ claim }: ViewSingleClaimProps) {
   const [truthValue, setTruthValue] = React.useState<null | number>(null);
   const [truthLabel, setTruthLabel] = React.useState<null | string>(null);
-
-  useEffect(() => {
-    console.log(claim.comments);
-  }, []);
   const [viewingSource, setViewingSource] = React.useState<boolean>(false);
 
   const calculateTruthFactorFromComments = (comments: ClaimComment[]) => {
@@ -93,7 +89,7 @@ export default function ViewSingleClaim({ claim }: ViewSingleClaimProps) {
           <h1 className="mt-10 mb-6 text-2xl font-bold">Statements</h1>
         ) : null}
         {claim.comments.map((comment) => (
-          <CommentCard comment={comment} />
+          <CommentCard key={`comment-${comment.id}`} comment={comment} />
         ))}
       </div>
       <ModalWrapper

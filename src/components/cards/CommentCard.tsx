@@ -1,7 +1,7 @@
 import { faCaretDown, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface CommentCardProps {
   comment: ClaimComment;
@@ -36,14 +36,14 @@ export const CommentCard = ({ comment }: CommentCardProps) => {
           } flex-col rounded-lg p-3 mt-3`}
         >
           {comment.sources.map((source, index) => (
-            <>
+            <div key={`source-${index}`}>
               <Link
                 className="hover:scale-105 hover:font-semibold p-1 w-full rounded-md"
                 href={source}
               >
                 {source}
               </Link>
-            </>
+            </div>
           ))}
         </div>
       </div>
