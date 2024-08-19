@@ -5,6 +5,7 @@ import { faCaretRight, faShare } from "@fortawesome/free-solid-svg-icons";
 import { SourceButton, TruthFactorLabel } from "../../components/Buttons";
 import { API } from "../../assets/constants";
 import { CommentCard } from "../../components/cards/CommentCard";
+import { ModalWrapper } from "../../components/ModalWrapper";
 
 interface ViewSingleClaimProps {
   claim: Claim;
@@ -19,6 +20,7 @@ export default function ViewSingleClaim({ claim }: ViewSingleClaimProps) {
   useEffect(() => {
     console.log(claim.comments);
   }, []);
+  const [viewingSource, setViewingSource] = React.useState<boolean>(false);
 
   const calculateTruthFactorFromComments = (comments: ClaimComment[]) => {
     if (comments.length == 0) {
@@ -66,7 +68,7 @@ export default function ViewSingleClaim({ claim }: ViewSingleClaimProps) {
               <h2 className="text-xl">{claim.statement}</h2>
             </div>
             <div className="w-3/12 flex flex-row h-8">
-              <SourceButton link={""} />
+              <SourceButton link={""} onClick={() => setViewingSource(true)} />
               <TruthFactorLabel label={truthLabel} value={truthValue} />
             </div>
           </div>
@@ -94,6 +96,16 @@ export default function ViewSingleClaim({ claim }: ViewSingleClaimProps) {
           <CommentCard comment={comment} />
         ))}
       </div>
+      <ModalWrapper
+        isOpen={viewingSource}
+        closeModal={() => setViewingSource(false)}
+      >
+        {isValidUrl(claim.source) ? (
+          <Link href={claim.source}></Link>
+        ) : (
+          <p>Source: {claim.source}</p>
+        )}
+      </ModalWrapper>
     </div>
   );
 }
