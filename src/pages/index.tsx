@@ -7,7 +7,6 @@ import { ClaimCard } from "../components/cards/ClaimCard";
  * @returns Page containing claims received from backend
  */
 export default function Home() {
-  const [claims, setClaims] = useState([]);
   const [claims, setClaims] = useState<Claim[]>([]);
 
   const [claimViewerOpen, setClaimViewerOpen] = useState(false);
