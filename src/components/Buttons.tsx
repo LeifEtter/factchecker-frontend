@@ -33,7 +33,7 @@ interface TruthFactorLabelParams {
  */
 export const TruthFactorLabel = ({ label, value }: TruthFactorLabelParams) => (
   <div
-    className="ml-5 rounded-xl px-4 py-1"
+    className="ml-5 rounded-xl px-4 py-1 font-semibold"
     style={{
       backgroundColor:
         value == null ? "yellow" : value < 50 ? "#FF9494" : "#B1EFA7",
