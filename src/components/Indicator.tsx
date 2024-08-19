@@ -36,13 +36,13 @@ export const Indicator = ({ validity, fullWidth = false }: IndicatorProps) => {
 
   return fullWidth ? (
     <div
-      className={`${color} text-white py-2 px-3 w-full font-semibold rounded-2xl special-shadow text-center`}
+      className={`${color} text-white py-2 px-3 w-full font-semibold rounded-2xl shadow-md text-center`}
     >
       {text}
     </div>
   ) : (
     <div
-      className={`${color} text-white py-2 px-3 font-semibold rounded-2xl special-shadow `}
+      className={`${color} text-white py-2 px-3 font-semibold rounded-2xl shadow-md `}
     >
       {text}
     </div>
