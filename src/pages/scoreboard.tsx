@@ -22,15 +22,15 @@ export default function Scoreboard() {
   const router = useRouter();
 
   useEffect(() => {
-    getAllUserScores();
+    getFirstThreeUserScores();
     if (user) {
       getRequestingUsersScores();
     }
   }, [user]);
 
-  const getAllUserScores = async () => {
+  const getFirstThreeUserScores = async () => {
     const result = await fetch(
-      `${API}/users/scores?orderBy=comments_created&limit=50&skip=0`,
+      `${API}/users/scores?orderBy=comments_created&limit=3&skip=0`,
       {
         method: "GET",
       }
@@ -47,6 +47,29 @@ export default function Scoreboard() {
       }
       userScores.sort((a, b) => b.level - a.level);
       setUserScores(userScores);
+    }
+  };
+
+  const getRestUserScores = async () => {
+    const result = await fetch(
+      `${API}/users/scores?orderBy=comments_created&limit=47&skip=3`,
+      {
+        method: "GET",
+      }
+    );
+    if (result.status == 200) {
+      const newUserScores: Array<any> = await result.json();
+      for (let user of newUserScores) {
+        user.level = calculateLevelFromScoreData({
+          claimsCreated: user["claims_created"],
+          commentsCreated: user["comments_created"],
+          upvotesReceived: user["upvotesReceived"],
+          downvotesReceived: user["downvotesReceived"],
+        });
+      }
+      newUserScores.sort((a, b) => b.level - a.level);
+      newUserScores.unshift(...userScores);
+      setUserScores(newUserScores);
     }
   };
 
@@ -103,7 +126,10 @@ export default function Scoreboard() {
           </div>
         ) : (
           <div
-            onClick={() => setShowingAll(true)}
+            onClick={() => {
+              setShowingAll(true);
+              getRestUserScores();
+            }}
             className="flex justify-center items-center gap-2 cursor-pointer"
           >
             <FontAwesomeIcon icon={faChevronRight} /> Show More
