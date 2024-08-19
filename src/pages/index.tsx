@@ -22,6 +22,15 @@ export default function Home() {
     setClaimViewerOpen(true);
   };
 
+  const calculateTruthFactor = (claim: Claim) => {
+    if (claim.vote_false == 0 && claim.vote_true == 0) {
+      return null;
+    }
+    const outcome =
+      (claim.vote_true / (claim.vote_true + claim.vote_false)) * 100;
+    return outcome;
+  };
+
   useEffect(() => {
     getAllClaims();
   }, []);
