@@ -8,6 +8,7 @@ import { ClaimCard } from "../components/cards/ClaimCard";
  */
 export default function Home() {
   const [claims, setClaims] = useState([]);
+  const [claims, setClaims] = useState<Claim[]>([]);
 
   const [claimViewerOpen, setClaimViewerOpen] = useState(false);
   const [claimBeingViewed, setClaimBeingViewed] = useState(null);
