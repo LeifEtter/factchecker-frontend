@@ -74,6 +74,15 @@ export default function Scores() {
     }
   };
 
+  const calculateTruthFactor = (claim: Claim) => {
+    if (claim.vote_false == 0 && claim.vote_true == 0) {
+      return null;
+    }
+    const outcome =
+      (claim.vote_true / (claim.vote_true + claim.vote_false)) * 100;
+    return outcome;
+  };
+
   useEffect(() => {
     if (isAuthenticated == false) {
       router.push("/login");
@@ -168,6 +177,7 @@ export default function Scores() {
               width="280px"
               key={claim.id}
               onClick={() => {}}
+              truthValue={calculateTruthFactor(claim)}
             />
           ) : (
             <SmallClaimCardWithoutImage
@@ -175,6 +185,7 @@ export default function Scores() {
               width="280px"
               key={claim.id}
               onClick={() => {}}
+              truthValue={calculateTruthFactor(claim)}
             />
           )
         )}
@@ -197,6 +208,7 @@ export default function Scores() {
             claim={comment.claim}
             key={comment.id}
             onClick={() => {}}
+            truthValue={calculateTruthFactor(comment.claim)}
           />
         ))}
       </div>
