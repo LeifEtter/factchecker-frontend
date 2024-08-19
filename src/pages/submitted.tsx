@@ -12,6 +12,15 @@ const Requests: React.FC = () => {
   const { user } = useContext(UserContext);
   const [ownClaims, setOwnClaims] = useState<Claim[]>([]);
 
+  const calculateTruthFactor = (claim: Claim) => {
+    if (claim.vote_false == 0 && claim.vote_true == 0) {
+      return null;
+    }
+    const outcome =
+      (claim.vote_true / (claim.vote_true + claim.vote_false)) * 100;
+    return outcome;
+  };
+
   useEffect(() => {
     const sessionUser: User = JSON.parse(sessionStorage.getItem("user"));
     if (!sessionUser) {
@@ -42,7 +51,12 @@ const Requests: React.FC = () => {
           <div className="hidden md:block"></div>
           {ownClaims.length > 0 ? (
             ownClaims.map((claim) => (
-              <ClaimCard key={claim.id} claim={claim} onClick={() => {}} />
+              <ClaimCard
+                key={claim.id}
+                claim={claim}
+                onClick={() => {}}
+                truthFactor={calculateTruthFactor(claim)}
+              />
             ))
           ) : (
             <p>You haven`t submitted any claims yet</p>
