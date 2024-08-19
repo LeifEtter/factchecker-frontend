@@ -16,7 +16,10 @@ export const Indicator = ({ validity, fullWidth = false }: IndicatorProps) => {
   const [color, setColor] = useState("");
 
   useEffect(() => {
-    if (validity < 30) {
+    if (validity == null) {
+      setText("Undecided");
+      setColor("grey-gradient");
+    } else if (validity < 30) {
       setText("False");
       setColor("red-gradient");
     } else if (validity < 50) {
