@@ -1,16 +1,17 @@
-import Image from "next/image";
-import { Indicator } from "./Indicator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComments } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { ClaimExpanded } from "./cards/ClaimExpandedCard";
 import { HighlightCard } from "./HighlightCard";
 import { ModalWrapper } from "./ModalWrapper";
+import { useState } from "react";
+import { isValidUrl } from "../helpers/helpers";
 
 interface ClaimViewerProps {
   claimViewerOpen: boolean;
   closeClaimViewer: () => void;
   claim: Claim;
+  truthFactor: number;
 }
 
 /**
@@ -25,6 +26,7 @@ export const ClaimViewer = ({
   claimViewerOpen,
   closeClaimViewer,
   claim,
+  truthFactor,
 }: ClaimViewerProps) => {
   const [viewingSource, setViewingSource] = useState(false);
 
@@ -33,8 +35,11 @@ export const ClaimViewer = ({
       className="z-50 bg-gray-400 bg-opacity-10 backdrop-blur-sm w-full h-full fixed left-0 top-0 flex items-center flex-col"
       onClick={closeClaimViewer}
     >
-      <ClaimExpanded claim={claim} />
+      <ClaimExpanded
+        claim={claim}
+        truthFactor={truthFactor}
         viewSource={() => setViewingSource(true)}
+      />
       {claim.comments && claim.comments.length > 0 ? (
         <HighlightCard claim={claim} comment={claim.comments[0]} />
       ) : (
