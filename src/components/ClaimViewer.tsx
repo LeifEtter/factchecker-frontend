@@ -5,6 +5,7 @@ import { faComments } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { ClaimExpanded } from "./cards/ClaimExpandedCard";
 import { HighlightCard } from "./HighlightCard";
+import { ModalWrapper } from "./ModalWrapper";
 
 interface ClaimViewerProps {
   claimViewerOpen: boolean;
@@ -25,12 +26,15 @@ export const ClaimViewer = ({
   closeClaimViewer,
   claim,
 }: ClaimViewerProps) => {
+  const [viewingSource, setViewingSource] = useState(false);
+
   return claimViewerOpen ? (
     <div
       className="z-50 bg-gray-400 bg-opacity-10 backdrop-blur-sm w-full h-full fixed left-0 top-0 flex items-center flex-col"
       onClick={closeClaimViewer}
     >
       <ClaimExpanded claim={claim} />
+        viewSource={() => setViewingSource(true)}
       {claim.comments && claim.comments.length > 0 ? (
         <HighlightCard claim={claim} comment={claim.comments[0]} />
       ) : (
@@ -48,6 +52,16 @@ export const ClaimViewer = ({
           <FontAwesomeIcon icon={faComments} size="1x" className="ml-2" />
         </div>
       </Link>
+      <ModalWrapper
+        isOpen={viewingSource}
+        closeModal={() => setViewingSource(false)}
+      >
+        {isValidUrl(claim.source) ? (
+          <Link href={claim.source}></Link>
+        ) : (
+          <p>Source: {claim.source}</p>
+        )}
+      </ModalWrapper>
     </div>
   ) : (
     <></>
