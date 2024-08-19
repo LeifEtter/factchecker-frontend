@@ -25,6 +25,10 @@
 .green-gradient {
   background: linear-gradient(77.39deg, #6eee87 26.19%, #5fc52e 81.85%);
 }
+
+.grey-gradient {
+  background: linear-gradient(77.39deg, #b8b8b8 26.19%, #c2c2c2 81.85%);
+}
 /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
