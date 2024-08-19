@@ -6,4 +6,6 @@ interface Claim {
   user_name?: string;
   comments?: ClaimComment[];
   images: ClaimImage[];
+  vote_true?: number;
+  vote_false?: number;
 }
