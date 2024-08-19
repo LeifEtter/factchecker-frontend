@@ -40,3 +40,5 @@ export const isPassword = (password: String): boolean => {
 //     return false;
 //   }
 // };
+
+export const isValidUrl = (url: string) => /^[a-z]+:\/\//i.test(url);
