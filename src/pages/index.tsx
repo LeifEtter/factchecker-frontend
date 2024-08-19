@@ -79,13 +79,20 @@ export default function Home() {
           <h1 className="text-2xl font-medium">Posts/Articles</h1>
           <div className="hidden xl:block"></div>
           <div className="hidden md:block"></div>
-          {claims.map((claim) => (
-            <ClaimCard
-              key={claim.id}
-              claim={claim}
-              onClick={() => viewClaim(claim.id)}
-            />
-          ))}
+          {claims.length != 0 ? (
+            claims.map((claim) => {
+              return (
+                <ClaimCard
+                  key={claim.id}
+                  claim={claim}
+                  onClick={() => viewClaim(claim.id)}
+                  truthFactor={calculateTruthFactor(claim)}
+                />
+              );
+            })
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </main>
