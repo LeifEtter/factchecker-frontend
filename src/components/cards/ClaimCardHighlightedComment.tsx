@@ -1,5 +1,6 @@
 import { default as Image } from "next/image";
 import { Indicator } from "../Indicator";
+import { useEffect } from "react";
 interface ClaimCardHighlightedCommentProps {
   claim: Claim;
   onClick: Function;
@@ -28,7 +29,15 @@ export const ClaimCardHighlightedComment = ({
       onClick={() => onClick()}
       style={{ width: width ?? null }}
     >
-      <div className="absolute w-60 bg-fact-red-gr-3 opacity-95 rounded-2xl overflow-hidden line-clamp-4 px-2 py-1 text-sm shadow-lg">
+      <div
+        className={`absolute w-60  opacity-95 rounded-2xl overflow-hidden line-clamp-4 px-2 py-1 text-sm shadow-lg ${
+          truthValue == 50 || truthValue == null || Number.isNaN(truthValue)
+            ? "bg-gray-400"
+            : truthValue > 50
+            ? "bg-fact-green-gr-1"
+            : "bg-fact-red-gr-3"
+        }`}
+      >
         <p>
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
           nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
