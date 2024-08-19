@@ -67,6 +67,9 @@ export default function Home() {
         claimViewerOpen={claimViewerOpen}
         closeClaimViewer={closeClaimViewer}
         claim={claimBeingViewed}
+        truthFactor={
+          claimBeingViewed != null ? calculateTruthFactor(claimBeingViewed) : 0
+        }
       />
       <div className="flex flex-col items-center mt-32">
         <div
