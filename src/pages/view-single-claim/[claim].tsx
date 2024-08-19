@@ -98,6 +98,15 @@ export default function ViewSingleClaim({ claim }: ViewSingleClaimProps) {
             key={`comment-${comment.id}`}
           >
             {comment.statement}
+            <button className="bg-white p-2 pr-3 flex items-center gap-2 mt-3 rounded-lg shadow-md">
+              Sources
+              <FontAwesomeIcon icon={faCaretRight} fontSize={20} />
+            </button>
+            <div className="bg-white">
+              {comment.sources.map((source) => (
+                <p>{source}</p>
+              ))}
+            </div>
           </div>
         ))}
       </div>
