@@ -4,12 +4,14 @@ interface ClaimCardHighlightedCommentProps {
   claim: Claim;
   onClick: Function;
   width?: string;
+  truthValue: number;
 }
 
 /**
  * @param claim - Claim containing the comments
  * @param onClick - Callback for when card is clicked
  * @param width - Width of the card
+ * @param truthFactor - Number from 0-100 with 0 representing least true, and 100 most true
  *
  * @returns Claim Card with the highlighted comment overlayed
  */
@@ -17,6 +19,7 @@ export const ClaimCardHighlightedComment = ({
   claim,
   onClick,
   width,
+  truthValue,
 }: ClaimCardHighlightedCommentProps) => {
   return (
     <div
@@ -36,7 +39,7 @@ export const ClaimCardHighlightedComment = ({
         <div className="flex flex-row justify-between w-full">
           <h1 className="font-bold ">Claim</h1>
           <div className="text-xs w-34 h-10">
-            <Indicator validity={35} />
+            <Indicator validity={truthValue} />
           </div>
         </div>
         <h3 className="font-medium text-xs break-words">{claim.statement}</h3>

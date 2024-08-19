@@ -5,12 +5,14 @@ interface SmallClaimCardWithImageProps {
   claim: Claim;
   onClick: Function;
   width?: string;
+  truthValue: number;
 }
 
 /**
  * @param claim - Claim with Images
  * @param onClick - Callback for when card is clicked
  * @param width - Width of claim card
+ * @param truthFactor - Number from 0-100 with 0 representing least true, and 100 most true
  *
  * @returns Smaller claim card with images, shown on screens where claim cards
  * have less available space
@@ -19,6 +21,7 @@ export const SmallClaimCardWithImage = ({
   claim,
   onClick,
   width,
+  truthValue,
 }: SmallClaimCardWithImageProps) => {
   return (
     <div
@@ -29,7 +32,7 @@ export const SmallClaimCardWithImage = ({
     >
       <div className="flex justify-end">
         <div className="absolute text-xs w-34 h-10">
-          <Indicator validity={35} />
+          <Indicator validity={truthValue} />
         </div>
       </div>
       <div className="flex flex-col justify-between px-3 mt-3">
