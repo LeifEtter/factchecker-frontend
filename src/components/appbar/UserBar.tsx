@@ -1,6 +1,7 @@
 import Image from "next/image";
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, useEffect } from "react";
 import DefaultAvatar from "../../../assets/default_avatar.jpg";
+import { useRouter } from "next/router";
 
 interface UserBarParams {
   user: User;
@@ -26,6 +27,7 @@ export const UserBar = ({
   logout,
   collapse = false,
 }: UserBarParams) => {
+  const router = useRouter();
   return (
     <>
       {collapse ? (
@@ -44,10 +46,22 @@ export const UserBar = ({
         />
         <div className="absolute w-32 -ml-12 h-12" />
         <div className="absolute hidden group-hover:flex flex-col special-shadow bg-white mt-12 -ml-20 w-32 rounded-xl py-3 gap-3 [&>*]:duration-300 [&>*]:ease-in-out [&>*]:mx-4 [&>*]:rounded-md">
-          <button className="hover:bg-blue-100 p-1" onClick={viewStats}>
+          <button
+            className={`hover:bg-blue-100 p-1 ${
+              router.pathname.includes("scores")
+                ? "fact-gradient text-white"
+                : ""
+            }`}
+            onClick={viewStats}
+          >
             My Stats
           </button>
-          <button className="hover:bg-blue-100 p-1" onClick={avatarClick}>
+          <button
+            className={`hover:bg-blue-100 p-1 ${
+              router.pathname == "/profile" ? "fact-gradient text-white" : ""
+            }`}
+            onClick={avatarClick}
+          >
             Profile
           </button>
           <button className="hover:bg-blue-100 p-1" onClick={logout}>
