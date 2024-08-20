@@ -79,10 +79,7 @@ export const Appbar = ({ path, user }: AppbarParams) => {
           {user ? (
             <>
               <UserBar
-                viewStats={() => {
-                  console.log("Viewing Stats");
-                  router.push(`/scores/${user.id}`);
-                }}
+                viewStats={() => router.push(`/scores/${user.id}`)}
                 user={user}
                 avatarClick={() => router.push("/profile")}
                 logout={logout}
