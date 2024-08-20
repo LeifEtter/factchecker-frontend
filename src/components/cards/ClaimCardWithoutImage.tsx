@@ -22,7 +22,7 @@ export const ClaimCardWithoutImage = ({
 }: ClaimCardWithoutImageProps) => (
   <div>
     <div
-      className="flex flex-col bg-white rounded-2xl special-shadow max-w-sm h-72 overflow-hidden"
+      className="flex flex-col bg-white rounded-2xl special-shadow max-w-sm h-72 overflow-hidden cursor-pointer"
       onClick={onClick}
     >
       <div className="relative z-10 h-10 w-full">
