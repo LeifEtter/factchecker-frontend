@@ -53,12 +53,12 @@ export const Appbar = ({ path, user }: AppbarParams) => {
             title="Scoreboard"
             isActive={path == "/scoreboard"}
           />
-          {/* <LinkButton
+          <LinkButton
             path="/explore"
             title="Explore"
             icon={faSearch}
             isActive={path == "/explore"}
-          /> */}
+          />
         </div>
         <div className="flex-1"></div>
         <Link
