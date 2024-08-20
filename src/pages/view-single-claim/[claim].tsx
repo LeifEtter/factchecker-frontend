@@ -6,6 +6,7 @@ import { CommentCard } from "../../components/cards/CommentCard";
 import { ModalWrapper } from "../../components/ModalWrapper";
 import { isValidUrl } from "../../helpers/helpers";
 import Link from "next/link";
+import { Indicator } from "../../components/Indicator";
 
 interface ViewSingleClaimProps {
   claim: Claim;
@@ -14,45 +15,16 @@ interface ViewSingleClaimProps {
  * @returns Page containing single claim to be viewed in-depth as well as comments
  */
 export default function ViewSingleClaim({ claim }: ViewSingleClaimProps) {
-  const [truthValue, setTruthValue] = React.useState<null | number>(null);
-  const [truthLabel, setTruthLabel] = React.useState<null | string>(null);
   const [viewingSource, setViewingSource] = React.useState<boolean>(false);
 
-  const calculateTruthFactorFromComments = (comments: ClaimComment[]) => {
-    if (comments.length == 0) {
+  const calculateTruthFactor = (claim: Claim) => {
+    if (claim.vote_false == 0 && claim.vote_true == 0) {
       return null;
     }
-    const truthValues: number[] = comments.map((comment) =>
-      comment.result ? 100 : 0
-    );
-
-    const totalTruthPoints: number = truthValues.reduce((a, b) => a + b);
-    return totalTruthPoints;
+    const outcome =
+      (claim.vote_true / (claim.vote_true + claim.vote_false)) * 100;
+    return outcome;
   };
-
-  const gradients = {
-    red: "from-fact-red-gr-1 to-fact-red-gr-2",
-    green: "from-fact-green-gr-1 to-fact-green-gr-2",
-  };
-
-  useEffect(() => {
-    const truthFactor: number = calculateTruthFactorFromComments(
-      claim.comments
-    );
-    setTruthValue(truthFactor);
-
-    if (truthFactor == null) {
-      setTruthLabel("Undecided");
-    } else if (truthFactor < 35) {
-      setTruthLabel("False");
-    } else if (truthFactor < 50) {
-      setTruthLabel("Likely False");
-    } else if (truthFactor < 90) {
-      setTruthLabel("Likely True");
-    } else {
-      setTruthLabel("True");
-    }
-  }, [claim.comments]);
 
   return (
     <div className="px-12 flex flex-row justify-center">
@@ -63,9 +35,9 @@ export default function ViewSingleClaim({ claim }: ViewSingleClaimProps) {
             <div className="w-9/12">
               <h2 className="text-xl">{claim.statement}</h2>
             </div>
-            <div className="w-3/12 flex flex-row h-8">
+            <div className="w-3/12 flex flex-row h-10 gap-4">
               <SourceButton link={""} onClick={() => setViewingSource(true)} />
-              <TruthFactorLabel label={truthLabel} value={truthValue} />
+              <Indicator validity={calculateTruthFactor(claim)} />
             </div>
           </div>
           <p className="mt-3">{claim.description}</p>
