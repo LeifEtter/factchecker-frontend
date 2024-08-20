@@ -49,3 +49,13 @@ export const isPassword = (password: String): boolean => {
  * @returns Boolean representing wether or not url is valid
  */
 export const isValidUrl = (url: string) => /^[a-z]+:\/\//i.test(url);
+
+/**
+ * Function that capitalizes first letter of string
+ *
+ * @param word - string to be capitalized
+ *
+ * @returns Capitalized String
+ */
+export const capitalizeString = (word: string) =>
+  word ? word.charAt(0).toUpperCase() + word.substring(1).toLowerCase() : "";
