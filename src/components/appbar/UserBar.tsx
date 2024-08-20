@@ -33,7 +33,7 @@ export const UserBar = ({
       ) : (
         <p>{user.name}</p>
       )}
-      <div className="group relative w-10 h-10" onClick={avatarClick}>
+      <div className="group relative w-10 h-10">
         <Image
           src={user.avatar ?? DefaultAvatar}
           priority
