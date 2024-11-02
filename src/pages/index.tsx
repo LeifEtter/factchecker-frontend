@@ -32,7 +32,9 @@ export default function Home() {
   };
 
   useEffect(() => {
-    getAllClaims();
+    if (claims.length < CLAIMS_SHOWN_AT_ONCE) {
+      getClaimsUsingOffset();
+    }
   }, []);
 
   useEffect(() => {
