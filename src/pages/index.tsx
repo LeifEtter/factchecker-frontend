@@ -4,11 +4,13 @@ import { API } from "../assets/constants";
 import { ClaimCard } from "../components/cards/ClaimCard";
 
 const CLAIMS_SHOWN_AT_ONCE: number = 10;
+
 /**
  * @returns Page containing claims received from backend
  */
 export default function Home() {
   const [claims, setClaims] = useState<Claim[]>([]);
+  const [loadingMoreClaims, setLoadingMoreClaims] = useState(false);
 
   const [claimViewerOpen, setClaimViewerOpen] = useState(false);
   const [claimBeingViewed, setClaimBeingViewed] = useState(null);
@@ -29,6 +31,23 @@ export default function Home() {
     const outcome =
       (claim.vote_true / (claim.vote_true + claim.vote_false)) * 100;
     return outcome;
+  };
+
+  const onScroll = () => {
+    if (!loadingMoreClaims) {
+      let loadingDotsElem = document.querySelector("#loading-dots");
+      let rect = loadingDotsElem.getBoundingClientRect();
+      let rectDistanceFromTop = rect.y;
+      if (rectDistanceFromTop < window.outerHeight) {
+        onReachingPageBottom();
+      }
+    }
+  };
+
+  const onReachingPageBottom = async () => {
+    setLoadingMoreClaims(true);
+    await getClaimsUsingOffset();
+    setLoadingMoreClaims(false);
   };
 
   useEffect(() => {
