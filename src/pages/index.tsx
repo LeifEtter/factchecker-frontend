@@ -35,16 +35,22 @@ export default function Home() {
     getAllClaims();
   }, []);
 
-  const getAllClaims = async () => {
+  useEffect(() => {
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [loadingMoreClaims, claims]);
+
+  const getClaimsUsingOffset = async () => {
     const claimsResult = await fetch(
-      `${API}/claims/query?limit=50&orderBy=comment_amount&category=&orderByDirection=ASC`,
+      `${API}/claims/query?limit=${CLAIMS_SHOWN_AT_ONCE}&skip=${claims.length}&orderBy=comment_amount&category=&orderByDirection=DESC`,
       {
         method: "GET",
       }
     );
     if (claimsResult.status == 200) {
-      const claims = await claimsResult.json();
-      setClaims(claims);
+      const nextClaims = await claimsResult.json();
+      const combinedClaims = [...claims, ...nextClaims];
+      setClaims(combinedClaims);
     }
   };
 
