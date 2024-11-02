@@ -3,6 +3,7 @@ import { ClaimViewer } from "../components/ClaimViewer";
 import { API } from "../assets/constants";
 import { ClaimCard } from "../components/cards/ClaimCard";
 
+const CLAIMS_SHOWN_AT_ONCE: number = 10;
 /**
  * @returns Page containing claims received from backend
  */
