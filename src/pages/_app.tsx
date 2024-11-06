@@ -63,7 +63,7 @@ export default function App({ Component, pageProps }) {
           className={`${
             robotoMono.className
           } pt-6 min-h-screen duration-500 ease-in-out transition-colors ${
-            darkModeActive ? `fact-dark-background` : `bg-white`
+            darkModeActive ? `fact-dark-background` : `bg-gray-100`
           }`}
         >
           <div className="mx-4 md:mx-12">
