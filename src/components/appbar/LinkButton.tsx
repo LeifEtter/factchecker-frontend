@@ -1,6 +1,8 @@
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { useContext } from "react";
+import { UserSettingsContext } from "../../state/settings";
 
 type LinkButtonProps = {
   title: string;
@@ -26,15 +28,22 @@ export const LinkButton = ({
   testId = "",
   icon,
 }: LinkButtonProps) => {
+  const { darkModeActive } = useContext(UserSettingsContext);
+
+  const variants = {
+    lightMode: isActive
+      ? "bg-fact-light-gray text-black"
+      : "bg-none fact-text-light",
+    darkMode: isActive ? "bg-black text-white" : "bg-none text-gray-300",
+  };
+
   return (
     <Link
       data-testid={testId}
       href={path}
-      className="py-1 px-2 rounded-xl font-semibold hover:scale-105 duration-150 ease-in-out flex items-center"
-      style={{
-        backgroundColor: isActive ? "rgb(239, 237, 237)" : "rgba(0,0,0,0)",
-        color: isActive ? "black" : "#535353",
-      }}
+      className={`${
+        darkModeActive ? variants["darkMode"] : variants["lightMode"]
+      } py-1 px-2 rounded-xl font-semibold hover:scale-105 ease-in-out flex items-center transition-colors duration-300`}
     >
       {title}
       {icon != null ? (

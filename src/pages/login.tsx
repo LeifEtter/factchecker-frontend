@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../state/user";
 import { API } from "../assets/constants";
 import { SnackBar, SnackbarType } from "../components/Snackbar";
+import { UserSettingsContext } from "../state/settings";
 
 /**
  * @returns Page containing login functionality
@@ -19,6 +20,7 @@ export default function Login() {
   const [passwordError, setPasswordError] = useState(null);
 
   const { setUser } = useContext(UserContext);
+  const { darkModeActive } = useContext(UserSettingsContext);
 
   const [snackbar, setSnackbar] = useState(null);
 
@@ -92,11 +94,15 @@ export default function Login() {
 
   return (
     <>
-      <div className="flex flex-col items-center">
+      <div
+        className={`${
+          darkModeActive ? "text-gray-300" : "text-fact-text-medium"
+        } flex flex-col items-center`}
+      >
         <SnackBar snackbar={snackbar} setSnackbar={setSnackbar} />
         <div className="flex flex-col gap-2 w-80 mt-48">
           <h1
-            className="font-bold text-2xl text-fact-text-medium text-center mb-5"
+            className="font-bold text-2xl text-center mb-5"
             data-testid="login-title"
           >
             Login
@@ -108,6 +114,7 @@ export default function Login() {
             title="Email"
             error={emailError}
             resetError={() => setEmailError(null)}
+            bgColor={darkModeActive ? "bg-gray-800" : "bg-white"}
           />
           <InputField
             testId={"password-field"}
@@ -116,6 +123,7 @@ export default function Login() {
             title="Password"
             error={passwordError}
             resetError={() => setPasswordError(null)}
+            bgColor={darkModeActive ? "bg-gray-800" : "bg-white"}
             obscure
           />
           <button
@@ -126,7 +134,11 @@ export default function Login() {
                 attemptLogin();
               }
             }}
-            className="bg-white rounded-2xl special-shadow mt-6 p-2 transition-all duration-500 bg-gradient-to-t to-white via-fact-gradient-color-1 from-fact-gradient-color-2 bg-size-200 bg-pos-0 hover:bg-pos-100 hover:text-white"
+            className={`${
+              darkModeActive
+                ? "bg-blue-900 text-white hover:scale-105 duration-150"
+                : "text-black bg-gradient-to-t to-white via-fact-gradient-color-1 from-fact-gradient-color-2 bg-size-200 bg-pos-0 hover:bg-pos-100 hover:text-white duration-500"
+            } rounded-2xl special-shadow mt-6 p-2 transition-all`}
           >
             Submit
           </button>

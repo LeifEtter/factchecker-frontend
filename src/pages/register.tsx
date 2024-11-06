@@ -3,9 +3,10 @@ import { InputField } from "../components/InputField";
 import { SnackBar, SnackbarType } from "../components/Snackbar";
 import { CustomErrors } from "../types/errors";
 import { isEmail, isPassword } from "../helpers/helpers";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { UserSettingsContext } from "../state/settings";
 
 /**
  * @returns Page containing registration functionality
@@ -26,6 +27,8 @@ export default function Register() {
   const [repeatPasswordError, setRepeatPasswordError] = useState(null);
 
   const [snackbar, setSnackbar] = useState(null);
+
+  const { darkModeActive } = useContext(UserSettingsContext);
 
   const clearAllFields = () => {
     setName("");
@@ -90,12 +93,14 @@ export default function Register() {
 
   return (
     <>
-      <div className="flex flex-col items-center">
+      <div
+        className={`${
+          darkModeActive ? "text-gray-300" : "text-fact-text-medium"
+        } flex flex-col items-center`}
+      >
         <SnackBar snackbar={snackbar} setSnackbar={setSnackbar} />
         <div className="flex flex-col gap-2 w-80 mt-48">
-          <h1 className="font-bold text-2xl text-fact-text-medium text-center mb-5">
-            Register
-          </h1>
+          <h1 className="font-bold text-2xl  text-center mb-5">Register</h1>
           <InputField
             testId={"name-field"}
             value={name}
@@ -103,6 +108,7 @@ export default function Register() {
             title="Name"
             error={nameError}
             resetError={() => setNameError(null)}
+            bgColor={darkModeActive ? "bg-gray-800" : "bg-white"}
           />
           <InputField
             testId={"email-field"}
@@ -111,6 +117,7 @@ export default function Register() {
             title="Email"
             error={emailError}
             resetError={() => setEmailError(null)}
+            bgColor={darkModeActive ? "bg-gray-800" : "bg-white"}
           />
           <InputField
             testId={"password-field"}
@@ -119,6 +126,7 @@ export default function Register() {
             title="Password"
             error={passwordError}
             resetError={() => setPasswordError(null)}
+            bgColor={darkModeActive ? "bg-gray-800" : "bg-white"}
             obscure
           />
           <InputField
@@ -128,6 +136,7 @@ export default function Register() {
             title="Repeat Password"
             error={repeatPasswordError}
             resetError={() => setRepeatPasswordError(null)}
+            bgColor={darkModeActive ? "bg-gray-800" : "bg-white"}
             obscure
           />
           <button
@@ -138,7 +147,9 @@ export default function Register() {
               }
               attemptRegistration();
             }}
-            className="bg-white rounded-2xl special-shadow mt-6 p-2"
+            className={`${
+              darkModeActive ? "bg-blue-900" : "bg-white"
+            } rounded-2xl special-shadow mt-6 p-2`}
           >
             Submit
           </button>

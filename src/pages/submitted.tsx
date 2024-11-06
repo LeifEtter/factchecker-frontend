@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { UserContext } from "../state/user";
 import { API } from "../assets/constants";
 import { ClaimCard } from "../components/cards/ClaimCard";
+import { UserSettingsContext } from "../state/settings";
 
 /**
  * @returns Page containing Currently logged in users submitted claims
@@ -10,6 +11,7 @@ import { ClaimCard } from "../components/cards/ClaimCard";
 const Requests: React.FC = () => {
   const router = useRouter();
   const { user } = useContext(UserContext);
+  const { darkModeActive } = useContext(UserSettingsContext);
   const [ownClaims, setOwnClaims] = useState<Claim[]>([]);
 
   const calculateTruthFactor = (claim: Claim) => {
@@ -40,7 +42,7 @@ const Requests: React.FC = () => {
   }, [user, router]);
 
   return (
-    <div>
+    <div className={`${darkModeActive ? "text-gray-200" : "text-black"}`}>
       <div className="flex flex-col items-center mt-32">
         <div
           data-testid="claim-grid"

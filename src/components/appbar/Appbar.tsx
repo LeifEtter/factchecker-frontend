@@ -38,8 +38,12 @@ export const Appbar = ({ path, user }: AppbarParams) => {
 
   return (
     <>
-      <div className="mt-5 flex justify-between">
-        <div className="flex justify-between bg-white rounded-2xl shadow-md float-left gap-5 py-2 px-3">
+      <div className=" flex justify-between">
+        <div
+          className={`flex justify-between ${
+            darkModeActive ? "bg-gray-900 text-white" : "bg-white"
+          } rounded-2xl shadow-md float-left gap-5 py-2 px-3`}
+        >
           <LinkButton path="/" title="Home" isActive={path == "/"} />
           {user ? (
             <LinkButton
@@ -66,18 +70,26 @@ export const Appbar = ({ path, user }: AppbarParams) => {
         <Link
           data-testid={"create-claim-button"}
           href="/create-claim"
-          className="hidden md:flex fact-gradient font-medium text-white px-5 rounded-2xl special-shadow mr-5 items-center hover:scale-105 duration-200 ease-in-out"
+          className={`hidden md:flex ${
+            darkModeActive
+              ? "fact-gradient-dark text-white"
+              : "fact-gradient-light text-green-900 font-extrabold"
+          } transition-colors font-medium px-5 rounded-2xl special-shadow mr-5 items-center hover:scale-105 duration-200 ease-in-out`}
         >
           Create Claim
         </Link>
         <Link
           data-testid={"create-claim-button"}
           href="/create-claim"
-          className="flex md:hidden fact-gradient font-medium text-white px-5 rounded-2xl special-shadow mr-5 items-center hover:scale-105 duration-200 ease-in-out"
+          className="flex md:hidden fact-gradient font-medium px-5 rounded-2xl special-shadow mr-5 items-center hover:scale-105 duration-200 ease-in-out"
         >
           +
         </Link>
-        <div className="flex justify-between items-center bg-white rounded-2xl shadow-md float-left gap-2 pl-4 pr-2 py-1 cursor-pointer">
+        <div
+          className={`${
+            darkModeActive ? "bg-gray-900 text-white" : "bg-white"
+          } flex justify-between place-items-center rounded-2xl shadow-md float-left gap-2 pl-4 pr-2 py-1 cursor-pointer`}
+        >
           {user ? (
             <>
               <UserBar

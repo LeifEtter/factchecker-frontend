@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ClaimViewer } from "../components/ClaimViewer";
 import { API } from "../assets/constants";
 import { ClaimCard } from "../components/cards/ClaimCard";
+import { UserSettingsContext } from "../state/settings";
 
 const CLAIMS_SHOWN_AT_ONCE: number = 10;
 
@@ -11,6 +12,7 @@ const CLAIMS_SHOWN_AT_ONCE: number = 10;
 export default function Home() {
   const [claims, setClaims] = useState<Claim[]>([]);
   const [loadingMoreClaims, setLoadingMoreClaims] = useState(false);
+  const { darkModeActive } = useContext(UserSettingsContext);
 
   const [claimViewerOpen, setClaimViewerOpen] = useState(false);
   const [claimBeingViewed, setClaimBeingViewed] = useState(null);
@@ -104,7 +106,13 @@ export default function Home() {
           data-testid="claim-grid"
           className="inline-grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10"
         >
-          <h1 className="text-2xl font-medium">Posts/Articles</h1>
+          <h1
+            className={`text-2xl font-medium ${
+              darkModeActive ? "text-gray-300" : "text-black"
+            }`}
+          >
+            Posts/Articles
+          </h1>
           <div className="hidden xl:block"></div>
           <div className="hidden md:block"></div>
           {claims.length != 0 ? (

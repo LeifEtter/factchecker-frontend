@@ -2,7 +2,7 @@ import { faShare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface SourceButtonParams {
-  link: String;
+  link: string;
   onClick: Function;
 }
 
@@ -22,7 +22,7 @@ export const SourceButton = ({ link, onClick }: SourceButtonParams) => (
 );
 
 interface TruthFactorLabelParams {
-  label: String;
+  label: string;
   value: number;
 }
 

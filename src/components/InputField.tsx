@@ -6,6 +6,7 @@ export type InputFieldProps = {
   resetError: Function;
   obscure?: boolean;
   testId: string;
+  bgColor: string;
 };
 
 /**
@@ -27,10 +28,11 @@ export const InputField = ({
   resetError,
   obscure,
   testId,
+  bgColor,
 }: InputFieldProps) => {
   return (
     <div className="flex flex-col gap-1">
-      <p className="ml-1 font-semibold text-fact-text-medium">{title}</p>
+      <p className="ml-1 font-semibold">{title}</p>
       <input
         data-testid={testId}
         type={obscure ? "password" : "text"}
@@ -41,7 +43,7 @@ export const InputField = ({
           }
           setValue(e.target.value);
         }}
-        className="bg-white rounded-2xl focus:outline-1 outline-blue-400 py-2 px-4 special-shadow"
+        className={`${bgColor} rounded-2xl focus:outline-1 outline-blue-400 py-2 px-4 special-shadow`}
         style={{
           border: error != null ? "2px solid red" : "none",
         }}
@@ -72,10 +74,11 @@ export const InputFieldMultiline = ({
   title,
   error,
   resetError,
+  bgColor,
 }: InputFieldProps) => {
   return (
     <div className="flex flex-col gap-1">
-      <p className="ml-1 font-semibold text-fact-text-medium">{title}</p>
+      <p className="ml-1 font-semibold">{title}</p>
       <textarea
         data-testid={testId}
         value={value}
@@ -85,7 +88,7 @@ export const InputFieldMultiline = ({
           }
           setValue(e.target.value);
         }}
-        className="bg-white rounded-2xl focus:outline-1 outline-blue-400 py-2 px-4 special-shadow"
+        className={`${bgColor} rounded-2xl focus:outline-1 outline-blue-400 py-2 px-4 special-shadow`}
         style={{
           border: error != null ? "2px solid red" : "none",
         }}

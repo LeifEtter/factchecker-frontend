@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { API } from "../assets/constants";
 import { capitalizeString } from "../helpers/helpers";
 import { ClaimCard } from "../components/cards/ClaimCard";
+import { UserSettingsContext } from "../state/settings";
 
 /**
  * @returns Page containing Explore Options to find different posts and articles
  */
 export default function Explore() {
   const [claims, setClaims] = useState([]);
+  const { darkModeActive } = useContext(UserSettingsContext);
   const allSortingOptions = ["Popularity", "Date Created", "Controversial"];
   const [chosenSortingOption, setChosenSortingOption] = useState(
     allSortingOptions[0]
@@ -95,13 +97,17 @@ export default function Explore() {
   };
 
   return (
-    <main className="px-12">
+    <main
+      className={`${darkModeActive ? "text-gray-200" : "text-black"} px-12`}
+    >
       <div className="flex flex-col flex-wrap md:flex-row w-full mt-12 gap-3">
         <div className="w-3/6">
           <h3>Search</h3>
           <input
             id="search-input"
-            className="w-full max-w-lg h-10 special-shadow rounded-xl border-md px-3 mt-2"
+            className={`${
+              darkModeActive ? "bg-gray-700" : "bg-white"
+            } w-full max-w-lg h-10 special-shadow rounded-xl border-md px-3 mt-2`}
             type="text"
             placeholder="Goldfish have a 7-sec memory..."
             value={searchQuery}
@@ -110,17 +116,27 @@ export default function Explore() {
         </div>
         <div className="w-36 md:1/6 group">
           <h3>Sort By</h3>
-          <button className="bg-white rounded-xl special-shadow h-10 px-3 w-40 mt-2">
+          <button
+            className={`${
+              darkModeActive ? "bg-gray-700" : "bg-white"
+            } rounded-xl special-shadow h-10 px-3 w-40 mt-2`}
+          >
             {chosenSortingOption}
           </button>
           <div className="h-3" />
-          <div className="absolute z-50 hidden group-hover:flex flex-col h-26 w-40 gap-2 p-3 bg-white rounded-xl special-shadow">
+          <div
+            className={`${
+              darkModeActive ? "bg-gray-700" : "bg-white"
+            } absolute z-50 hidden group-hover:flex flex-col h-26 w-40 gap-2 p-3 rounded-xl special-shadow`}
+          >
             {allSortingOptions.map((option) => (
               <button
                 key={`option-${option}`}
                 className={`hover:scale-105 hover:font-semibold rounded-md p-1 ${
                   option == chosenSortingOption
-                    ? "fact-gradient text-white font-semibold"
+                    ? "text-white font-semibold" + darkModeActive
+                      ? "fact-gradient-dark"
+                      : "fact-gradient"
                     : ""
                 }`}
                 onClick={() => {
@@ -141,7 +157,11 @@ export default function Explore() {
                     key={`${cat}-catButton`}
                     className={`px-3 py-1 special-shadow rounded-xl ${
                       categories[cat].active
-                        ? "fact-gradient text-white"
+                        ? "text-white" + darkModeActive
+                          ? "fact-gradient-dark"
+                          : "fact-gradient"
+                        : darkModeActive
+                        ? "bg-gray-700"
                         : "bg-white"
                     }`}
                     onClick={() => {

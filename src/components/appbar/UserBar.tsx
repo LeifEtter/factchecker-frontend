@@ -1,7 +1,8 @@
 import Image from "next/image";
-import { MouseEventHandler, useEffect } from "react";
+import { MouseEventHandler, useContext, useEffect } from "react";
 import DefaultAvatar from "../../../assets/default_avatar.jpg";
 import { useRouter } from "next/router";
+import { UserSettingsContext } from "../../state/settings";
 
 interface UserBarParams {
   user: User;
@@ -28,6 +29,13 @@ export const UserBar = ({
   collapse = false,
 }: UserBarParams) => {
   const router = useRouter();
+  const { darkModeActive } = useContext(UserSettingsContext);
+
+  const hoverStyle = {
+    lightMode: "bg-white hover:bg-blue-100",
+    darkMode: "bg-gray-900 hover:bg-black",
+  };
+
   return (
     <>
       {collapse ? (
@@ -45,11 +53,19 @@ export const UserBar = ({
           className="object-cover rounded-full special-shadow"
         />
         <div className="absolute w-32 -ml-12 h-12" />
-        <div className="absolute hidden group-hover:flex flex-col special-shadow bg-white mt-12 -ml-20 w-32 rounded-xl py-3 gap-3 [&>*]:duration-300 [&>*]:ease-in-out [&>*]:mx-4 [&>*]:rounded-md">
+        <div
+          className={`${
+            darkModeActive ? "bg-gray-900" : "bg-white"
+          } absolute [&>button]:p-1 hidden group-hover:flex flex-col special-shadow mt-12 -ml-20 w-32 rounded-xl py-3 gap-3 [&>*]:duration-300 [&>*]:ease-in-out [&>*]:mx-4 [&>*]:rounded-md`}
+        >
           <button
-            className={`hover:bg-blue-100 p-1 ${
+            className={`${
+              darkModeActive ? hoverStyle["darkMode"] : hoverStyle["lightMode"]
+            } ${
               router.pathname.includes("scores")
-                ? "fact-gradient text-white"
+                ? darkModeActive
+                  ? "fact-gradient-dark text-white"
+                  : "fact-gradient"
                 : ""
             }`}
             onClick={viewStats}
@@ -57,14 +73,25 @@ export const UserBar = ({
             My Stats
           </button>
           <button
-            className={`hover:bg-blue-100 p-1 ${
-              router.pathname == "/profile" ? "fact-gradient text-white" : ""
+            className={`${
+              darkModeActive ? hoverStyle["darkMode"] : hoverStyle["lightMode"]
+            } ${
+              router.pathname == "/profile"
+                ? darkModeActive
+                  ? "fact-gradient-dark text-white"
+                  : "fact-gradient"
+                : ""
             }`}
             onClick={avatarClick}
           >
             Profile
           </button>
-          <button className="hover:bg-blue-100 p-1" onClick={logout}>
+          <button
+            className={
+              darkModeActive ? hoverStyle["darkMode"] : hoverStyle["lightMode"]
+            }
+            onClick={logout}
+          >
             Sign Out
           </button>
         </div>

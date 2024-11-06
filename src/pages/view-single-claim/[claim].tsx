@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { SourceButton, TruthFactorLabel } from "../../components/Buttons";
 import { API } from "../../assets/constants";
 import { CommentCard } from "../../components/cards/CommentCard";
@@ -7,6 +7,7 @@ import { ModalWrapper } from "../../components/ModalWrapper";
 import { isValidUrl } from "../../helpers/helpers";
 import Link from "next/link";
 import { Indicator } from "../../components/Indicator";
+import { UserSettingsContext } from "../../state/settings";
 
 interface ViewSingleClaimProps {
   claim: Claim;
@@ -15,6 +16,8 @@ interface ViewSingleClaimProps {
  * @returns Page containing single claim to be viewed in-depth as well as comments
  */
 export default function ViewSingleClaim({ claim }: ViewSingleClaimProps) {
+  const { darkModeActive } = useContext(UserSettingsContext);
+
   const [viewingSource, setViewingSource] = React.useState<boolean>(false);
 
   const calculateTruthFactor = (claim: Claim) => {
@@ -27,10 +30,18 @@ export default function ViewSingleClaim({ claim }: ViewSingleClaimProps) {
   };
 
   return (
-    <div className="px-12 flex flex-row justify-center">
+    <div
+      className={`${
+        darkModeActive ? "text-gray-300" : "text-fact-medium"
+      } px-12 flex flex-row justify-center`}
+    >
       <div className="max-w-5xl">
         <h1 className="mt-10 mb-6 text-2xl font-bold">Claim</h1>
-        <div className="bg-white rounded-xl shadow-xl px-6 md:px-16 py-10 w-full">
+        <div
+          className={`${
+            darkModeActive ? "bg-gray-800 text-gray-200" : "bg-white"
+          } rounded-xl shadow-xl px-6 md:px-16 py-10 w-full`}
+        >
           <div className="flex flex-row">
             <div className="w-9/12">
               <h2 className="text-xl">{claim.statement}</h2>
@@ -60,9 +71,11 @@ export default function ViewSingleClaim({ claim }: ViewSingleClaimProps) {
         {claim.comments.length >= 1 ? (
           <h1 className="mt-10 mb-6 text-2xl font-bold">Statements</h1>
         ) : null}
-        {claim.comments.map((comment) => (
-          <CommentCard key={`comment-${comment.id}`} comment={comment} />
-        ))}
+        <div className="text-fact-text-medium">
+          {claim.comments.map((comment) => (
+            <CommentCard key={`comment-${comment.id}`} comment={comment} />
+          ))}
+        </div>
       </div>
       <ModalWrapper
         isOpen={viewingSource}

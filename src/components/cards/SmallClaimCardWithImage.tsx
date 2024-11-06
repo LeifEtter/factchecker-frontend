@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { Indicator } from "../Indicator";
+import { useContext } from "react";
+import { UserSettingsContext } from "../../state/settings";
 
 interface SmallClaimCardWithImageProps {
   claim: Claim;
@@ -23,10 +25,14 @@ export const SmallClaimCardWithImage = ({
   width,
   truthValue,
 }: SmallClaimCardWithImageProps) => {
+  const { darkModeActive } = useContext(UserSettingsContext);
+
   return (
     <div
-      className="flex flex-col rounded-2xl bg-white special-shadow h-44
-             max-w-xs cursor-pointer"
+      className={`${
+        darkModeActive ? "bg-gray-800" : "bg-white"
+      } flex flex-col rounded-2xl special-shadow h-44
+             max-w-xs cursor-pointer`}
       onClick={() => onClick()}
       style={{ width: width ?? null }}
     >

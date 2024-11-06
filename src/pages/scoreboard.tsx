@@ -10,6 +10,7 @@ import { UserContext } from "../state/user";
 import { useRouter } from "next/router";
 import DefaultAvatar from "../../assets/default_avatar.jpg";
 import { calculateLevelFromScoreData } from "../utils/scores";
+import { UserSettingsContext } from "../state/settings";
 
 /**
  * @returns Page containing scores of the best 50 reviewers
@@ -17,6 +18,7 @@ import { calculateLevelFromScoreData } from "../utils/scores";
 export default function Scoreboard() {
   const [userScores, setUserScores] = useState([]);
   const { user, setUser } = useContext(UserContext);
+  const { darkModeActive } = useContext(UserSettingsContext);
   const [currentUsersScores, setCurrentUsersScores] = useState([]);
   const [showingAll, setShowingAll] = useState<Boolean>(false);
   const router = useRouter();
@@ -86,7 +88,11 @@ export default function Scoreboard() {
   };
 
   return (
-    <main className="flex flex-col justify-center items-center">
+    <main
+      className={`${
+        darkModeActive ? "text-gray-200" : "text-black"
+      } flex flex-col justify-center items-center`}
+    >
       <h1 className="text-2xl font-medium mt-16 mb-10">Top Reviewers</h1>
       <div className="flex flex-col gap-6 max-w-md w-9/12">
         {userScores.map((userScore, index) => {

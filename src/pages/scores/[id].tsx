@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useScoreData } from "../../hooks/useScoreData";
 import { useRouter } from "next/router";
 import {
@@ -23,6 +23,7 @@ import { PLACEHOLDER_DATE } from "../../assets/constants";
 import { SmallClaimCardWithoutImage } from "../../components/cards/SmallClaimCardWithoutImage";
 import { ClaimCardHighlightedComment } from "../../components/cards/ClaimCardHighlightedComment";
 import DefaultAvatar from "../../../assets/default_avatar.jpg";
+import { UserSettingsContext } from "../../state/settings";
 
 /**
  * @returns Page containing specific users details, scores and contributions
@@ -30,6 +31,7 @@ import DefaultAvatar from "../../../assets/default_avatar.jpg";
 export default function Scores() {
   const router = useRouter();
   const { id } = router.query;
+  const { darkModeActive } = useContext(UserSettingsContext);
   const [scoreDataIsLoading, scoreData] = useScoreData(id as string);
   const [userIsLoading, user] = useUserDetails(id as string);
   const [authIsLoading, isAuthenticated] = useAuthentication();
@@ -105,11 +107,15 @@ export default function Scores() {
   }
 
   return (
-    <div className="flex flex-col items-center">
+    <div
+      className={`${
+        darkModeActive ? "text-gray-200" : "text-fact-text-medium"
+      } flex flex-col items-center`}
+    >
       <SnackBar snackbar={snackbar} setSnackbar={setSnackbar} />
       <h1
         data-testid="user-title"
-        className="text-2xl font-semibold text-fact-text-medium mt-16 mb-6"
+        className="text-2xl font-semibold mt-16 mb-6"
       >
         {userTitle}
       </h1>
@@ -118,20 +124,23 @@ export default function Scores() {
         <div className="flex flex-row gap-5 mt-6">
           <div className="flex-1 flex flex-col justify-center">
             <div>
-              <h1
-                data-testid="user-name"
-                className="text-md font-semibold text-fact-text-medium"
-              >
+              <h1 data-testid="user-name" className="text-md font-semibold">
                 {user.name}
               </h1>
             </div>
-            <p className="text-gray-400 font-medium text-xs">
+            <p
+              className={`${
+                darkModeActive ? "text-gray-400" : "text-gray-400"
+              } font-medium text-xs`}
+            >
               {PLACEHOLDER_DATE}
             </p>
             <button
               data-testid="send-message-button"
               onClick={() => setMessagePopupOpen(true)}
-              className="bg-white rounded-xl special-shadow py-1 text-sm font-medium mt-2"
+              className={`${
+                darkModeActive ? "bg-gray-800" : "bg-white"
+              } rounded-xl special-shadow py-1 text-sm font-medium mt-2`}
             >
               Send a DM
             </button>
@@ -149,18 +158,13 @@ export default function Scores() {
             />
           </div>
         </div>
-        <p
-          data-testid="user-biography"
-          className="font-medium text-fact-text-light text-sm mt-3"
-        >
+        <p data-testid="user-biography" className="font-medium text-sm mt-3">
           {user.biography}
         </p>
       </div>
 
       <div className="flex flex-row gap-5 mt-12 w-full max-w-4xl mb-3 px-2">
-        <h1 className="font-bold text-fact-text-medium text-lg">
-          {user.name.split(" ")[0]}s Claims
-        </h1>
+        <h1 className="font-bold text-lg">{user.name.split(" ")[0]}s Claims</h1>
         <ShowAllToggler
           setShowingAll={setExpandClaims}
           showingAll={expandClaims}
@@ -191,7 +195,7 @@ export default function Scores() {
         )}
       </div>
       <div className="flex flex-row gap-5 mt-12 w-full max-w-4xl mb-3 px-2">
-        <h1 className="font-bold text-fact-text-medium text-lg">
+        <h1 className="font-bold text-lg">
           {user.name.split(" ")[0]}s Comments
         </h1>
         <ShowAllToggler

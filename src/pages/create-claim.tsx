@@ -13,11 +13,14 @@ import { v4 as uuidv4 } from "uuid";
 import { SnackBar, SnackbarType } from "../components/Snackbar";
 import { UserContext } from "../state/user";
 import { API } from "../assets/constants";
+import { UserSettingsContext } from "../state/settings";
 
 /**
  * @returns Page containing a form to submit claims, providing text and images
  */
 export default function CreateClaim() {
+  const { darkModeActive } = useContext(UserSettingsContext);
+
   const [snackbar, setSnackbar] = useState(null);
 
   const [title, setTitle] = useState("");
@@ -136,9 +139,13 @@ export default function CreateClaim() {
 
   return (
     <>
-      <main className="flex justify-center">
+      <main
+        className={`${
+          darkModeActive ? "text-gray-200" : "text-fact-text-medium"
+        } flex justify-center`}
+      >
         <div className="w-11/12 max-w-md flex flex-col gap-3">
-          <h1 className="font-bold text-2xl text-fact-text-medium text-center mb-5 mt-24">
+          <h1 className="font-bold text-2xl  text-center mb-5 mt-24">
             Create Claim
           </h1>
           <InputField
@@ -148,6 +155,7 @@ export default function CreateClaim() {
             title="Claim"
             error={titleError}
             resetError={() => setTitleError(null)}
+            bgColor={darkModeActive ? "bg-gray-700" : "bg-white"}
           />
           <InputFieldMultiline
             testId={"description-input"}
@@ -156,15 +164,14 @@ export default function CreateClaim() {
             title="Description"
             error={descriptionError}
             resetError={() => setDescriptionError(null)}
+            bgColor={darkModeActive ? "bg-gray-700" : "bg-white"}
           />
           <div>
-            <p className="ml-1 font-semibold text-fact-text-medium mt-2">
-              Images
-            </p>
+            <p className="ml-1 font-semibold mt-2">Images</p>
             <div className="flex items-center gap-5">
               {images.map((image, i) => (
                 <div
-                  className="relative w-48 h-48 bg-white rounded-2xl special-shadow"
+                  className="relative w-48 h-48 bg-white text-fact-text-medium rounded-2xl special-shadow"
                   key={`image-div-${i}`}
                 >
                   <Image
@@ -197,7 +204,9 @@ export default function CreateClaim() {
                 </div>
               ))}
               <button
-                className="flex items-center justify-center mt-2 p-2 bg-white rounded-2xl special-shadow"
+                className={`${
+                  darkModeActive ? "bg-gray-800" : "bg-white"
+                } flex items-center justify-center mt-2 p-2 rounded-2xl special-shadow`}
                 onClick={() => {
                   if (images.length >= 3) {
                     setSnackbar({
@@ -225,13 +234,16 @@ export default function CreateClaim() {
             title="Source"
             error={sourceError}
             resetError={() => setSourceError(null)}
+            bgColor={darkModeActive ? "bg-gray-700" : "bg-white"}
           />
           <p>Categories</p>
           <div className="flex justify-start flex-wrap gap-4">
             {categories.map((category) => (
               <div
                 key={`cat-button-${category.id}`}
-                className="p-1 bg-white rounded-md shadow-md cursor-pointer"
+                className={`${
+                  darkModeActive ? "bg-gray-700" : "bg-white"
+                } p-1 rounded-md shadow-md cursor-pointer`}
                 onClick={() => {
                   setChosenCategories([...chosenCategories, category]);
                   const newCats = categories.filter(
@@ -251,7 +263,9 @@ export default function CreateClaim() {
               : chosenCategories.map((category) => (
                   <div
                     key={`cat-button-chosen-${category.id}`}
-                    className="bg-white shadow-md rounded-md p-1 cursor-pointer"
+                    className={`${
+                      darkModeActive ? "bg-gray-700" : "bg-white"
+                    } shadow-md rounded-md p-1 cursor-pointer"`}
                     onClick={() => {
                       setCategories([...categories, category]);
                       const newCats = chosenCategories.filter(
@@ -305,6 +319,9 @@ export default function CreateClaim() {
           setImageChooserData({ id: null, file: null, source: null });
           setShowModal(false);
         }}
+        bgColor={darkModeActive ? "bg-gray-800" : "bg-white"}
+        fieldsBgColor={darkModeActive ? "bg-gray-700" : "bg-white"}
+        textColor={darkModeActive ? "text-gray-300" : "text-fact-medium"}
       />
       <SnackBar snackbar={snackbar} setSnackbar={setSnackbar} />
     </>

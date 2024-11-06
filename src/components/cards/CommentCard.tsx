@@ -1,7 +1,8 @@
 import { faCaretDown, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserSettingsContext } from "../../state/settings";
 
 interface CommentCardProps {
   comment: ClaimComment;
@@ -9,19 +10,27 @@ interface CommentCardProps {
 
 export const CommentCard = ({ comment }: CommentCardProps) => {
   const [sourcesOpen, setSourcesOpen] = useState(false);
+  const { darkModeActive } = useContext(UserSettingsContext);
 
   return (
     <>
       <div
-        className="mt-5 w-full rounded-2xl p-5 shadow-lg bg-fact-red flex flex-col items-start"
-        style={{
-          backgroundColor: comment.result == true ? "#B1EFA7" : "#FF9494",
-        }}
+        className={`${
+          comment.result
+            ? darkModeActive
+              ? "bg-fact-green-dark text-gray-200"
+              : "bg-fact-green"
+            : darkModeActive
+            ? "bg-fact-red-dark text-gray-200"
+            : "bg-fact-red"
+        } mt-5 w-full rounded-2xl p-5 shadow-lg flex flex-col items-start`}
         key={`comment-${comment.id}`}
       >
         {comment.statement}
         <button
-          className="bg-white p-2 pr-3 flex items-center gap-2 mt-3 rounded-lg shadow-md"
+          className={`${
+            darkModeActive ? "bg-gray-800" : "bg-white"
+          } p-2 pr-3 flex items-center gap-2 mt-3 rounded-lg shadow-md`}
           onClick={() => setSourcesOpen(!sourcesOpen)}
         >
           Sources
@@ -31,8 +40,8 @@ export const CommentCard = ({ comment }: CommentCardProps) => {
           />
         </button>
         <div
-          className={`bg-white ${
-            sourcesOpen ? "flex" : "hidden"
+          className={`${sourcesOpen ? "flex" : "hidden"} ${
+            darkModeActive ? "bg-gray-800" : "bg-white"
           } flex-col rounded-lg p-3 mt-3`}
         >
           {comment.sources.map((source, index) => (

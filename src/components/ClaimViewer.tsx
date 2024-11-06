@@ -4,8 +4,9 @@ import Link from "next/link";
 import { ClaimExpanded } from "./cards/ClaimExpandedCard";
 import { HighlightCard } from "./HighlightCard";
 import { ModalWrapper } from "./ModalWrapper";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { isValidUrl } from "../helpers/helpers";
+import { UserSettingsContext } from "../state/settings";
 
 interface ClaimViewerProps {
   claimViewerOpen: boolean;
@@ -29,11 +30,13 @@ export const ClaimViewer = ({
   claim,
   truthFactor,
 }: ClaimViewerProps) => {
+  const { darkModeActive } = useContext(UserSettingsContext);
+
   const [viewingSource, setViewingSource] = useState(false);
 
   return claimViewerOpen ? (
     <div
-      className="z-50 bg-gray-400 bg-opacity-10 backdrop-blur-sm w-full h-full fixed left-0 top-0 flex items-center flex-col"
+      className={`z-50 bg-gray-400 bg-opacity-10 backdrop-blur-sm w-full h-full fixed left-0 top-0 flex items-center flex-col`}
       onClick={closeClaimViewer}
     >
       <ClaimExpanded
