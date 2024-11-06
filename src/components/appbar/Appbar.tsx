@@ -3,9 +3,11 @@ import { useRouter } from "next/router";
 import { useContext } from "react";
 import { UserContext } from "../../state/user";
 import { API } from "../../assets/constants";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faMoon, faSearch, faSun } from "@fortawesome/free-solid-svg-icons";
 import { LinkButton } from "./LinkButton";
 import { UserBar } from "./UserBar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { UserSettingsContext } from "../../state/settings";
 
 interface AppbarParams {
   path: string;
@@ -20,7 +22,7 @@ interface AppbarParams {
  */
 export const Appbar = ({ path, user }: AppbarParams) => {
   const { setUser } = useContext(UserContext);
-
+  const { setDarkModeActive, darkModeActive } = useContext(UserSettingsContext);
   const router = useRouter();
 
   const logout = async () => {
@@ -95,6 +97,19 @@ export const Appbar = ({ path, user }: AppbarParams) => {
             />
           )}
         </div>
+        <button
+          onClick={() => setDarkModeActive(!darkModeActive)}
+          className={`${
+            darkModeActive
+              ? "bg-gray-100 hover:bg-gray-300"
+              : "bg-gray-700 hover:bg-gray-800"
+          } hover:shadow-none rounded-xl w-12 h-12 flex items-center justify-center ml-4 shadow-xl cursor-pointer`}
+        >
+          <FontAwesomeIcon
+            icon={darkModeActive ? faSun : faMoon}
+            className="text-yellow-500"
+          />
+        </button>
       </div>
     </>
   );
