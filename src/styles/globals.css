@@ -2,10 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   background-color: #f6f9fb;
-}
+} */
 
+html {
+  height: 100%;
+}
 .blue-background {
   background-color: #f6f9fb;
 }
