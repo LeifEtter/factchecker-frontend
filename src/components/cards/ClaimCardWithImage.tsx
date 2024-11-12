@@ -3,8 +3,6 @@ import { Indicator } from "../Indicator";
 import { useContext } from "react";
 import { UserSettingsContext } from "../../state/settings";
 
-// TODO Implement Claim Card without images
-
 interface ClaimCardWithImageProps {
   claim: Claim;
   onClick: () => void;
@@ -46,7 +44,7 @@ export const ClaimCardWithImage = ({
                 src={image.link}
                 alt={`${image}-image`}
                 fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                sizes="(max-width: 900px) 70vw, 33vw"
                 className="object-cover"
               />
             </div>
