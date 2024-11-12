@@ -227,6 +227,7 @@ export default function Scores() {
           title="Message"
           error={messageError}
           resetError={() => setMessageError(null)}
+          bgColor={darkModeActive ? "bg-gray-700" : "bg-white"}
         />
         <p className="text-red-500 font-semibold">{messageError}</p>
         <button
