@@ -5,6 +5,8 @@ interface ModalWrapperProps {
 }
 
 /**
+ * Modal Wrapper Overlays
+ *
  * @param props - Any Components needed to be wrapped
  *
  * @returns ModalWrapper that darkens and blurs background; Used for multiple overlay components

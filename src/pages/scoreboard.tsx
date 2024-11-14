@@ -10,7 +10,7 @@ import { useFetchUsers } from "../hooks/useFetchUsers";
 const USERS_PER_FETCH: number = 5;
 
 /**
- * @returns Page containing scores of the best 50 reviewers
+ * @returns Page containing scores of the best reviewers
  */
 export default function Scoreboard() {
   const { darkModeActive } = useContext(UserSettingsContext);

@@ -1,3 +1,9 @@
+/**
+ * Loading Indicator Widget
+ *
+ * @returns Widget that shows animated Loading Dots
+ */
+
 export const LoadingDots = () => (
   <div className="flex flex-row gap-2 mt-10" id="loading-dots">
     <span className="sr-only">Loading...</span>
