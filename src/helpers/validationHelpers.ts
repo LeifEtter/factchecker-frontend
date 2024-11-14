@@ -23,24 +23,6 @@ export const isPassword = (password: String): boolean => {
   return password !== "" && password.match(passwordFormat) ? true : false;
 };
 
-// interface IsTokenValidType {
-//   (token: string): Promise<boolean>;
-// }
-
-// export const isTokenValid: IsTokenValidType = async (token) => {
-//   const res = await fetch(`${API}/users/authenticate`, {
-//     method: "GET",
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-//   if (res.status == 200) {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// };
-
 /**
  * Function that evaluates wether a string is a valid url or not
  *
@@ -49,13 +31,3 @@ export const isPassword = (password: String): boolean => {
  * @returns Boolean representing wether or not url is valid
  */
 export const isValidUrl = (url: string) => /^[a-z]+:\/\//i.test(url);
-
-/**
- * Function that capitalizes first letter of string
- *
- * @param word - string to be capitalized
- *
- * @returns Capitalized String
- */
-export const capitalizeString = (word: string) =>
-  word ? word.charAt(0).toUpperCase() + word.substring(1).toLowerCase() : "";
