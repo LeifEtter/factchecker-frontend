@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 /**
  * @returns //TODO Add Description
  */
-export const useScrollTracker = (claims: Claim[], onBottomReach: Function) => {
+export const useScrollTracker = (state: any, onBottomReach: Function) => {
   const [trackedElem, setTrackedElem] = useState<any>(null);
 
   const onScroll = () => {
@@ -19,7 +19,7 @@ export const useScrollTracker = (claims: Claim[], onBottomReach: Function) => {
       window.addEventListener("scroll", onScroll);
       return () => window.removeEventListener("scroll", onScroll);
     }
-  }, [trackedElem, claims]);
+  }, [trackedElem, state]);
 
   return [setTrackedElem];
 };
