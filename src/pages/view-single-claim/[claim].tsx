@@ -4,10 +4,10 @@ import { SourceButton, TruthFactorLabel } from "../../components/Buttons";
 import { API } from "../../assets/constants";
 import { CommentCard } from "../../components/cards/CommentCard";
 import { ModalWrapper } from "../../components/ModalWrapper";
-import { isValidUrl } from "../../helpers/helpers";
 import Link from "next/link";
 import { Indicator } from "../../components/Indicator";
 import { UserSettingsContext } from "../../state/settings";
+import { isValidUrl } from "../../helpers/validationHelpers";
 
 interface ViewSingleClaimProps {
   claim: Claim;

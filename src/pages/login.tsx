@@ -1,6 +1,5 @@
 import { InputField } from "../components/InputField";
 import { CustomErrors } from "../types/errors";
-import { isEmail } from "../helpers/helpers";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
@@ -8,6 +7,7 @@ import { UserContext } from "../state/user";
 import { API } from "../assets/constants";
 import { SnackBar, SnackbarType } from "../components/Snackbar";
 import { UserSettingsContext } from "../state/settings";
+import { isEmail } from "../helpers/validationHelpers";
 
 /**
  * @returns Page containing login functionality

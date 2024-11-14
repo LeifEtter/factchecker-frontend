@@ -5,8 +5,8 @@ import { ClaimExpanded } from "./cards/ClaimExpandedCard";
 import { HighlightCard } from "./HighlightCard";
 import { ModalWrapper } from "./ModalWrapper";
 import { useContext, useState } from "react";
-import { isValidUrl } from "../helpers/helpers";
 import { UserSettingsContext } from "../state/settings";
+import { isValidUrl } from "../helpers/validationHelpers";
 
 interface ClaimViewerProps {
   claimViewerOpen: boolean;

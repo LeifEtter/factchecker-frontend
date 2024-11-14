@@ -2,11 +2,11 @@ import { API } from "../assets/constants";
 import { InputField } from "../components/InputField";
 import { SnackBar, SnackbarType } from "../components/Snackbar";
 import { CustomErrors } from "../types/errors";
-import { isEmail, isPassword } from "../helpers/helpers";
 import { useContext, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { UserSettingsContext } from "../state/settings";
+import { isEmail, isPassword } from "../helpers/validationHelpers";
 
 /**
  * @returns Page containing registration functionality
