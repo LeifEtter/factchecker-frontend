@@ -14,6 +14,8 @@ import { SnackBar, SnackbarType } from "../components/Snackbar";
 import { UserContext } from "../state/user";
 import { API } from "../assets/constants";
 import { UserSettingsContext } from "../state/settings";
+import { useFetchCategories } from "../hooks/useFetchCategories";
+import { LoadingDots } from "../components/LoadingDots";
 
 /**
  * @returns Page containing a form to submit claims, providing text and images
@@ -41,14 +43,7 @@ export default function CreateClaim() {
     source: null,
   });
 
-  const [categories, setCategories] = useState([]);
-  const [chosenCategories, setChosenCategories] = useState([]);
-
   const { user, setUser } = useContext(UserContext);
-
-  useEffect(() => {
-    initializeCategories();
-  }, []);
 
   const validate = async () => {
     if (title == "") {
@@ -64,50 +59,38 @@ export default function CreateClaim() {
     return true;
   };
 
-  const initializeCategories = async () => {
-    if (categories.length == 0) {
-      const result = await fetch(`${API}/category`, {
-        method: "GET",
-        mode: "cors",
-        credentials: "include",
-      });
-      const body = await result.json();
-      if (result.status == 200) {
-        setCategories(body);
-      }
-    }
-  };
+  const [categoriesIsLoading, categories, setCategories] = useFetchCategories();
 
   const submitClaim = async () => {
     try {
-      const result = await fetch(`${API}/claims/create`, {
-        method: "POST",
-        mode: "cors",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          statement: title,
-          description: description,
-          user_id: user.id,
-          source: source,
-          categories: chosenCategories.map((cat) => cat.name),
-        }),
-      });
-      if (result.status == 201) {
-        const body = await result.json();
-        uploadImage(images, body.result[0].id);
-        setSnackbar({
-          title: "Claim Submitted",
-          description:
-            "Claim was successfully submitted and is ready to be reviewed.",
-          type: SnackbarType.SUCCESS,
-        });
-      }
-      if (result.status == 400) {
-        console.log(await result.json());
-      }
+      //   const result = await fetch(`${API}/claims/create`, {
+      //     method: "POST",
+      //     mode: "cors",
+      //     credentials: "include",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //       statement: title,
+      //       description: description,
+      //       user_id: user.id,
+      //       source: source,
+      //       categories: chosenCategories.map((cat) => cat.name),
+      //     }),
+      //   });
+      //   if (result.status == 201) {
+      //     const body = await result.json();
+      //     uploadImage(images, body.result[0].id);
+      //     setSnackbar({
+      //       title: "Claim Submitted",
+      //       description:
+      //         "Claim was successfully submitted and is ready to be reviewed.",
+      //       type: SnackbarType.SUCCESS,
+      //     });
+      //   }
+      //   if (result.status == 400) {
+      //     console.log(await result.json());
+      //   }
     } catch (error) {
       console.log(error);
     }
@@ -238,46 +221,61 @@ export default function CreateClaim() {
           />
           <p>Categories</p>
           <div className="flex justify-start flex-wrap gap-4">
-            {categories.map((category) => (
-              <div
-                key={`cat-button-${category.id}`}
-                className={`${
-                  darkModeActive ? "bg-gray-700" : "bg-white"
-                } p-1 rounded-md shadow-md cursor-pointer`}
-                onClick={() => {
-                  setChosenCategories([...chosenCategories, category]);
-                  const newCats = categories.filter(
-                    (cat) => cat.id != category.id
-                  );
-                  setCategories([...newCats]);
-                }}
-              >
-                {category.name}
-              </div>
-            ))}
+            {categories ? (
+              Object.keys(categories)
+                .map(Number)
+                .filter((key: number) => !categories[key].active)
+                .map((key: number) => (
+                  <button
+                    key={`cat-button-${key}`}
+                    className={`${
+                      darkModeActive ? "bg-gray-700" : "bg-white"
+                    } p-1 rounded-md shadow-md cursor-pointer`}
+                    onClick={() =>
+                      setCategories({
+                        ...categories,
+                        [key]: {
+                          name: categories[key].name,
+                          active: true,
+                        },
+                      })
+                    }
+                  >
+                    {categories[key].name}
+                  </button>
+                ))
+            ) : (
+              <LoadingDots />
+            )}
           </div>
           <p>Chosen Categories</p>
           <div className="flex justify-start flex-wrap gap-2">
-            {chosenCategories.length == 0
-              ? "-"
-              : chosenCategories.map((category) => (
-                  <div
-                    key={`cat-button-chosen-${category.id}`}
+            {categories ? (
+              Object.keys(categories)
+                .map(Number)
+                .filter((key: number) => categories[key].active)
+                .map((key: number) => (
+                  <button
+                    key={`cat-button-${key}`}
                     className={`${
                       darkModeActive ? "bg-gray-700" : "bg-white"
                     } shadow-md rounded-md p-1 cursor-pointer"`}
-                    onClick={() => {
-                      setCategories([...categories, category]);
-                      const newCats = chosenCategories.filter(
-                        (cat) => cat.id != category.id
-                      );
-                      setChosenCategories([...newCats]);
-                    }}
+                    onClick={() =>
+                      setCategories({
+                        ...categories,
+                        [key]: {
+                          name: categories[key].name,
+                          active: false,
+                        },
+                      })
+                    }
                   >
-                    {category.name}
-                    {<FontAwesomeIcon className="ml-1" icon={faRemove} />}
-                  </div>
-                ))}
+                    {categories[key].name}
+                  </button>
+                ))
+            ) : (
+              <LoadingDots />
+            )}
           </div>
           <button
             className="special-shadow fact-gradient rounded-xl text-white p-3 w-full"
