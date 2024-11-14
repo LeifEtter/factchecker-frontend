@@ -3,9 +3,9 @@ import { RankCard } from "../components/cards/RankCard";
 import { useRouter } from "next/router";
 import DefaultAvatar from "../../assets/default_avatar.jpg";
 import { UserSettingsContext } from "../state/settings";
-import { useFetchUserProfiles } from "../hooks/useFetchUserScores";
 import { useScrollTracker } from "../hooks/useScrollTracker";
 import { LoadingDots } from "../components/LoadingDots";
+import { useFetchUsers } from "../hooks/useFetchUsers";
 
 const USERS_PER_FETCH: number = 5;
 
@@ -16,15 +16,13 @@ export default function Scoreboard() {
   const { darkModeActive } = useContext(UserSettingsContext);
   const router = useRouter();
 
-  const [userQuery, setUserQuery, users, isLoadingUsers] = useFetchUserProfiles(
-    {
-      endpoint: "users/scores",
-      limit: USERS_PER_FETCH,
-      skip: 0,
-      orderBy: "comments_created",
-      orderByDirection: "DESC",
-    }
-  );
+  const [userQuery, setUserQuery, users, isLoadingUsers] = useFetchUsers({
+    endpoint: "users/scores",
+    limit: USERS_PER_FETCH,
+    skip: 0,
+    orderBy: "comments_created",
+    orderByDirection: "DESC",
+  });
 
   const onBottomReach = async () => {
     if (users.length < userQuery.skip + USERS_PER_FETCH) return;

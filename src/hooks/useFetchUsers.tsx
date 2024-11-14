@@ -4,10 +4,12 @@ import { calculateLevelFromScoreData } from "../utils/scores";
 import { constructQueryUrl } from "../helpers/conversionHelpers";
 
 /**
+ * Hook for fetching Users
+ *
  * @param userId current users id
  * @returns Hook used for getting the currently logged in users scores
  */
-export function useFetchUserProfiles(
+export function useFetchUsers(
   initialQuery: UserQuery
 ): [UserQuery, Function, any[], boolean] {
   const [isLoading, setIsLoading] = useState<boolean>(true);
