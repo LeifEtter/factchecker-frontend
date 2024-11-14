@@ -5,7 +5,7 @@ import "../styles/globals.css";
 import "../styles/shadows.css";
 import { Roboto_Mono } from "next/font/google";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AppbarCollapsed } from "../components/appbar/AppbarCollapsed";
 import { UserSettingsContext } from "../state/settings";
 
