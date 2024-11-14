@@ -1,8 +1,14 @@
-import { useContext, useEffect, useState } from "react";
+import { use, useContext, useEffect, useState } from "react";
 import { ClaimViewer } from "../components/ClaimViewer";
-import { API } from "../assets/constants";
+import { API, SORTING_OPTIONS } from "../assets/constants";
 import { ClaimCard } from "../components/cards/ClaimCard";
 import { UserSettingsContext } from "../state/settings";
+import { LoadingDots } from "../components/LoadingDots";
+import { useScrollTracker } from "../hooks/useScrollTracker";
+import { useFetchCategories } from "../hooks/useFetchCategories";
+import { useFetchClaims } from "../hooks/useFetchClaims";
+import { useFetchSingleClaim } from "../hooks/useFetchSingleClaim";
+import { calculateTruthFactor } from "../helpers/calculationHelpers";
 
 const CLAIMS_SHOWN_AT_ONCE: number = 10;
 
@@ -10,95 +16,53 @@ const CLAIMS_SHOWN_AT_ONCE: number = 10;
  * @returns Page containing claims received from backend
  */
 export default function Home() {
-  const [claims, setClaims] = useState<Claim[]>([]);
-  const [loadingMoreClaims, setLoadingMoreClaims] = useState(false);
   const { darkModeActive } = useContext(UserSettingsContext);
-
   const [claimViewerOpen, setClaimViewerOpen] = useState(false);
-  const [claimBeingViewed, setClaimBeingViewed] = useState(null);
-  const closeClaimViewer = () => {
-    setClaimViewerOpen(false);
-    setClaimBeingViewed(null);
-  };
-  const viewClaim = async (id: number) => {
-    const claim: Claim = await getSingleClaim(id);
-    setClaimBeingViewed(claim);
-    setClaimViewerOpen(true);
-  };
+  const [x, categories, z] = useFetchCategories();
 
-  const calculateTruthFactor = (claim: Claim) => {
-    if (claim.vote_false == 0 && claim.vote_true == 0) {
-      return null;
-    }
-    const outcome =
-      (claim.vote_true / (claim.vote_true + claim.vote_false)) * 100;
-    return outcome;
+  const initialClaimQuery: ClaimQuery = {
+    endpoint: "claims/query",
+    limit: CLAIMS_SHOWN_AT_ONCE,
+    skip: 0,
+    orderBy: SORTING_OPTIONS[0],
+    orderByDirection: "DESC",
+    category: categories,
+    keywords: "",
   };
+  const [claimQuery, setClaimQuery, claims, claimsIsLoading] =
+    useFetchClaims(initialClaimQuery);
 
-  const onScroll = () => {
-    if (!loadingMoreClaims) {
-      let loadingDotsElem = document.querySelector("#loading-dots");
-      let rect = loadingDotsElem.getBoundingClientRect();
-      let rectDistanceFromTop = rect.y;
-      if (rectDistanceFromTop < window.outerHeight) {
-        onReachingPageBottom();
-      }
-    }
-  };
+  useEffect(
+    () => setClaimQuery({ ...claimQuery, category: categories }),
+    [categories]
+  );
 
-  const onReachingPageBottom = async () => {
-    setLoadingMoreClaims(true);
-    await getClaimsUsingOffset();
-    setLoadingMoreClaims(false);
-  };
+  const [singleClaim, singleClaimLoading, setViewClaimId] =
+    useFetchSingleClaim();
 
   useEffect(() => {
-    if (claims.length < CLAIMS_SHOWN_AT_ONCE) {
-      getClaimsUsingOffset();
-    }
-  }, []);
+    if (singleClaim && !singleClaimLoading) setClaimViewerOpen(true);
+  }, [singleClaim]);
 
-  useEffect(() => {
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [loadingMoreClaims, claims]);
-
-  const getClaimsUsingOffset = async () => {
-    const claimsResult = await fetch(
-      `${API}/claims/query?limit=${CLAIMS_SHOWN_AT_ONCE}&skip=${claims.length}&orderBy=comment_amount&category=&orderByDirection=DESC`,
-      {
-        method: "GET",
-      }
-    );
-    if (claimsResult.status == 200) {
-      const nextClaims = await claimsResult.json();
-      const combinedClaims = [...claims, ...nextClaims];
-      setClaims(combinedClaims);
-    }
+  const onBottomReach = async () => {
+    if (claims.length < claimQuery.skip + CLAIMS_SHOWN_AT_ONCE) return;
+    setClaimQuery({
+      ...claimQuery,
+      skip: (claimQuery.skip += CLAIMS_SHOWN_AT_ONCE),
+    });
   };
 
-  const getSingleClaim = async (id: number): Promise<Claim> => {
-    try {
-      const claimResult = await fetch(`${API}/claims/view/${id}`, {
-        method: "GET",
-      });
-      if (claimResult.status == 200) {
-        const decodedClaim: Claim = await claimResult.json();
-        return decodedClaim;
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const [setTrackedElem] = useScrollTracker(claims, onBottomReach);
+  useEffect(() => setTrackedElem(document.querySelector("#loading-dots")), []);
 
   return (
     <main>
       <ClaimViewer
         claimViewerOpen={claimViewerOpen}
-        closeClaimViewer={closeClaimViewer}
-        claim={claimBeingViewed}
+        closeClaimViewer={() => setClaimViewerOpen(false)}
+        claim={singleClaim}
         truthFactor={
-          claimBeingViewed != null ? calculateTruthFactor(claimBeingViewed) : 0
+          singleClaim != null ? calculateTruthFactor(singleClaim) : 0
         }
       />
       <div className="flex flex-col items-center mt-32">
@@ -115,13 +79,13 @@ export default function Home() {
           </h1>
           <div className="hidden xl:block"></div>
           <div className="hidden md:block"></div>
-          {claims.length != 0 ? (
+          {claims && claims.length != 0 ? (
             claims.map((claim) => {
               return (
                 <ClaimCard
                   key={claim.id}
                   claim={claim}
-                  onClick={() => viewClaim(claim.id)}
+                  onClick={() => setViewClaimId(claim.id)}
                   truthFactor={calculateTruthFactor(claim)}
                 />
               );
@@ -130,12 +94,7 @@ export default function Home() {
             <></>
           )}
         </div>
-        <div className="flex flex-row gap-2 mt-10" id="loading-dots">
-          <span className="sr-only">Loading...</span>
-          <div className="h-2 w-2 bg-gray-600 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-          <div className="h-2 w-2 bg-gray-600 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-          <div className="h-2 w-2 bg-gray-600 rounded-full animate-bounce"></div>
-        </div>
+        <LoadingDots />
       </div>
     </main>
   );
