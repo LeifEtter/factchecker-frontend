@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { API } from "../assets/constants";
 
 /**
+ * Hook for getting a single users details
+ *
  * @param userId - currently logged in users id
  *
- * @returns Hook used for getting currently logged in users user details
+ * @returns Loading State, Fetched User details
  */
 export function useUserDetails(userId: string): [boolean, User] {
   const [user, setUser] = useState<User>(null);

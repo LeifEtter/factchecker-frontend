@@ -3,8 +3,11 @@ import { API } from "../assets/constants";
 import { constructQueryUrl } from "../helpers/conversionHelpers";
 
 /**
- * @param userId current users id
- * @returns Hook used for getting the currently logged in users scores
+ * Hook for fetching claims given a query object
+ *
+ * @param initialQuery - Query object containing initial query for fetching claims
+ *
+ * @returns claimQuery containing current query object, function for setting claim Query, fetched claims and loading state
  */
 export function useFetchClaims(
   initialQuery: ClaimQuery

@@ -9,7 +9,10 @@ export interface ScoreData {
 }
 
 /**
- * @param userId current users id
+ * Hook for getting Score Data of specific user given a user id
+ *
+ * @param userId - current users id
+ *
  * @returns Hook used for getting the currently logged in users scores
  */
 export function useScoreData(userId: string): [boolean, ScoreData] {

@@ -4,10 +4,11 @@ import { calculateLevelFromScoreData } from "../utils/scores";
 import { constructQueryUrl } from "../helpers/conversionHelpers";
 
 /**
- * Hook for fetching Users
+ * Hook for fetching Users given a User Query
  *
- * @param userId current users id
- * @returns Hook used for getting the currently logged in users scores
+ * @param initialQuery - Initial Query used for fetching users
+ *
+ * @returns User Query with data for fetching users, Function for setting user query, fetched users and loading state
  */
 export function useFetchUsers(
   initialQuery: UserQuery

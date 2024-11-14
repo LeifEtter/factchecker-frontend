@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { API } from "../assets/constants";
 
 /**
- * @param userId current users id
- * @returns Hook used for getting the currently logged in users scores
+ * Hook for fetching a single Claim
+ *
+ * @returns Fetched claim, Loading State, Function for setting claim to be fetched
  */
 export function useFetchSingleClaim(): [Claim, boolean, Function] {
   const [singleClaimLoading, setSingleClaimLoading] = useState<boolean>(true);

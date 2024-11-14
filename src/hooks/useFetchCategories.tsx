@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { API } from "../assets/constants";
 
 /**
- * @param userId current users id
- * @returns Hook used for getting the currently logged in users scores
+ * Hook for Fetching Categories
+ *
+ * @returns Content Loading State, List of fetched Categories, Function to Set Categories
  */
 export function useFetchCategories(): [boolean, ClaimCategoryDict, Function] {
   const [isLoading, setIsLoading] = useState<boolean>(true);

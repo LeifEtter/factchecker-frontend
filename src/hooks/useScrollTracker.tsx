@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 
 /**
- * @returns //TODO Add Description
+ * Hook containing logic to track wether a user has reached bottom of the page by scrolling
+ *
+ * @param state - Any variable containing a state that will trigger adding a new listener
+ * @param onBottomReach - Callback Function called when bottom of page is reached
+ *
+ * @returns Function for setting tracked most bottom element
  */
 export const useScrollTracker = (state: any, onBottomReach: Function) => {
   const [trackedElem, setTrackedElem] = useState<any>(null);
