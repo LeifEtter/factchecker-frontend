@@ -9,6 +9,7 @@ import { useFetchCategories } from "../hooks/useFetchCategories";
 import { useFetchClaims } from "../hooks/useFetchClaims";
 import { useFetchSingleClaim } from "../hooks/useFetchSingleClaim";
 import { calculateTruthFactor } from "../helpers/calculationHelpers";
+import Head from "next/head";
 
 const CLAIMS_SHOWN_AT_ONCE: number = 10;
 
@@ -56,46 +57,59 @@ export default function Home() {
   useEffect(() => setTrackedElem(document.querySelector("#loading-dots")), []);
 
   return (
-    <main>
-      <ClaimViewer
-        claimViewerOpen={claimViewerOpen}
-        closeClaimViewer={() => setClaimViewerOpen(false)}
-        claim={singleClaim}
-        truthFactor={
-          singleClaim != null ? calculateTruthFactor(singleClaim) : 0
-        }
-      />
-      <div className="flex flex-col items-center mt-32">
-        <div
-          data-testid="claim-grid"
-          className="inline-grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10"
-        >
-          <h1
-            className={`text-2xl font-medium ${
-              darkModeActive ? "text-gray-300" : "text-black"
-            }`}
+    <div>
+      <Head>
+        <title>Factchecker Homepage</title>
+        <meta
+          name="description"
+          content="Get an overview of claims and your submissions"
+        />
+        <meta
+          name="keywords"
+          content="facts,claims,factchecker,truth,true,false"
+        />
+      </Head>
+      <main>
+        <ClaimViewer
+          claimViewerOpen={claimViewerOpen}
+          closeClaimViewer={() => setClaimViewerOpen(false)}
+          claim={singleClaim}
+          truthFactor={
+            singleClaim != null ? calculateTruthFactor(singleClaim) : 0
+          }
+        />
+        <div className="flex flex-col items-center mt-32">
+          <div
+            data-testid="claim-grid"
+            className="inline-grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10"
           >
-            Posts/Articles
-          </h1>
-          <div className="hidden xl:block"></div>
-          <div className="hidden md:block"></div>
-          {claims && claims.length != 0 ? (
-            claims.map((claim) => {
-              return (
-                <ClaimCard
-                  key={claim.id}
-                  claim={claim}
-                  onClick={() => setViewClaimId(claim.id)}
-                  truthFactor={calculateTruthFactor(claim)}
-                />
-              );
-            })
-          ) : (
-            <></>
-          )}
+            <h1
+              className={`text-2xl font-medium ${
+                darkModeActive ? "text-gray-300" : "text-black"
+              }`}
+            >
+              Posts/Articles
+            </h1>
+            <div className="hidden xl:block"></div>
+            <div className="hidden md:block"></div>
+            {claims && claims.length != 0 ? (
+              claims.map((claim) => {
+                return (
+                  <ClaimCard
+                    key={claim.id}
+                    claim={claim}
+                    onClick={() => setViewClaimId(claim.id)}
+                    truthFactor={calculateTruthFactor(claim)}
+                  />
+                );
+              })
+            ) : (
+              <></>
+            )}
+          </div>
+          <LoadingDots />
         </div>
-        <LoadingDots />
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }

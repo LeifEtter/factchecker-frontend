@@ -8,6 +8,7 @@ import { API } from "../assets/constants";
 import { SnackBar, SnackbarType } from "../components/Snackbar";
 import { UserSettingsContext } from "../state/settings";
 import { isEmail } from "../helpers/validationHelpers";
+import Head from "next/head";
 
 /**
  * @returns Page containing login functionality
@@ -93,7 +94,11 @@ export default function Login() {
   }, [router.query, router.isReady]);
 
   return (
-    <>
+    <div>
+      <Head>
+        <title>Login</title>
+        <meta name="description" content="Log into your Factchecker Account" />
+      </Head>
       <div
         className={`${
           darkModeActive ? "text-gray-300" : "text-fact-text-medium"
@@ -151,6 +156,6 @@ export default function Login() {
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 }

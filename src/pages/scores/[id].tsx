@@ -24,6 +24,7 @@ import { SmallClaimCardWithoutImage } from "../../components/cards/SmallClaimCar
 import { ClaimCardHighlightedComment } from "../../components/cards/ClaimCardHighlightedComment";
 import DefaultAvatar from "../../../assets/default_avatar.jpg";
 import { UserSettingsContext } from "../../state/settings";
+import Head from "next/head";
 
 /**
  * @returns Page containing specific users details, scores and contributions
@@ -107,136 +108,147 @@ export default function Scores() {
   }
 
   return (
-    <div
-      className={`${
-        darkModeActive ? "text-gray-200" : "text-fact-text-medium"
-      } flex flex-col items-center`}
-    >
-      <SnackBar snackbar={snackbar} setSnackbar={setSnackbar} />
-      <h1
-        data-testid="user-title"
-        className="text-2xl font-semibold mt-16 mb-6"
-      >
-        {userTitle}
-      </h1>
-      <div className="w-72">
-        <ScoreBar scoreData={scoreData} userLevel={userLevel} />
-        <div className="flex flex-row gap-5 mt-6">
-          <div className="flex-1 flex flex-col justify-center">
-            <div>
-              <h1 data-testid="user-name" className="text-md font-semibold">
-                {user.name}
-              </h1>
-            </div>
-            <p
-              className={`${
-                darkModeActive ? "text-gray-400" : "text-gray-400"
-              } font-medium text-xs`}
-            >
-              {PLACEHOLDER_DATE}
-            </p>
-            <button
-              data-testid="send-message-button"
-              onClick={() => setMessagePopupOpen(true)}
-              className={`${
-                darkModeActive ? "bg-gray-800" : "bg-white"
-              } rounded-xl special-shadow py-1 text-sm font-medium mt-2`}
-            >
-              Send a DM
-            </button>
-          </div>
-
-          <div className="flex-1 relative w-32 h-32 rounded-3xl">
-            <Image
-              src={user.avatar ?? DefaultAvatar}
-              alt="user-profile-image"
-              data-testid="user-profile-image"
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover rounded-3xl special-shadow"
-              priority
-            />
-          </div>
-        </div>
-        <p data-testid="user-biography" className="font-medium text-sm mt-3">
-          {user.biography}
-        </p>
-      </div>
-
-      <div className="flex flex-row gap-5 mt-12 w-full max-w-4xl mb-3 px-2">
-        <h1 className="font-bold text-lg">{user.name.split(" ")[0]}s Claims</h1>
-        <ShowAllToggler
-          setShowingAll={setExpandClaims}
-          showingAll={expandClaims}
+    <div>
+      <Head>
+        <title>{user.name}'s Scores</title>
+        <meta
+          name="description"
+          content={`This page shows ${user.name}'s Scores and allows you to message the user`}
         />
-      </div>
+      </Head>
       <div
-        data-testid="claim-list"
-        className="flex gap-5 flex-wrap max-w-4xl mx-2"
+        className={`${
+          darkModeActive ? "text-gray-200" : "text-fact-text-medium"
+        } flex flex-col items-center`}
       >
-        {scoreData.claimsCreated.map((claim) =>
-          claim.images.length > 0 ? (
-            <SmallClaimCardWithImage
-              claim={claim}
-              width="280px"
-              key={claim.id}
-              onClick={() => {}}
-              truthValue={calculateTruthFactor(claim)}
-            />
-          ) : (
-            <SmallClaimCardWithoutImage
-              claim={claim}
-              width="280px"
-              key={claim.id}
-              onClick={() => {}}
-              truthValue={calculateTruthFactor(claim)}
-            />
-          )
-        )}
-      </div>
-      <div className="flex flex-row gap-5 mt-12 w-full max-w-4xl mb-3 px-2">
-        <h1 className="font-bold text-lg">
-          {user.name.split(" ")[0]}s Comments
-        </h1>
-        <ShowAllToggler
-          setShowingAll={setExpandClaims}
-          showingAll={expandClaims}
-        />
-      </div>
-      <div
-        data-testid="comment-list"
-        className="flex gap-5 flex-wrap max-w-4xl mx-2"
-      >
-        {scoreData.commentsCreated.map((comment) => (
-          <ClaimCardHighlightedComment
-            claim={comment.claim}
-            key={comment.id}
-            onClick={() => {}}
-            truthValue={calculateTruthFactor(comment.claim)}
-          />
-        ))}
-      </div>
-      <ModalWrapper
-        isOpen={messagePopupOpen}
-        closeModal={() => setMessagePopupOpen(false)}
-      >
-        <InputFieldMultiline
-          testId="message-input"
-          value={message}
-          setValue={setMessage}
-          title="Message"
-          error={messageError}
-          resetError={() => setMessageError(null)}
-          bgColor={darkModeActive ? "bg-gray-700" : "bg-white"}
-        />
-        <p className="text-red-500 font-semibold">{messageError}</p>
-        <button
-          onClick={() => handleMessageSending(message)}
-          className="fact-gradient text-white font-semibold special-shadow rounded-2xl px-4 py-2 mt-3 "
+        <SnackBar snackbar={snackbar} setSnackbar={setSnackbar} />
+        <h1
+          data-testid="user-title"
+          className="text-2xl font-semibold mt-16 mb-6"
         >
-          Send Message
-        </button>
-      </ModalWrapper>
+          {userTitle}
+        </h1>
+        <div className="w-72">
+          <ScoreBar scoreData={scoreData} userLevel={userLevel} />
+          <div className="flex flex-row gap-5 mt-6">
+            <div className="flex-1 flex flex-col justify-center">
+              <div>
+                <h1 data-testid="user-name" className="text-md font-semibold">
+                  {user.name}
+                </h1>
+              </div>
+              <p
+                className={`${
+                  darkModeActive ? "text-gray-400" : "text-gray-400"
+                } font-medium text-xs`}
+              >
+                {PLACEHOLDER_DATE}
+              </p>
+              <button
+                data-testid="send-message-button"
+                onClick={() => setMessagePopupOpen(true)}
+                className={`${
+                  darkModeActive ? "bg-gray-800" : "bg-white"
+                } rounded-xl special-shadow py-1 text-sm font-medium mt-2`}
+              >
+                Send a DM
+              </button>
+            </div>
+
+            <div className="flex-1 relative w-32 h-32 rounded-3xl">
+              <Image
+                src={user.avatar ?? DefaultAvatar}
+                alt="user-profile-image"
+                data-testid="user-profile-image"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover rounded-3xl special-shadow"
+                priority
+              />
+            </div>
+          </div>
+          <p data-testid="user-biography" className="font-medium text-sm mt-3">
+            {user.biography}
+          </p>
+        </div>
+
+        <div className="flex flex-row gap-5 mt-12 w-full max-w-4xl mb-3 px-2">
+          <h1 className="font-bold text-lg">
+            {user.name.split(" ")[0]}s Claims
+          </h1>
+          <ShowAllToggler
+            setShowingAll={setExpandClaims}
+            showingAll={expandClaims}
+          />
+        </div>
+        <div
+          data-testid="claim-list"
+          className="flex gap-5 flex-wrap max-w-4xl mx-2"
+        >
+          {scoreData.claimsCreated.map((claim) =>
+            claim.images.length > 0 ? (
+              <SmallClaimCardWithImage
+                claim={claim}
+                width="280px"
+                key={claim.id}
+                onClick={() => {}}
+                truthValue={calculateTruthFactor(claim)}
+              />
+            ) : (
+              <SmallClaimCardWithoutImage
+                claim={claim}
+                width="280px"
+                key={claim.id}
+                onClick={() => {}}
+                truthValue={calculateTruthFactor(claim)}
+              />
+            )
+          )}
+        </div>
+        <div className="flex flex-row gap-5 mt-12 w-full max-w-4xl mb-3 px-2">
+          <h1 className="font-bold text-lg">
+            {user.name.split(" ")[0]}s Comments
+          </h1>
+          <ShowAllToggler
+            setShowingAll={setExpandClaims}
+            showingAll={expandClaims}
+          />
+        </div>
+        <div
+          data-testid="comment-list"
+          className="flex gap-5 flex-wrap max-w-4xl mx-2"
+        >
+          {scoreData.commentsCreated.map((comment) => (
+            <ClaimCardHighlightedComment
+              claim={comment.claim}
+              key={comment.id}
+              onClick={() => {}}
+              truthValue={calculateTruthFactor(comment.claim)}
+            />
+          ))}
+        </div>
+        <ModalWrapper
+          isOpen={messagePopupOpen}
+          closeModal={() => setMessagePopupOpen(false)}
+        >
+          <InputFieldMultiline
+            testId="message-input"
+            value={message}
+            setValue={setMessage}
+            title="Message"
+            error={messageError}
+            resetError={() => setMessageError(null)}
+            bgColor={darkModeActive ? "bg-gray-700" : "bg-white"}
+          />
+          <p className="text-red-500 font-semibold">{messageError}</p>
+          <button
+            onClick={() => handleMessageSending(message)}
+            className="fact-gradient text-white font-semibold special-shadow rounded-2xl px-4 py-2 mt-3 "
+          >
+            Send Message
+          </button>
+        </ModalWrapper>
+      </div>
     </div>
   );
 }

@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { UserSettingsContext } from "../state/settings";
 import { isEmail, isPassword } from "../helpers/validationHelpers";
+import Head from "next/head";
 
 /**
  * @returns Page containing registration functionality
@@ -92,7 +93,11 @@ export default function Register() {
   };
 
   return (
-    <>
+    <div>
+      <Head>
+        <title>Register</title>
+        <meta name="description" content="Register a new Factchecker Account" />
+      </Head>
       <div
         className={`${
           darkModeActive ? "text-gray-300" : "text-fact-text-medium"
@@ -163,6 +168,6 @@ export default function Register() {
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -8,6 +8,7 @@ import { useFetchCategories } from "../hooks/useFetchCategories";
 import { useFetchClaims } from "../hooks/useFetchClaims";
 import { capitalizeString } from "../helpers/conversionHelpers";
 import { calculateTruthFactor } from "../helpers/calculationHelpers";
+import Head from "next/head";
 
 /**
  * @returns Page containing Explore Options to find different posts and articles
@@ -54,115 +55,125 @@ export default function Explore() {
   );
 
   return (
-    <main
-      className={`${darkModeActive ? "text-gray-200" : "text-black"} px-12`}
-    >
-      <div className="flex flex-col flex-wrap md:flex-row w-full mt-12 gap-3">
-        <div className="w-3/6">
-          <h3>Search</h3>
-          <input
-            id="search-input"
-            className={`${
-              darkModeActive ? "bg-gray-700" : "bg-white"
-            } w-full max-w-lg h-10 special-shadow rounded-xl border-md px-3 mt-2`}
-            type="text"
-            placeholder="Goldfish have a 7-sec memory..."
-            value={claimQuery.keywords}
-            onChange={(e) =>
-              setClaimQuery({
-                ...claimQuery,
-                keywords: e.target.value,
-                skip: 0,
-              })
-            }
-          />
-        </div>
-        <div className="w-36 md:1/6 group">
-          <h3>Sort By</h3>
-          <button
-            className={`${
-              darkModeActive ? "bg-gray-700" : "bg-white"
-            } rounded-xl special-shadow h-10 px-3 w-40 mt-2`}
-          >
-            {SORTING_OPTION_LABELS[claimQuery.orderBy]}
-          </button>
-          <div className="h-3" />
-          <div
-            className={`${
-              darkModeActive ? "bg-gray-700" : "bg-white"
-            } absolute z-50 hidden group-hover:flex flex-col h-26 w-40 gap-2 p-3 rounded-xl special-shadow`}
-          >
-            {SORTING_OPTIONS.map((option) => (
-              <button
-                key={`option-${option}`}
-                className={`hover:scale-105 hover:font-semibold rounded-md p-1 ${
-                  option == claimQuery.orderBy
-                    ? "text-white font-semibold" + darkModeActive
-                      ? "fact-gradient-dark"
-                      : "fact-gradient"
-                    : ""
-                }`}
-                onClick={() =>
-                  setClaimQuery({ ...claimQuery, orderBy: option, skip: 0 })
-                }
-              >
-                {SORTING_OPTION_LABELS[option]}
-              </button>
-            ))}
-          </div>
-        </div>
-        <div>
-          <h3>Filter by Categories</h3>
-          <div className="flex flex-row flex-wrap gap-3 mt-2">
-            {!categoriesIsLoading && categories != null
-              ? Object.keys(categories).map((cat) => (
-                  <button
-                    key={`${cat}-catButton`}
-                    className={`px-3 py-1 special-shadow rounded-xl ${
-                      categories[cat].active
-                        ? "text-white" + darkModeActive
-                          ? "fact-gradient-dark"
-                          : "fact-gradient"
-                        : darkModeActive
-                        ? "bg-gray-700"
-                        : "bg-white"
-                    }`}
-                    onClick={() => {
-                      categories[cat].active = !categories[cat].active;
-                      setCategories({ ...categories });
-                      resetSkip();
-                    }}
-                  >
-                    {capitalizeString(categories[cat].name)}
-                  </button>
-                ))
-              : null}
-          </div>
-        </div>
-      </div>
+    <div>
+      <Head>
+        <title>Explore Claims with Filters</title>
+        <meta
+          name="description"
+          content="Here you can Filter and Sort through all the submitted Claims"
+        />
+        <meta name="keywords" content="Truth,Lie,Fake,Claim,Sort" />
+      </Head>
       <div
-        data-testid="claim-grid"
-        className="inline-grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10 mt-10"
+        className={`${darkModeActive ? "text-gray-200" : "text-black"} px-12`}
       >
-        {claims && claims.length != 0 ? (
-          claims.map((claim) => {
-            return (
-              <ClaimCard
-                key={claim.id}
-                claim={claim}
-                // onClick={() => viewClaim(claim.id)}
-                onClick={() => {}}
-                truthFactor={calculateTruthFactor(claim)}
-              />
-            );
-          })
-        ) : (
-          <></>
-        )}
+        <div className="flex flex-col flex-wrap md:flex-row w-full mt-12 gap-3">
+          <div className="w-3/6">
+            <h3>Search</h3>
+            <input
+              id="search-input"
+              className={`${
+                darkModeActive ? "bg-gray-700" : "bg-white"
+              } w-full max-w-lg h-10 special-shadow rounded-xl border-md px-3 mt-2`}
+              type="text"
+              placeholder="Goldfish have a 7-sec memory..."
+              value={claimQuery.keywords}
+              onChange={(e) =>
+                setClaimQuery({
+                  ...claimQuery,
+                  keywords: e.target.value,
+                  skip: 0,
+                })
+              }
+            />
+          </div>
+          <div className="w-36 md:1/6 group">
+            <h3>Sort By</h3>
+            <button
+              className={`${
+                darkModeActive ? "bg-gray-700" : "bg-white"
+              } rounded-xl special-shadow h-10 px-3 w-40 mt-2`}
+            >
+              {SORTING_OPTION_LABELS[claimQuery.orderBy]}
+            </button>
+            <div className="h-3" />
+            <div
+              className={`${
+                darkModeActive ? "bg-gray-700" : "bg-white"
+              } absolute z-50 hidden group-hover:flex flex-col h-26 w-40 gap-2 p-3 rounded-xl special-shadow`}
+            >
+              {SORTING_OPTIONS.map((option) => (
+                <button
+                  key={`option-${option}`}
+                  className={`hover:scale-105 hover:font-semibold rounded-md p-1 ${
+                    option == claimQuery.orderBy
+                      ? "text-white font-semibold" + darkModeActive
+                        ? "fact-gradient-dark"
+                        : "fact-gradient"
+                      : ""
+                  }`}
+                  onClick={() =>
+                    setClaimQuery({ ...claimQuery, orderBy: option, skip: 0 })
+                  }
+                >
+                  {SORTING_OPTION_LABELS[option]}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <h3>Filter by Categories</h3>
+            <div className="flex flex-row flex-wrap gap-3 mt-2">
+              {!categoriesIsLoading && categories != null
+                ? Object.keys(categories).map((cat) => (
+                    <button
+                      key={`${cat}-catButton`}
+                      className={`px-3 py-1 special-shadow rounded-xl ${
+                        categories[cat].active
+                          ? "text-white" + darkModeActive
+                            ? "fact-gradient-dark"
+                            : "fact-gradient"
+                          : darkModeActive
+                          ? "bg-gray-700"
+                          : "bg-white"
+                      }`}
+                      onClick={() => {
+                        categories[cat].active = !categories[cat].active;
+                        setCategories({ ...categories });
+                        resetSkip();
+                      }}
+                    >
+                      {capitalizeString(categories[cat].name)}
+                    </button>
+                  ))
+                : null}
+            </div>
+          </div>
+        </div>
+        <div
+          data-testid="claim-grid"
+          className="inline-grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10 mt-10"
+        >
+          {claims && claims.length != 0 ? (
+            claims.map((claim) => {
+              return (
+                <ClaimCard
+                  key={claim.id}
+                  claim={claim}
+                  // onClick={() => viewClaim(claim.id)}
+                  onClick={() => {}}
+                  truthFactor={calculateTruthFactor(claim)}
+                />
+              );
+            })
+          ) : (
+            <></>
+          )}
+        </div>
+        <div className="flex justify-center pb-5">
+          <LoadingDots />
+        </div>
       </div>
-      <div className="flex justify-center pb-5">
-        <LoadingDots />
-      </div>
-    </main>
+    </div>
   );
 }

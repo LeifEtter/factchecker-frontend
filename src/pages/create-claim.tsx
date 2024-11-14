@@ -11,6 +11,7 @@ import { UserSettingsContext } from "../state/settings";
 import { useFetchCategories } from "../hooks/useFetchCategories";
 import { LoadingDots } from "../components/LoadingDots";
 import { useCreateClaim } from "../hooks/useCreateClaim";
+import Head from "next/head";
 
 /**
  * @returns Page containing a form to submit claims, providing text and images
@@ -95,7 +96,14 @@ export default function CreateClaim() {
   return !claimData ? (
     <LoadingDots />
   ) : (
-    <>
+    <div>
+      <Head>
+        <title>Submit your own Claim</title>
+        <meta
+          name="description"
+          content="Here you can submit your own Claim, that you want other users to judge as truthful or a lie"
+        />
+      </Head>
       <main
         className={`${
           darkModeActive ? "text-gray-200" : "text-fact-text-medium"
@@ -298,6 +306,6 @@ export default function CreateClaim() {
         textColor={darkModeActive ? "text-gray-300" : "text-fact-medium"}
       />
       <SnackBar snackbar={snackbar} setSnackbar={setSnackbar} />
-    </>
+    </div>
   );
 }

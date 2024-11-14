@@ -9,6 +9,7 @@ import { ImageChooser } from "../components/ImageChooser";
 import DefaultAvatar from "../../assets/default_avatar.jpg";
 import { SnackBar, SnackbarType } from "../components/Snackbar";
 import { UserSettingsContext } from "../state/settings";
+import Head from "next/head";
 
 /**
  * @returns Screen containing the logged in users profile information as well as
@@ -82,7 +83,14 @@ const Profile: React.FC = () => {
   return !user ? (
     <></>
   ) : (
-    <>
+    <div>
+      <Head>
+        <title>Your Profile</title>
+        <meta
+          name="description"
+          content="Here you can manage your own profile"
+        />
+      </Head>
       <div
         className={`${
           darkModeActive ? "text-gray-200" : "text-fact-text-medium"
@@ -196,7 +204,7 @@ const Profile: React.FC = () => {
         fieldsBgColor={darkModeActive ? "bg-gray-700" : "bg-white"}
         textColor={darkModeActive ? "text-gray-300" : "text-fact-medium"}
       />
-    </>
+    </div>
   );
 };
 

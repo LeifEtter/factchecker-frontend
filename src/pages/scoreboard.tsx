@@ -6,6 +6,7 @@ import { UserSettingsContext } from "../state/settings";
 import { useScrollTracker } from "../hooks/useScrollTracker";
 import { LoadingDots } from "../components/LoadingDots";
 import { useFetchUsers } from "../hooks/useFetchUsers";
+import Head from "next/head";
 
 const USERS_PER_FETCH: number = 5;
 
@@ -35,43 +36,52 @@ export default function Scoreboard() {
   useEffect(() => setTrackedElem(document.querySelector("#loading-dots")), []);
 
   return (
-    <main
-      className={`${
-        darkModeActive ? "text-gray-200" : "text-black"
-      } flex flex-col justify-center items-center`}
-    >
-      <h1 className="text-2xl font-medium mt-16 mb-10">Top Reviewers</h1>
-      <div className="flex flex-col gap-6 max-w-md w-9/12">
-        {users &&
-          users.map((user, index) => {
-            let color: string;
-            if (index == 0) {
-              color = "251, 227, 129, 0.67";
-            } else if (index == 1) {
-              color = "192, 192, 192, 0.54";
-            } else if (index == 2) {
-              color = "205, 127, 50, 0.5";
-            } else {
-              color = "255, 255, 255, 1.0";
-            }
-            return (
-              <RankCard
-                key={`rank-${index}`}
-                userId={user["user_id"]}
-                rank={index}
-                name={user["user_name"]}
-                scores={user}
-                profileImage={user.avatar ?? DefaultAvatar}
-                backgroundColor={color}
-                onClick={() => router.push(`/scores/${user["user_id"]}`)}
-                level={user.level}
-              />
-            );
-          })}
-        <div className="flex justify-center pb-5">
-          <LoadingDots />
+    <div>
+      <Head>
+        <title>User Scoreboard</title>
+        <meta
+          name="description"
+          content="Here you can view other users scores as well as their global rankings"
+        />
+      </Head>
+      <main
+        className={`${
+          darkModeActive ? "text-gray-200" : "text-black"
+        } flex flex-col justify-center items-center`}
+      >
+        <h1 className="text-2xl font-medium mt-16 mb-10">Top Reviewers</h1>
+        <div className="flex flex-col gap-6 max-w-md w-9/12">
+          {users &&
+            users.map((user, index) => {
+              let color: string;
+              if (index == 0) {
+                color = "251, 227, 129, 0.67";
+              } else if (index == 1) {
+                color = "192, 192, 192, 0.54";
+              } else if (index == 2) {
+                color = "205, 127, 50, 0.5";
+              } else {
+                color = "255, 255, 255, 1.0";
+              }
+              return (
+                <RankCard
+                  key={`rank-${index}`}
+                  userId={user["user_id"]}
+                  rank={index}
+                  name={user["user_name"]}
+                  scores={user}
+                  profileImage={user.avatar ?? DefaultAvatar}
+                  backgroundColor={color}
+                  onClick={() => router.push(`/scores/${user["user_id"]}`)}
+                  level={user.level}
+                />
+              );
+            })}
+          <div className="flex justify-center pb-5">
+            <LoadingDots />
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }
