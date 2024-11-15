@@ -17,12 +17,6 @@ export default function Explore() {
   const { darkModeActive } = useContext(UserSettingsContext);
 
   const [categoriesIsLoading, categories, setCategories] = useFetchCategories();
-  // const [moreFilters, setMoreFilters] = useState<object>({
-  //   0: { name: "Undecided", active: false },
-  //   1: { name: "True", active: false },
-  //   2: { name: "False", active: false },
-  //   3: { name: "Text-Only", active: false },
-  // });
   const initialClaimQuery: ClaimQuery = {
     endpoint: "claims/query",
     limit: 15,
@@ -35,12 +29,6 @@ export default function Explore() {
   const [claimQuery, setClaimQuery, claims, claimsIsLoading] =
     useFetchClaims(initialClaimQuery);
   const resetSkip = () => setClaimQuery({ ...claimQuery, skip: 0 });
-
-  // const viewClaim = async (id: number) => {
-  //   const claim: Claim = await getSingleClaim(id);
-  //   setClaimBeingViewed(claim);
-  //   setClaimViewerOpen(true);
-  // };
 
   const onBottomReach = async () => {
     if (claims.length < claimQuery.skip + 15) return;
