@@ -44,10 +44,11 @@ export const RankCard = ({
   };
 
   return (
-    <div
-      className="w-full h-48 rounded-4xl flex flex-row cursor-pointer shadow-lg p-4"
+    <button
+      className="w-full h-48 rounded-4xl flex flex-row cursor-pointer shadow-lg p-4 items-center"
       style={{ backgroundColor: `rgba(${backgroundColor})` }}
       onClick={() => onClick()}
+      aria-label={`Score Card for User ${name}`}
     >
       <div className="basis-6/12 flex flex-col justify-center">
         <h2 className="text-2xl md:text-3xl font-semibold ml-8 md:ml-10">
@@ -63,6 +64,7 @@ export const RankCard = ({
             <div className="relative rounded-3xl w-28 h-28 shadow-md">
               <Image
                 alt={`profile-user-${userId}`}
+                aria-describedby={`Profile picture of user ${name}`}
                 className="object-cover rounded-3xl"
                 src={profileImage}
                 fill
@@ -73,6 +75,6 @@ export const RankCard = ({
         </div>
         <ScoreBar userLevel={level} scoreData={scoreData} />
       </div>
-    </div>
+    </button>
   );
 };

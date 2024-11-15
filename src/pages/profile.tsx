@@ -8,6 +8,8 @@ import { API } from "../assets/constants";
 import { ImageChooser } from "../components/ImageChooser";
 import DefaultAvatar from "../../assets/default_avatar.jpg";
 import { SnackBar, SnackbarType } from "../components/Snackbar";
+import { UserSettingsContext } from "../state/settings";
+import Head from "next/head";
 
 /**
  * @returns Screen containing the logged in users profile information as well as
@@ -16,6 +18,7 @@ import { SnackBar, SnackbarType } from "../components/Snackbar";
 const Profile: React.FC = () => {
   const router = useRouter();
   const { user, setUser } = useContext(UserContext);
+  const { darkModeActive } = useContext(UserSettingsContext);
 
   const [newBiography, setNewBiography] = useState<string>(null);
   const [newPassword, setNewPassword] = useState<string>(null);
@@ -80,13 +83,22 @@ const Profile: React.FC = () => {
   return !user ? (
     <></>
   ) : (
-    <>
-      <div className="flex flex-col items-center">
+    <div>
+      <Head>
+        <title>Your Profile</title>
+        <meta
+          name="description"
+          content="Here you can manage your own profile"
+        />
+      </Head>
+      <div
+        className={`${
+          darkModeActive ? "text-gray-200" : "text-fact-text-medium"
+        } flex flex-col items-center`}
+      >
         <SnackBar snackbar={snackbar} setSnackbar={setSnackbar} />
         <div className="flex flex-col gap-2 w-82 mt-20">
-          <h1 className="font-bold text-2xl text-fact-text-medium text-center mb-5">
-            Your Profile
-          </h1>
+          <h1 className="font-bold text-2xl text-center mb-5">Your Profile</h1>
           <div
             className="relative h-56 w-56"
             onClick={() => {
@@ -126,9 +138,13 @@ const Profile: React.FC = () => {
               },
               isTextField: true,
               cancel: () => setEditingPopupProps(null),
+              bgColor: darkModeActive ? "bg-gray-800" : "bg-white",
+              textColor: darkModeActive ? "text-gray-300" : "text-fact-medium",
             });
           }}
-          className="bg-white py-3 rounded-3xl special-shadow mt-10 text-lg font-medium w-60 hover:scale-105"
+          className={`${
+            darkModeActive ? "bg-gray-800" : "bg-white"
+          } py-3 rounded-3xl special-shadow mt-10 text-lg font-medium w-60 hover:scale-105`}
         >
           Edit Biography
         </button>
@@ -143,15 +159,21 @@ const Profile: React.FC = () => {
               },
               isTextField: false,
               cancel: () => setEditingPopupProps(null),
+              bgColor: darkModeActive ? "bg-gray-800" : "bg-white",
+              textColor: darkModeActive ? "text-gray-300" : "text-fact-medium",
             });
           }}
-          className="bg-white py-3 rounded-3xl special-shadow mt-4 text-lg font-medium w-60 hover:scale-105"
+          className={`${
+            darkModeActive ? "bg-gray-800" : "bg-white"
+          } py-3 rounded-3xl special-shadow mt-4 text-lg font-medium w-60 hover:scale-105`}
         >
           Change Password
         </button>
         <button
           onClick={saveChanges}
-          className="fact-gradient text-white py-3 rounded-3xl special-shadow mt-4 text-lg font-medium w-60 hover:scale-105"
+          className={`${
+            darkModeActive ? "fact-gradient-dark" : "fact-gradient"
+          } text-white py-3 rounded-3xl special-shadow mt-4 text-lg font-medium w-60 hover:scale-105`}
         >
           Save Changes
         </button>
@@ -178,8 +200,11 @@ const Profile: React.FC = () => {
           setImageChooserData({ id: null, file: null, source: null });
           setShowModal(false);
         }}
+        bgColor={darkModeActive ? "bg-gray-800" : "bg-white"}
+        fieldsBgColor={darkModeActive ? "bg-gray-700" : "bg-white"}
+        textColor={darkModeActive ? "text-gray-300" : "text-fact-medium"}
       />
-    </>
+    </div>
   );
 };
 
@@ -189,16 +214,26 @@ interface EditingPopupProps {
   isTextField: boolean;
   onSubmit: Function;
   cancel: Function;
+  bgColor: string;
+  textColor: string;
 }
 
-const EditingPopup = ({ title, value = "", isTextField, onSubmit, cancel }) => {
+const EditingPopup = ({
+  title,
+  value = "",
+  isTextField,
+  onSubmit,
+  cancel,
+  bgColor,
+  textColor,
+}) => {
   const [currentValue, setCurrentValue] = useState("");
   return (
     <div
-      className="bg-white special-shadow w10/12 md:w-6/12 flex-col p-5 rounded-2xl z-20"
+      className={`${bgColor} special-shadow w10/12 md:w-6/12 flex-col p-5 rounded-2xl z-20`}
       onClick={(e) => e.stopPropagation()}
     >
-      <h2 className="text-lg font-medium mb-3">{title}</h2>
+      <h2 className={`${textColor} text-lg font-medium mb-3`}>{title}</h2>
       {isTextField ? (
         <textarea
           className="border-2 rounded-md w-full p-2"

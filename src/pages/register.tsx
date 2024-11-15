@@ -2,10 +2,12 @@ import { API } from "../assets/constants";
 import { InputField } from "../components/InputField";
 import { SnackBar, SnackbarType } from "../components/Snackbar";
 import { CustomErrors } from "../types/errors";
-import { isEmail, isPassword } from "../helpers/helpers";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { UserSettingsContext } from "../state/settings";
+import { isEmail, isPassword } from "../helpers/validationHelpers";
+import Head from "next/head";
 
 /**
  * @returns Page containing registration functionality
@@ -26,6 +28,8 @@ export default function Register() {
   const [repeatPasswordError, setRepeatPasswordError] = useState(null);
 
   const [snackbar, setSnackbar] = useState(null);
+
+  const { darkModeActive } = useContext(UserSettingsContext);
 
   const clearAllFields = () => {
     setName("");
@@ -89,60 +93,74 @@ export default function Register() {
   };
 
   return (
-    <>
-      <div className="flex flex-col items-center">
+    <div>
+      <Head>
+        <title>Register</title>
+        <meta name="description" content="Register a new Factchecker Account" />
+      </Head>
+      <div
+        className={`${
+          darkModeActive ? "text-gray-300" : "text-fact-text-medium"
+        } flex flex-col items-center`}
+      >
         <SnackBar snackbar={snackbar} setSnackbar={setSnackbar} />
         <div className="flex flex-col gap-2 w-80 mt-48">
-          <h1 className="font-bold text-2xl text-fact-text-medium text-center mb-5">
-            Register
-          </h1>
-          <InputField
-            testId={"name-field"}
-            value={name}
-            setValue={setName}
-            title="Name"
-            error={nameError}
-            resetError={() => setNameError(null)}
-          />
-          <InputField
-            testId={"email-field"}
-            value={email}
-            setValue={setEmail}
-            title="Email"
-            error={emailError}
-            resetError={() => setEmailError(null)}
-          />
-          <InputField
-            testId={"password-field"}
-            value={password}
-            setValue={setPassword}
-            title="Password"
-            error={passwordError}
-            resetError={() => setPasswordError(null)}
-            obscure
-          />
-          <InputField
-            testId={"repeat-password-field"}
-            value={repeatPassword}
-            setValue={setRepeatPassword}
-            title="Repeat Password"
-            error={repeatPasswordError}
-            resetError={() => setRepeatPasswordError(null)}
-            obscure
-          />
-          <button
-            data-testid={"submit-registration"}
-            onClick={() => {
+          <h1 className="font-bold text-2xl  text-center mb-5">Register</h1>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault;
               if (!validate()) {
                 return;
               }
               attemptRegistration();
             }}
-            className="bg-white rounded-2xl special-shadow mt-6 p-2"
           >
-            Submit
-          </button>
-
+            <InputField
+              testId={"name-field"}
+              value={name}
+              setValue={setName}
+              title="Name"
+              error={nameError}
+              resetError={() => setNameError(null)}
+              bgColor={darkModeActive ? "bg-gray-800" : "bg-white"}
+            />
+            <InputField
+              testId={"email-field"}
+              value={email}
+              setValue={setEmail}
+              title="Email"
+              error={emailError}
+              resetError={() => setEmailError(null)}
+              bgColor={darkModeActive ? "bg-gray-800" : "bg-white"}
+            />
+            <InputField
+              testId={"password-field"}
+              value={password}
+              setValue={setPassword}
+              title="Password"
+              error={passwordError}
+              resetError={() => setPasswordError(null)}
+              bgColor={darkModeActive ? "bg-gray-800" : "bg-white"}
+              obscure
+            />
+            <InputField
+              testId={"repeat-password-field"}
+              value={repeatPassword}
+              setValue={setRepeatPassword}
+              title="Repeat Password"
+              error={repeatPasswordError}
+              resetError={() => setRepeatPasswordError(null)}
+              bgColor={darkModeActive ? "bg-gray-800" : "bg-white"}
+              obscure
+            />
+            <input
+              type="submit"
+              data-testid={"submit-registration"}
+              className={`${
+                darkModeActive ? "bg-blue-900" : "bg-white"
+              } rounded-2xl special-shadow mt-6 p-2`}
+            />
+          </form>
           <h1 className="text-center">Already have an account?</h1>
           <Link
             href="/login"
@@ -152,6 +170,6 @@ export default function Register() {
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -5,4 +5,5 @@ interface ClaimComment {
   user_id: number;
   claim_id: number;
   claim?: Claim;
+  sources: string[];
 }

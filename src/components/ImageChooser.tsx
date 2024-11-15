@@ -10,6 +10,9 @@ interface ImageChooserParams {
   resetImageChooser: Function;
   saveImage: Function;
   requestSource?: boolean;
+  bgColor: string;
+  fieldsBgColor: string;
+  textColor: string;
 }
 
 /**
@@ -29,6 +32,9 @@ export const ImageChooser = ({
   resetImageChooser,
   saveImage,
   requestSource = false,
+  bgColor,
+  fieldsBgColor,
+  textColor,
 }: ImageChooserParams) => {
   const [error, setError] = useState(false);
 
@@ -41,22 +47,25 @@ export const ImageChooser = ({
   };
 
   return showModal ? (
-    <div>
+    <div className={textColor}>
       <div
         onClick={() => {
           setError(null);
           resetImageChooser();
         }}
-        className="fixed flex top-0 justify-center w-full h-full bg-gray-500 bg-opacity-50"
+        className="fixed flex top-0 justify-center w-full h-full bg-gray-700 bg-opacity-50"
       />
-      <div className="fixed top-0 flex justify-center w-full">
-        <div className="flex flex-col items-center fixed z-10 blue-background top-96 p-5 rounded-2xl w-full max-w-sm">
+      <div className={` fixed top-0 flex justify-center w-full`}>
+        <div
+          className={`${bgColor} special-shadow flex flex-col items-center fixed z-10 top-96 p-5 rounded-2xl w-full max-w-sm`}
+        >
           <h2 className="text-xl font-semibold mb-5">Add Image</h2>
           {requestSource ? (
             <>
-              <p>Source:</p>
+              <label htmlFor="image-source">Image Source:</label>
               <input
-                className="special-shadow bg-white rounded-md py-1 px-2 mt-1 w-full"
+                id="image-source"
+                className={`${fieldsBgColor} special-shadow rounded-md py-1 px-2 mt-1 w-full`}
                 type="text"
                 value={imageChooserData.source ?? ""}
                 onChange={(e) =>
@@ -83,7 +92,7 @@ export const ImageChooser = ({
           ) : null}
           <label
             htmlFor="image-upload"
-            className="z-10 w-full h-full mt-3 bg-white rounded-md py-2 special-shadow flex justify-center items-center gap-2"
+            className={`${fieldsBgColor} z-10 w-full h-full mt-3 rounded-md py-2 special-shadow flex justify-center items-center gap-2`}
           >
             {imageChooserData.file ? "Change Image" : "Select Image"}{" "}
             <div className="w-4">
@@ -91,6 +100,7 @@ export const ImageChooser = ({
             </div>
           </label>
           <input
+            aria-label="Add Image"
             id="image-upload"
             type="file"
             onChange={(e) =>
@@ -109,7 +119,6 @@ export const ImageChooser = ({
           ) : (
             <></>
           )}
-
           <button
             className="fact-gradient p-2 text-white rounded-xl special-shadow mt-5"
             onClick={() => {

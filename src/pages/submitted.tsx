@@ -3,6 +3,9 @@ import { useRouter } from "next/router";
 import { UserContext } from "../state/user";
 import { API } from "../assets/constants";
 import { ClaimCard } from "../components/cards/ClaimCard";
+import { UserSettingsContext } from "../state/settings";
+import { calculateTruthFactor } from "../helpers/calculationHelpers";
+import Head from "next/head";
 
 /**
  * @returns Page containing Currently logged in users submitted claims
@@ -10,6 +13,7 @@ import { ClaimCard } from "../components/cards/ClaimCard";
 const Requests: React.FC = () => {
   const router = useRouter();
   const { user } = useContext(UserContext);
+  const { darkModeActive } = useContext(UserSettingsContext);
   const [ownClaims, setOwnClaims] = useState<Claim[]>([]);
 
   useEffect(() => {
@@ -32,21 +36,35 @@ const Requests: React.FC = () => {
 
   return (
     <div>
-      <div className="flex flex-col items-center mt-32">
-        <div
-          data-testid="claim-grid"
-          className="inline-grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10"
-        >
-          <h1 className="text-2xl font-medium">Your Submitted Claims</h1>
-          <div className="hidden xl:block"></div>
-          <div className="hidden md:block"></div>
-          {ownClaims.length > 0 ? (
-            ownClaims.map((claim) => (
-              <ClaimCard key={claim.id} claim={claim} onClick={() => {}} />
-            ))
-          ) : (
-            <p>You haven`t submitted any claims yet</p>
-          )}
+      <Head>
+        <title>Submitted Claims</title>
+        <meta
+          name="description"
+          content="This Page shows your Submitted Claims as well as their status"
+        />
+      </Head>
+      <div className={`${darkModeActive ? "text-gray-200" : "text-black"}`}>
+        <div className="flex flex-col items-center mt-32">
+          <div
+            data-testid="claim-grid"
+            className="inline-grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10"
+          >
+            <h1 className="text-2xl font-medium">Your Submitted Claims</h1>
+            <div className="hidden xl:block"></div>
+            <div className="hidden md:block"></div>
+            {ownClaims.length > 0 ? (
+              ownClaims.map((claim) => (
+                <ClaimCard
+                  key={claim.id}
+                  claim={claim}
+                  onClick={() => {}}
+                  truthFactor={calculateTruthFactor(claim)}
+                />
+              ))
+            ) : (
+              <p>You haven`t submitted any claims yet</p>
+            )}
+          </div>
         </div>
       </div>
     </div>

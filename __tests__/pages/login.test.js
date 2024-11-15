@@ -8,7 +8,7 @@ jest.mock("next/router", () => ({
   useRouter: jest.fn(),
 }));
 
-describe("testing functionality", async () => {
+describe("testing functionality", () => {
   it("should test login page functionality", async () => {
     const user = null;
     const setUser = () => {};

@@ -42,6 +42,7 @@ export const SnackBar = ({ snackbar, setSnackbar }: SnackbarProps) => {
 
   return (
     <div
+      aria-live={snackbar ? "assertive" : "off"}
       className="fixed w-10/12 z-10 animate-bounce duration-200 rounded-2xl special-shadow flex flex-col items-center justify-center p-3"
       style={{
         top: snackbar != null ? "50px" : "-50px",

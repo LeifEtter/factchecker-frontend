@@ -23,20 +23,23 @@ export const isPassword = (password: String): boolean => {
   return password !== "" && password.match(passwordFormat) ? true : false;
 };
 
-// interface IsTokenValidType {
-//   (token: string): Promise<boolean>;
-// }
-
-// export const isTokenValid: IsTokenValidType = async (token) => {
-//   const res = await fetch(`${API}/users/authenticate`, {
-//     method: "GET",
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-//   if (res.status == 200) {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// };
+/**
+ * Function that evaluates wether a string is a valid url or not
+ *
+ * @param url - string to be evaluated
+ *
+ * @returns Boolean representing wether or not url is valid
+ */
+export const isValidUrl = (url: string): boolean => {
+  if (url == "" || url == null) {
+    return false;
+  }
+  var res = url.match(
+    /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/
+  );
+  if (res == null) {
+    return false;
+  } else {
+    return true;
+  }
+};

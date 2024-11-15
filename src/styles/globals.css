@@ -2,10 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   background-color: #f6f9fb;
-}
+} */
 
+html {
+  height: 100%;
+}
 .blue-background {
   background-color: #f6f9fb;
 }
@@ -18,12 +21,40 @@
   );
 }
 
+.fact-gradient-light {
+  background: linear-gradient(
+    77.39deg,
+    rgb(100, 238, 231) 26.19%,
+    rgba(178, 104, 244, 0.502) 81.85%
+  );
+}
+
+.fact-dark-background {
+  background: linear-gradient(
+    90deg,
+    rgb(9, 23, 44) 26.19%,
+    rgb(23, 5, 39) 81.85%
+  );
+}
+
+.fact-gradient-dark {
+  background: linear-gradient(
+    77.39deg,
+    rgb(28, 54, 92) 26.19%,
+    rgba(125, 33, 207, 0.502) 81.85%
+  );
+}
+
 .red-gradient {
   background: linear-gradient(77.39deg, #f83d5c 26.19%, #fd4b2f 81.85%);
 }
 
 .green-gradient {
   background: linear-gradient(77.39deg, #6eee87 26.19%, #5fc52e 81.85%);
+}
+
+.grey-gradient {
+  background: linear-gradient(77.39deg, #b8b8b8 26.19%, #c2c2c2 81.85%);
 }
 /* :root {
   --foreground-rgb: 0, 0, 0;

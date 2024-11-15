@@ -5,6 +5,8 @@ interface ModalWrapperProps {
 }
 
 /**
+ * Modal Wrapper Overlays
+ *
  * @param props - Any Components needed to be wrapped
  *
  * @returns ModalWrapper that darkens and blurs background; Used for multiple overlay components
@@ -12,8 +14,12 @@ interface ModalWrapperProps {
 export const ModalWrapper = (props: ModalWrapperProps) => {
   return (
     <div
+      aria-label="Close Popup"
       data-testid="modal-wrapper"
-      onClick={() => props.closeModal()}
+      onClick={(e) => {
+        e.stopPropagation();
+        props.closeModal();
+      }}
       className="absolute duration-200 ease-in-out w-full h-full backdrop-blur-sm bg-opacity-10 flex items-center justify-center"
       style={{
         opacity: props.isOpen ? "100%" : "0%",

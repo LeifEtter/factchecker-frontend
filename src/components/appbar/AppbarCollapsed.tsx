@@ -37,7 +37,7 @@ export const AppbarCollapsed = ({ path, user }: AppbarCollapsedParams) => {
   };
 
   return (
-    <>
+    <nav>
       <div className="flex flex-row justify-end">
         <p>
           <FontAwesomeIcon
@@ -106,6 +106,6 @@ export const AppbarCollapsed = ({ path, user }: AppbarCollapsedParams) => {
           />
         )}
       </div>
-    </>
+    </nav>
   );
 };

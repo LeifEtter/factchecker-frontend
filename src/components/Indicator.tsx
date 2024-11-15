@@ -16,7 +16,10 @@ export const Indicator = ({ validity, fullWidth = false }: IndicatorProps) => {
   const [color, setColor] = useState("");
 
   useEffect(() => {
-    if (validity < 30) {
+    if (validity == null || Number.isNaN(validity)) {
+      setText("Undecided");
+      setColor("grey-gradient");
+    } else if (validity < 30) {
       setText("False");
       setColor("red-gradient");
     } else if (validity < 50) {
@@ -33,15 +36,15 @@ export const Indicator = ({ validity, fullWidth = false }: IndicatorProps) => {
 
   return fullWidth ? (
     <div
-      className={`${color} text-white py-2 px-3 w-full font-semibold rounded-2xl special-shadow text-center`}
+      className={`${color} text-white py-2 px-3 w-full font-semibold rounded-2xl shadow-md text-center`}
     >
-      {text}
+      <p>{text}</p>
     </div>
   ) : (
     <div
-      className={`${color} text-white py-2 px-3 font-semibold rounded-2xl special-shadow `}
+      className={`${color} text-white py-2 px-3 font-semibold rounded-2xl shadow-md `}
     >
-      {text}
+      <p>{text}</p>
     </div>
   );
 };

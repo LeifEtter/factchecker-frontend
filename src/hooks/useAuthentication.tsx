@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { API } from "../assets/constants";
 
 /**
- * @returns Hook used for authentication of current user
+ * Hook for checking wether a user is authenticated
+ *
+ * @returns Loading State, Authentication state
  */
 export const useAuthentication = (): [boolean, boolean] => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);

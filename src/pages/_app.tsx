@@ -7,6 +7,8 @@ import { Roboto_Mono } from "next/font/google";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { AppbarCollapsed } from "../components/appbar/AppbarCollapsed";
+import { UserSettingsContext } from "../state/settings";
+import { useDarkmode } from "../hooks/useDarkmode";
 
 const robotoMono = Roboto_Mono({
   subsets: ["latin"],
@@ -20,6 +22,9 @@ const robotoMono = Roboto_Mono({
 export default function App({ Component, pageProps }) {
   const path = useRouter().pathname;
   const [user, setUser] = useState<User>(null);
+  const [darkModeActive, setDarkModeActive] = useState<boolean>(false);
+
+  const [darkmodeLoading] = useDarkmode(darkModeActive, setDarkModeActive);
 
   useEffect(() => {
     const syncUserInfo = async () => {
@@ -55,19 +60,26 @@ export default function App({ Component, pageProps }) {
   }, [user]);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
-      <main className={`${robotoMono.className} mb-10`}>
-        <div className="mx-4 md:mx-12 mt-8">
-          {/* TODO Show Burger Menu beyond certain breakpoint*/}
-          <div className="hidden sm:block">
-            <Appbar path={path} user={user ?? null} />
+    <UserSettingsContext.Provider value={{ darkModeActive, setDarkModeActive }}>
+      <UserContext.Provider value={{ user, setUser }}>
+        <main
+          className={`${
+            robotoMono.className
+          } pt-6 min-h-screen duration-500 ease-in-out transition-colors ${
+            darkModeActive ? `fact-dark-background` : `bg-gray-100`
+          }`}
+        >
+          <div className="mx-4 md:mx-12">
+            <div className="hidden sm:block">
+              <Appbar path={path} user={user ?? null} />
+            </div>
+            <div className="flex-col w-full sm:hidden">
+              <AppbarCollapsed path={path} user={user} />
+            </div>
           </div>
-          <div className="flex-col w-full sm:hidden">
-            <AppbarCollapsed path={path} user={user} />
-          </div>
-        </div>
-        <Component {...pageProps} />
-      </main>
-    </UserContext.Provider>
+          <Component {...pageProps} />
+        </main>
+      </UserContext.Provider>
+    </UserSettingsContext.Provider>
   );
 }
