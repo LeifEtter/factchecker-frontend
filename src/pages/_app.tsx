@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { AppbarCollapsed } from "../components/appbar/AppbarCollapsed";
 import { UserSettingsContext } from "../state/settings";
+import { useDarkmode } from "../hooks/useDarkmode";
 
 const robotoMono = Roboto_Mono({
   subsets: ["latin"],
@@ -22,6 +23,8 @@ export default function App({ Component, pageProps }) {
   const path = useRouter().pathname;
   const [user, setUser] = useState<User>(null);
   const [darkModeActive, setDarkModeActive] = useState<boolean>(false);
+
+  const [darkmodeLoading] = useDarkmode(darkModeActive, setDarkModeActive);
 
   useEffect(() => {
     const syncUserInfo = async () => {
