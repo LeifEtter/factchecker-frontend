@@ -14,6 +14,13 @@
 - [Documentation](craftdocs://open?blockId=CD76E92F-1650-4FDB-9CBF-9340B7E0A2BE&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
 - [Security Measures](craftdocs://open?blockId=6119F353-5337-4EA1-A745-AF91245BDB42&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
 - [State Management](craftdocs://open?blockId=ADA9C350-B642-4026-BBB0-BF41715DD8F0&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
+  - Addition since last Assessment: Dark Mode
+
+Additions since last Assessment
+
+- [Code Structure](craftdocs://open?blockId=FCCE3EE4-3CF7-4686-B1A1-3D33CBF32D8E&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
+- [Performance Optimization](craftdocs://open?blockId=7AA22BC2-480D-4975-B75B-CE40E98B4B4F&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
+- [SEO/Accessibility Optimization](craftdocs://open?blockId=DE2FEF93-9D38-46DA-8B96-E40C5CFAEC82&spaceId=b0e62220-21e7-3e79-e368-d4886dca007e)
 
 ## Setup
 
@@ -26,7 +33,8 @@ Prerequisites:
 Create File **.env.local** and add this line:
 
 ```javascript
-NEXT_PUBLIC_API_URL = "https://factchecker-app.com";
+NEXT_PUBLIC_API_URL =
+  "http://ec2-18-153-69-44.eu-central-1.compute.amazonaws.com:8080";
 ```
 
 Install All Packages by executing this command inside the project directory:
@@ -167,7 +175,165 @@ export interface UserContextType {
 export const UserContext = createContext<UserContextType | null>(null);
 ```
 
+Use of `useContext` to access darkmode state.
+
+```typescript
+export const UserSettingsContext =
+  createContext<UserSettingsContextType | null>({
+    darkModeActive: false,
+    setDarkModeActive: () => {},
+  });
+```
+
+```typescript
+const { darkModeActive } = useContext(UserSettingsContext);
+...
+<div className={`${darkModeActive ? "text-gray-200" : "text-black"} px-12`}>
+```
+
 ## Version Control
 
 - Github
 - Linear for creating tasks and ticket management
+
+## Code Structure
+
+Separating API calls and other grouped functions into custom hooks:
+
+![Image.png](https://res.craft.do/user/full/b0e62220-21e7-3e79-e368-d4886dca007e/doc/B85592C0-D78F-4580-B2A8-DCA6A1A8AC60/438E104A-D5F5-40C5-8DAC-82D1ADC4BE6D_2/rPD4YR3hvmT9q0uAan0k6YDqMyQxtJoVuHhqxQrHquMz/Image.png)
+
+```typescript
+export function useFetchClaims(
+  initialQuery: ClaimQuery
+): [ClaimQuery, Function, Claim[], boolean] {
+  const [isLoading, setIsLoading] = useState(true);
+  const [claimQuery, setClaimQuery] = useState<ClaimQuery>(initialQuery);
+  const [claims, setClaims] = useState<Claim[]>();
+
+  useEffect(() => {
+    if (!claimQuery || !claimQuery.category) return;
+    setIsLoading(true);
+    const queryString: string = constructQueryUrl(claimQuery);
+    try {
+      fetch(`${API}/${queryString}`, {
+        method: "GET",
+        mode: "cors",
+        credentials: "include",
+      })
+        .then((res) => res.json())
+        .then((newClaims) => {
+          if (claims && claims.length != 0 && claimQuery.skip != 0) {
+            setClaims([...claims, ...newClaims]);
+          } else {
+            setClaims(newClaims);
+          }
+          setIsLoading(false);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }, [claimQuery]);
+  return [claimQuery, setClaimQuery, claims, isLoading];
+}
+```
+
+```typescript
+const initialClaimQuery: ClaimQuery = {
+  endpoint: "claims/query",
+  limit: 15,
+  skip: 0,
+  orderBy: SORTING_OPTIONS[0],
+  orderByDirection: "DESC",
+  category: categories,
+  keywords: "",
+};
+const [claimQuery, setClaimQuery, claims, claimsIsLoading] =
+  useFetchClaims(initialClaimQuery);
+```
+
+→ Also Use of interfaces for storing query data and mainting only those objects as state instead of breaking it up into multiple states. Then converting those queries into query strings:
+
+```typescript
+export const constructQueryUrl = (query: ClaimQuery | UserQuery): string => {
+  let queryString = `${query.endpoint}?limit=${query.limit}&skip=${query.skip}&orderBy=${query.orderBy}&orderByDirection=${query.orderByDirection}&`;
+  if (!("category" in query)) {
+    queryString = cleanTrailingSpecialChars(queryString);
+    return queryString;
+  }
+  queryString += "category=";
+  for (let [_, value] of Object.entries(query.category)) {
+    const categoryButtonData: ClaimCategoryButtonData = value;
+    if (categoryButtonData.active) queryString += `${categoryButtonData.name},`;
+  }
+  queryString = cleanTrailingSpecialChars(queryString);
+  if (query.keywords != "") {
+    const keywords = query.keywords.replaceAll(" ", ",");
+    queryString += `&keywords=${keywords}`;
+  }
+  return queryString;
+};
+```
+
+## Performance Optimizations
+
+Setting correct size values to downsize images when components don't need full size:
+
+```typescript
+Image
+  priority
+  ...
+  sizes="(max-width: 900px) 70vw, 33vw"
+  ...
+/>
+```
+
+Use of Cloudfront CDN to cache S3 images for faster retrieval:
+
+![Image.png](https://res.craft.do/user/full/b0e62220-21e7-3e79-e368-d4886dca007e/doc/B85592C0-D78F-4580-B2A8-DCA6A1A8AC60/4B4B9F1C-E1D7-486F-96A6-7A67628FE154_2/YU0nwdx96i0NBPBZxFyocXcsByselJ7BdHdtYsXAW10z/Image.png)
+
+Implementing pagination by loading only specific amount of content and loading more on reaching page bottom (tracked by custom scroll hook):
+
+```typescript
+const onBottomReach = async () => {
+  if (claims.length < claimQuery.skip + 15) return;
+  setClaimQuery({ ...claimQuery, skip: (claimQuery.skip += 15) });
+};
+const [setTrackedElem] = useScrollTracker(claims, onBottomReach);
+useEffect(() => setTrackedElem(document.querySelector("#loading-dots")), []);
+```
+
+## SEO/Accessibility Optimizations
+
+Head Tags on every page for storing meta data:
+
+```typescript
+<Head>
+  <title>Explore Claims with Filters</title>
+  <meta
+    name="description"
+    content="Here you can Filter and Sort through all the submitted Claims"
+  />
+  <meta name="keywords" content="Truth,Lie,Fake,Claim,Sort" />
+</Head>
+```
+
+```typescript
+<Head>
+  <title>{claim.statement}. True or False?</title>
+  <meta name="description" content={claim.description} />
+</Head>
+```
+
+**Better HTML tags:**
+
+- Use of `form` tag's, where `div`'s were previously used
+- Use of `<input type="submit" .../`> instead of `button`'s
+- Use of `main` and `article` tags to highlight important content
+- Use of `<label htmlFor="...">` instead of `p` to properly label `input` fields and `button`'s
+- Use of `button` tag where previously `div` tag with `onClick` function were used
+
+**Better Aria tags:**
+
+- Use of `aria-label` where no on-screen label is given
+- Use of `aria-description` where a longer description is needed
+- Use of `aria-live` to signal Snackbar popups
