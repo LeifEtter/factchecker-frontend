@@ -38,7 +38,7 @@ export const Appbar = ({ path, user }: AppbarParams) => {
 
   return (
     <>
-      <div className=" flex justify-between">
+      <nav className="flex justify-between">
         <div
           className={`flex justify-between ${
             darkModeActive ? "bg-gray-900 text-white" : "bg-white"
@@ -110,6 +110,9 @@ export const Appbar = ({ path, user }: AppbarParams) => {
           )}
         </div>
         <button
+          aria-label={`Switch to ${
+            darkModeActive ? "Light-Mode" : "Dark-Mode"
+          }`}
           onClick={() => setDarkModeActive(!darkModeActive)}
           className={`${
             darkModeActive
@@ -122,7 +125,7 @@ export const Appbar = ({ path, user }: AppbarParams) => {
             className="text-yellow-500"
           />
         </button>
-      </div>
+      </nav>
     </>
   );
 };

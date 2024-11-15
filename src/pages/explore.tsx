@@ -69,7 +69,7 @@ export default function Explore() {
       >
         <div className="flex flex-col flex-wrap md:flex-row w-full mt-12 gap-3">
           <div className="w-3/6">
-            <h3>Search</h3>
+            <label htmlFor="search-input">Search</label>
             <input
               id="search-input"
               className={`${
@@ -88,11 +88,12 @@ export default function Explore() {
             />
           </div>
           <div className="w-36 md:1/6 group">
-            <h3>Sort By</h3>
+            <label htmlFor="sort-by">Sort By</label>
             <button
+              id="sort-by"
               className={`${
                 darkModeActive ? "bg-gray-700" : "bg-white"
-              } rounded-xl special-shadow h-10 px-3 w-40 mt-2`}
+              } rounded-xl special-shadow h-10 px-3 w-40 mt-2 hover:scale-105`}
             >
               {SORTING_OPTION_LABELS[claimQuery.orderBy]}
             </button>
@@ -107,8 +108,8 @@ export default function Explore() {
                   key={`option-${option}`}
                   className={`hover:scale-105 hover:font-semibold rounded-md p-1 ${
                     option == claimQuery.orderBy
-                      ? "text-white font-semibold" + darkModeActive
-                        ? "fact-gradient-dark"
+                      ? darkModeActive
+                        ? "text-white font-semibold fact-gradient-dark"
                         : "fact-gradient"
                       : ""
                   }`}
@@ -122,19 +123,19 @@ export default function Explore() {
             </div>
           </div>
           <div>
-            <h3>Filter by Categories</h3>
-            <div className="flex flex-row flex-wrap gap-3 mt-2">
+            <label htmlFor="filter-by">Filter by Categories</label>
+            <div id="filter-by" className="flex flex-row flex-wrap gap-3 mt-2">
               {!categoriesIsLoading && categories != null
                 ? Object.keys(categories).map((cat) => (
                     <button
                       key={`${cat}-catButton`}
-                      className={`px-3 py-1 special-shadow rounded-xl ${
+                      className={`px-3 py-1 special-shadow rounded-xl hover:scale-105 hover:font-semibold ${
                         categories[cat].active
-                          ? "text-white" + darkModeActive
-                            ? "fact-gradient-dark"
+                          ? darkModeActive
+                            ? "text-white fact-gradient-dark"
                             : "fact-gradient"
                           : darkModeActive
-                          ? "bg-gray-700"
+                          ? "bg-gray-800"
                           : "bg-white"
                       }`}
                       onClick={() => {

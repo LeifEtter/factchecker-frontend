@@ -133,9 +133,9 @@ export default function Scores() {
           <div className="flex flex-row gap-5 mt-6">
             <div className="flex-1 flex flex-col justify-center">
               <div>
-                <h1 data-testid="user-name" className="text-md font-semibold">
+                <h2 data-testid="user-name" className="text-md font-semibold">
                   {user.name}
-                </h1>
+                </h2>
               </div>
               <p
                 className={`${
@@ -154,7 +154,6 @@ export default function Scores() {
                 Send a DM
               </button>
             </div>
-
             <div className="flex-1 relative w-32 h-32 rounded-3xl">
               <Image
                 src={user.avatar ?? DefaultAvatar}
@@ -167,7 +166,17 @@ export default function Scores() {
               />
             </div>
           </div>
-          <p data-testid="user-biography" className="font-medium text-sm mt-3">
+          <div className="h-4" />
+          <label
+            htmlFor="user-biography"
+            className="pt-5 mb-2 pb-0 h-1 font-semibold text-center"
+          >{`${user.name}'s Biography`}</label>
+          <p
+            aria-label={`${user.name}'s Biography`}
+            id="user-biography"
+            data-testid="user-biography"
+            className="font-normal text-sm text-gray-600 mt-1"
+          >
             {user.biography}
           </p>
         </div>

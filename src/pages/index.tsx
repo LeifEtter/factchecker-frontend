@@ -69,7 +69,7 @@ export default function Home() {
           content="facts,claims,factchecker,truth,true,false"
         />
       </Head>
-      <main>
+      <div>
         <ClaimViewer
           claimViewerOpen={claimViewerOpen}
           closeClaimViewer={() => setClaimViewerOpen(false)}
@@ -78,7 +78,7 @@ export default function Home() {
             singleClaim != null ? calculateTruthFactor(singleClaim) : 0
           }
         />
-        <div className="flex flex-col items-center mt-32">
+        <main className="flex flex-col items-center mt-32">
           <div
             data-testid="claim-grid"
             className="inline-grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10"
@@ -108,8 +108,8 @@ export default function Home() {
             )}
           </div>
           <LoadingDots />
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 }

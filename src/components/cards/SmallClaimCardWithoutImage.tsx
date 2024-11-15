@@ -46,9 +46,9 @@ export const SmallClaimCardWithoutImage = ({
         <h3 className="mt-2 font-medium text-xs break-words">
           {claim.statement}
         </h3>
-        <p className="mt-2 font-light text-xs break-words">
+        <article className="mt-2 font-light text-xs break-words">
           {claim.description}
-        </p>
+        </article>
       </div>
       {/* <p className="break-words px-3 pt-4 text-sm">
         {claim.description.slice(0, 50) + "..."}

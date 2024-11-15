@@ -60,7 +60,7 @@ export default function ViewSingleClaim({ claim }: ViewSingleClaimProps) {
                 <Indicator validity={calculateTruthFactor(claim)} />
               </div>
             </div>
-            <p className="mt-3">{claim.description}</p>
+            <article className="mt-3">{claim.description}</article>
             {claim.images.length > 0 ? (
               <div className="basis-3/12 w-full flex flex-row h-56 md:h-72 gap-4 md:gap-8 mt-16">
                 {claim.images.map((image) => (

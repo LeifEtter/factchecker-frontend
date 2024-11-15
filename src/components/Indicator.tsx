@@ -38,13 +38,13 @@ export const Indicator = ({ validity, fullWidth = false }: IndicatorProps) => {
     <div
       className={`${color} text-white py-2 px-3 w-full font-semibold rounded-2xl shadow-md text-center`}
     >
-      {text}
+      <p>{text}</p>
     </div>
   ) : (
     <div
       className={`${color} text-white py-2 px-3 font-semibold rounded-2xl shadow-md `}
     >
-      {text}
+      <p>{text}</p>
     </div>
   );
 };

@@ -39,12 +39,13 @@ export const ClaimExpanded = ({
         <Indicator validity={truthFactor} />
       </div>
       <p className="text-xl mt-2 mb-1">{claim.statement}</p>
-      <p>{claim.description}</p>
+      <article>{claim.description}</article>
       <div className="flex flex-row gap-6 mt-10 mb-3">
         {claim.images ? (
           claim.images.map((image) => (
             <div key={image.id} className="flex-1 relative h-64">
               <Image
+                aria-label="Image supporting the Claim"
                 className="object-cover rounded-3xl"
                 src={image.link}
                 alt={image.id + "-image"}

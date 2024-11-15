@@ -13,7 +13,8 @@ interface ModalWrapperProps {
  */
 export const ModalWrapper = (props: ModalWrapperProps) => {
   return (
-    <div
+    <button
+      aria-label="Close Popup"
       data-testid="modal-wrapper"
       onClick={(e) => {
         e.stopPropagation();
@@ -31,6 +32,6 @@ export const ModalWrapper = (props: ModalWrapperProps) => {
       >
         {props.children}
       </div>
-    </div>
+    </button>
   );
 };

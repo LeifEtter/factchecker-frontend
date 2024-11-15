@@ -26,7 +26,7 @@ export const ClaimCardHighlightedComment = ({
   const { darkModeActive } = useContext(UserSettingsContext);
 
   return (
-    <div
+    <button
       className={`rounded-2xl ${
         darkModeActive ? "bg-gray-800 text-gray-300" : "bg-white"
       } special-shadow h-44
@@ -45,11 +45,11 @@ export const ClaimCardHighlightedComment = ({
             : "bg-fact-red-gr-3"
         }`}
       >
-        <p>
+        <article>
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
           nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
           sed diam voluptua. At...
-        </p>
+        </article>
       </div>
       <div
         className={`${
@@ -64,7 +64,7 @@ export const ClaimCardHighlightedComment = ({
         </div>
         <h3 className="font-medium text-xs break-words">{claim.statement}</h3>
       </div>
-    </div>
+    </button>
   );
 };
 /*

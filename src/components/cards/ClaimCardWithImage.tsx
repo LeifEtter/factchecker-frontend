@@ -25,13 +25,14 @@ export const ClaimCardWithImage = ({
 
   return (
     <div>
-      <div
+      <button
         className={`flex flex-col ${
           darkModeActive
             ? "bg-gray-800 text-gray-300"
             : "bg-white special-shadow"
-        } rounded-2xl max-w-sm h-72 overflow-hidden cursor-pointer transition-colors duration-300`}
+        } rounded-2xl max-w-sm h-72 overflow-hidden cursor-pointer transition-colors duration-300 text-left`}
         onClick={onClick}
+        aria-label={`Claim Card for Claim ${claim.statement}`}
       >
         <div className="absolute z-10 h-10">
           <Indicator validity={truthFactor} />
@@ -43,6 +44,7 @@ export const ClaimCardWithImage = ({
                 priority
                 src={image.link}
                 alt={`${image}-image`}
+                aria-label="Image supporting the Claim"
                 fill
                 sizes="(max-width: 900px) 70vw, 33vw"
                 className="object-cover"
@@ -51,10 +53,14 @@ export const ClaimCardWithImage = ({
           ))}
         </div>
         <div className="basis-7/12 flex flex-col p-3">
-          <h1 className="text-xl font-semibold">{claim.statement}</h1>
-          <p>{claim.description.slice(0, 80) + "..."}</p>
+          <h2 className="text-xl font-semibold" aria-label="Claim Statement">
+            {claim.statement}
+          </h2>
+          <article aria-label="Claim Description">
+            {claim.description.slice(0, 80) + "..."}
+          </article>
         </div>
-      </div>
+      </button>
     </div>
   );
 };

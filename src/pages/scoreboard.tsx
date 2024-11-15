@@ -32,6 +32,7 @@ export default function Scoreboard() {
       skip: (userQuery.skip += USERS_PER_FETCH),
     });
   };
+
   const [setTrackedElem] = useScrollTracker(users, onBottomReach);
   useEffect(() => setTrackedElem(document.querySelector("#loading-dots")), []);
 
@@ -44,13 +45,13 @@ export default function Scoreboard() {
           content="Here you can view other users scores as well as their global rankings"
         />
       </Head>
-      <main
+      <div
         className={`${
           darkModeActive ? "text-gray-200" : "text-black"
         } flex flex-col justify-center items-center`}
       >
         <h1 className="text-2xl font-medium mt-16 mb-10">Top Reviewers</h1>
-        <div className="flex flex-col gap-6 max-w-md w-9/12">
+        <main className="flex flex-col gap-6 max-w-md w-9/12">
           {users &&
             users.map((user, index) => {
               let color: string;
@@ -80,8 +81,8 @@ export default function Scoreboard() {
           <div className="flex justify-center pb-5">
             <LoadingDots />
           </div>
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 }

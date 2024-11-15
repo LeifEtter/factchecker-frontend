@@ -32,8 +32,11 @@ export const InputField = ({
 }: InputFieldProps) => {
   return (
     <div className="flex flex-col gap-1">
-      <p className="ml-1 font-semibold">{title}</p>
+      <label htmlFor={title} className="ml-1 font-semibold">
+        {title}
+      </label>
       <input
+        id={title}
         data-testid={testId}
         type={obscure ? "password" : "text"}
         value={value}
@@ -48,9 +51,13 @@ export const InputField = ({
           border: error != null ? "2px solid red" : "none",
         }}
       />
-      <p className="text-red-500" data-testid={testId + "-error"}>
+      <label
+        htmlFor={title}
+        className="text-red-500"
+        data-testid={testId + "-error"}
+      >
         {error}
-      </p>
+      </label>
     </div>
   );
 };
@@ -78,8 +85,11 @@ export const InputFieldMultiline = ({
 }: InputFieldProps) => {
   return (
     <div className="flex flex-col gap-1">
-      <p className="ml-1 font-semibold">{title}</p>
+      <label htmlFor={title} className="ml-1 font-semibold">
+        {title}
+      </label>
       <textarea
+        id={title}
         data-testid={testId}
         value={value}
         onChange={(e) => {
@@ -93,7 +103,9 @@ export const InputFieldMultiline = ({
           border: error != null ? "2px solid red" : "none",
         }}
       />
-      <p className="text-red-500">{error}</p>
+      <label htmlFor={title} className="text-red-500">
+        {error}
+      </label>
     </div>
   );
 };

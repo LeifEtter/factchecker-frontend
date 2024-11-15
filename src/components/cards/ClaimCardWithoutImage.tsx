@@ -37,9 +37,14 @@ export const ClaimCardWithoutImage = ({
         <div className="relative z-10 h-10 w-full">
           <Indicator validity={truthFactor} fullWidth={true} />
         </div>
-        <div className="basis-7/12 flex flex-col p-3">
+        <div
+          aria-label="Claim Statement"
+          className="basis-7/12 flex flex-col p-3"
+        >
           <h1 className="text-xl font-semibold">{claim.statement}</h1>
-          <p>{claim.description.slice(0, 80) + "..."}</p>
+          <article aria-label="Claim Description">
+            {claim.description.slice(0, 80) + "..."}
+          </article>
         </div>
       </div>
     </div>

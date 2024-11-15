@@ -12,6 +12,7 @@ import { useFetchCategories } from "../hooks/useFetchCategories";
 import { LoadingDots } from "../components/LoadingDots";
 import { useCreateClaim } from "../hooks/useCreateClaim";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 /**
  * @returns Page containing a form to submit claims, providing text and images
@@ -28,6 +29,11 @@ export default function CreateClaim() {
   });
 
   const { user } = useContext(UserContext);
+  const router = useRouter();
+
+  if (!user) {
+    router.push("/login");
+  }
 
   const [categoriesIsLoading, categories, setCategories] = useFetchCategories();
 
@@ -113,163 +119,180 @@ export default function CreateClaim() {
           <h1 className="font-bold text-2xl  text-center mb-5 mt-24">
             Create Claim
           </h1>
-          <InputField
-            testId={"claim-input"}
-            value={claimData.title}
-            setValue={(title: string) => setClaimData({ ...claimData, title })}
-            title="Claim"
-            error={claimData.titleError}
-            resetError={() => setClaimData({ ...claimData, titleError: null })}
-            bgColor={darkModeActive ? "bg-gray-700" : "bg-white"}
-          />
-          <InputFieldMultiline
-            testId={"description-input"}
-            value={claimData.description}
-            setValue={(description: string) =>
-              setClaimData({ ...claimData, description })
-            }
-            title="Description"
-            error={claimData.descriptionError}
-            resetError={() =>
-              setClaimData({ ...claimData, descriptionError: null })
-            }
-            bgColor={darkModeActive ? "bg-gray-700" : "bg-white"}
-          />
-          <div>
-            <p className="ml-1 font-semibold mt-2">Images</p>
-            <div className="flex items-center gap-5">
-              {claimData.images.map((image, i) => (
-                <div
-                  className="relative w-48 h-48 bg-white text-fact-text-medium rounded-2xl special-shadow"
-                  key={`image-div-${i}`}
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              validateFields() ? submitClaim(claimData) : null;
+            }}
+          >
+            <InputField
+              testId={"claim-input"}
+              value={claimData.title}
+              setValue={(title: string) =>
+                setClaimData({ ...claimData, title })
+              }
+              title="Claim"
+              error={claimData.titleError}
+              resetError={() =>
+                setClaimData({ ...claimData, titleError: null })
+              }
+              bgColor={darkModeActive ? "bg-gray-700" : "bg-white"}
+            />
+            <InputFieldMultiline
+              testId={"description-input"}
+              value={claimData.description}
+              setValue={(description: string) =>
+                setClaimData({ ...claimData, description })
+              }
+              title="Description"
+              error={claimData.descriptionError}
+              resetError={() =>
+                setClaimData({ ...claimData, descriptionError: null })
+              }
+              bgColor={darkModeActive ? "bg-gray-700" : "bg-white"}
+            />
+            <div>
+              <p className="ml-1 font-semibold mt-2">Images</p>
+              <div className="flex items-center gap-5">
+                {claimData.images.map((image, i) => (
+                  <div
+                    className="relative w-48 h-48 bg-white text-fact-text-medium rounded-2xl special-shadow"
+                    key={`image-div-${i}`}
+                  >
+                    <Image
+                      src={window.URL.createObjectURL(image.file)}
+                      alt={`image-${i}`}
+                      fill
+                      className="object-cover rounded-2xl"
+                    />
+                    <button
+                      aria-label="Delete Image"
+                      onClick={() =>
+                        setClaimData({
+                          ...claimData,
+                          images: claimData.images.filter(
+                            (e) => e.id != image.id
+                          ),
+                        })
+                      }
+                      className="absolute flex items-center justify-center w-8 h-8 left-0 bg-red-300 rounded-md special-shadow"
+                    >
+                      <div className="w-4">
+                        <FontAwesomeIcon icon={faTrash} />
+                      </div>
+                    </button>
+                    <button
+                      aria-label="Replace Image"
+                      onClick={() => {
+                        setImageChooserData(image);
+                        setShowModal(true);
+                      }}
+                      className="absolute flex items-center justify-center w-8 h-8 right-0 bg-blue-200 rounded-md special-shadow"
+                    >
+                      <div className="w-4">
+                        <FontAwesomeIcon icon={faEdit} />
+                      </div>
+                    </button>
+                  </div>
+                ))}
+                <button
+                  aria-label="Add Image"
+                  className={`${
+                    darkModeActive ? "bg-gray-800" : "bg-white"
+                  } flex items-center justify-center mt-2 p-2 rounded-2xl special-shadow`}
+                  onClick={() => {
+                    if (claimData.images.length >= 3) {
+                      setSnackbar({
+                        title: "3 Image Maximum",
+                        description:
+                          "You are only allowed to add 3 images to a claim. Please delete existing images to add new ones.",
+                        type: SnackbarType.ERROR,
+                      });
+                    } else {
+                      setShowModal(true);
+                    }
+                  }}
                 >
-                  <Image
-                    src={window.URL.createObjectURL(image.file)}
-                    alt={`image-${i}`}
-                    fill
-                    className="object-cover rounded-2xl"
-                  />
+                  <div className="w-5">
+                    <FontAwesomeIcon icon={faAdd} />
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <InputField
+              testId={"source-input"}
+              value={claimData.source}
+              setValue={(source: string) =>
+                setClaimData({ ...claimData, source })
+              }
+              title="Source"
+              error={claimData.sourceError}
+              resetError={() =>
+                setClaimData({ ...claimData, sourceError: null })
+              }
+              bgColor={darkModeActive ? "bg-gray-700" : "bg-white"}
+            />
+            <label htmlFor="categories">Categories</label>
+            <div id="categories" className="flex justify-start flex-wrap gap-4">
+              {categories ? (
+                extractCatKeysByActive(false).map((key: number) => (
                   <button
+                    key={`cat-button-${key}`}
+                    className={`${
+                      darkModeActive ? "bg-gray-700" : "bg-white"
+                    } p-1 rounded-md shadow-md cursor-pointer`}
                     onClick={() =>
-                      setClaimData({
-                        ...claimData,
-                        images: claimData.images.filter(
-                          (e) => e.id != image.id
-                        ),
+                      setCategories({
+                        ...categories,
+                        [key]: {
+                          name: categories[key].name,
+                          active: true,
+                        },
                       })
                     }
-                    className="absolute flex items-center justify-center w-8 h-8 left-0 bg-red-300 rounded-md special-shadow"
                   >
-                    <div className="w-4">
-                      <FontAwesomeIcon icon={faTrash} />
-                    </div>
+                    {categories[key].name}
                   </button>
-                  <button
-                    onClick={() => {
-                      setImageChooserData(image);
-                      setShowModal(true);
-                    }}
-                    className="absolute flex items-center justify-center w-8 h-8 right-0 bg-blue-200 rounded-md special-shadow"
-                  >
-                    <div className="w-4">
-                      <FontAwesomeIcon icon={faEdit} />
-                    </div>
-                  </button>
-                </div>
-              ))}
-              <button
-                className={`${
-                  darkModeActive ? "bg-gray-800" : "bg-white"
-                } flex items-center justify-center mt-2 p-2 rounded-2xl special-shadow`}
-                onClick={() => {
-                  if (claimData.images.length >= 3) {
-                    setSnackbar({
-                      title: "3 Image Maximum",
-                      description:
-                        "You are only allowed to add 3 images to a claim. Please delete existing images to add new ones.",
-                      type: SnackbarType.ERROR,
-                    });
-                  } else {
-                    setShowModal(true);
-                  }
-                }}
-              >
-                <div className="w-5">
-                  <FontAwesomeIcon icon={faAdd} />
-                </div>
-              </button>
+                ))
+              ) : (
+                <LoadingDots />
+              )}
             </div>
-          </div>
-
-          <InputField
-            testId={"source-input"}
-            value={claimData.source}
-            setValue={(source: string) =>
-              setClaimData({ ...claimData, source })
-            }
-            title="Source"
-            error={claimData.sourceError}
-            resetError={() => setClaimData({ ...claimData, sourceError: null })}
-            bgColor={darkModeActive ? "bg-gray-700" : "bg-white"}
-          />
-          <p>Categories</p>
-          <div className="flex justify-start flex-wrap gap-4">
-            {categories ? (
-              extractCatKeysByActive(false).map((key: number) => (
-                <button
-                  key={`cat-button-${key}`}
-                  className={`${
-                    darkModeActive ? "bg-gray-700" : "bg-white"
-                  } p-1 rounded-md shadow-md cursor-pointer`}
-                  onClick={() =>
-                    setCategories({
-                      ...categories,
-                      [key]: {
-                        name: categories[key].name,
-                        active: true,
-                      },
-                    })
-                  }
-                >
-                  {categories[key].name}
-                </button>
-              ))
-            ) : (
-              <LoadingDots />
-            )}
-          </div>
-          <p>Chosen Categories</p>
-          <div className="flex justify-start flex-wrap gap-2">
-            {categories ? (
-              extractCatKeysByActive(true).map((key: number) => (
-                <button
-                  key={`cat-button-${key}`}
-                  className={`${
-                    darkModeActive ? "bg-gray-700" : "bg-white"
-                  } shadow-md rounded-md p-1 cursor-pointer"`}
-                  onClick={() =>
-                    setCategories({
-                      ...categories,
-                      [key]: {
-                        name: categories[key].name,
-                        active: false,
-                      },
-                    })
-                  }
-                >
-                  {categories[key].name}
-                </button>
-              ))
-            ) : (
-              <LoadingDots />
-            )}
-          </div>
-          <button
-            className="special-shadow fact-gradient rounded-xl text-white p-3 w-full"
-            onClick={() => (validateFields() ? submitClaim(claimData) : null)}
-          >
-            Submit
-          </button>
+            <label htmlFor="chosen-categories">Chosen Categories</label>
+            <div
+              id="chosen-categories"
+              className="flex justify-start flex-wrap gap-2"
+            >
+              {categories ? (
+                extractCatKeysByActive(true).map((key: number) => (
+                  <button
+                    key={`cat-button-${key}`}
+                    className={`${
+                      darkModeActive ? "bg-gray-700" : "bg-white"
+                    } shadow-md rounded-md p-1 cursor-pointer"`}
+                    onClick={() =>
+                      setCategories({
+                        ...categories,
+                        [key]: {
+                          name: categories[key].name,
+                          active: false,
+                        },
+                      })
+                    }
+                  >
+                    {categories[key].name}
+                  </button>
+                ))
+              ) : (
+                <LoadingDots />
+              )}
+            </div>
+            <input
+              type="submit"
+              className="special-shadow fact-gradient rounded-xl text-white p-3 w-full"
+            />
+          </form>
         </div>
       </main>
       <ImageChooser

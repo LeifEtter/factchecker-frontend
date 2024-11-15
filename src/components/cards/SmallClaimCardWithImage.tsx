@@ -46,6 +46,7 @@ export const SmallClaimCardWithImage = ({
         <h3 className="font-medium text-xs break-words">{claim.statement}</h3>
         <div className="w-32 mt-2 h-20">
           <Image
+            aria-label="Image supporting the Claim"
             src={claim.images[0].link}
             priority
             alt={`avatar-image-appbar`}

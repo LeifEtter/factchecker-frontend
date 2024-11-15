@@ -62,8 +62,9 @@ export const ImageChooser = ({
           <h2 className="text-xl font-semibold mb-5">Add Image</h2>
           {requestSource ? (
             <>
-              <p>Source:</p>
+              <label htmlFor="image-source">Image Source:</label>
               <input
+                id="image-source"
                 className={`${fieldsBgColor} special-shadow rounded-md py-1 px-2 mt-1 w-full`}
                 type="text"
                 value={imageChooserData.source ?? ""}
@@ -99,6 +100,7 @@ export const ImageChooser = ({
             </div>
           </label>
           <input
+            aria-label="Add Image"
             id="image-upload"
             type="file"
             onChange={(e) =>
@@ -117,7 +119,6 @@ export const ImageChooser = ({
           ) : (
             <></>
           )}
-
           <button
             className="fact-gradient p-2 text-white rounded-xl special-shadow mt-5"
             onClick={() => {
