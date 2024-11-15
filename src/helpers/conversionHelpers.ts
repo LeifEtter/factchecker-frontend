@@ -1,11 +1,28 @@
 /**
- * Function that capitalizes first letter of string
+ * Function that capitalizes first letter of every word in a string
  *
  * @param word - string to be capitalized
  *
  * @returns Capitalized String
  */
-export const capitalizeString = (word: string) =>
+export const capitalizeString = (string: string) => {
+  const splitString: string[] = string.split(" ");
+  let newString = "";
+  for (let word of splitString) {
+    newString += capitalizeWord(word) + " ";
+  }
+  newString = newString.trimEnd();
+  return newString;
+};
+
+/**
+ * Function that capitalizes first letter of a word
+ *
+ * @param word - word to be capitalized
+ *
+ * @returns Capitalized Word
+ */
+export const capitalizeWord = (word: string) =>
   word ? word.charAt(0).toUpperCase() + word.substring(1).toLowerCase() : "";
 
 /**
@@ -29,6 +46,7 @@ export const cleanTrailingSpecialChars = (str: string) => {
 export const constructQueryUrl = (query: ClaimQuery | UserQuery): string => {
   let queryString = `${query.endpoint}?limit=${query.limit}&skip=${query.skip}&orderBy=${query.orderBy}&orderByDirection=${query.orderByDirection}&`;
   if (!("category" in query)) {
+    queryString = cleanTrailingSpecialChars(queryString);
     return queryString;
   }
   queryString += "category=";

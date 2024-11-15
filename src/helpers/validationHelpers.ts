@@ -30,4 +30,16 @@ export const isPassword = (password: String): boolean => {
  *
  * @returns Boolean representing wether or not url is valid
  */
-export const isValidUrl = (url: string) => /^[a-z]+:\/\//i.test(url);
+export const isValidUrl = (url: string): boolean => {
+  if (url == "" || url == null) {
+    return false;
+  }
+  var res = url.match(
+    /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/
+  );
+  if (res == null) {
+    return false;
+  } else {
+    return true;
+  }
+};
