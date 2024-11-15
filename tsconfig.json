@@ -20,7 +20,10 @@
     "**/*.tsx",
     "cypress/e2e/user-flows.cy.js",
     "jest",
-    "__tests__/helpers/helpers.js"
+    "__tests__/helpers/helpers.js",
+    "__tests__/helpers/conversionHelpers.test.js",
+    "__tests__/helpers/validationHelpers.test.js",
+    "__tests__/helpers/calculationHelpers.test.js"
   ],
   "exclude": ["node_modules"]
 }
