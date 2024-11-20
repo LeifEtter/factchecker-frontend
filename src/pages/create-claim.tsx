@@ -29,10 +29,9 @@ export default function CreateClaim() {
   });
 
   const { user } = useContext(UserContext);
-  const router = useRouter();
 
   if (!user) {
-    router.push("/login");
+    window.location.replace("/login");
   }
 
   const [categoriesIsLoading, categories, setCategories] = useFetchCategories();
