@@ -23,7 +23,10 @@
     "__tests__/helpers/helpers.js",
     "__tests__/helpers/conversionHelpers.test.js",
     "__tests__/helpers/validationHelpers.test.js",
-    "__tests__/helpers/calculationHelpers.test.js"
+    "__tests__/helpers/calculationHelpers.test.js",
+    "__tests__/hooks/useFetchCategories.test.js",
+    "__tests__/hooks/useCreateClaim.test.js",
+    "__tests__/hooks/useAuthentication.test.js"
   ],
   "exclude": ["node_modules"]
 }
