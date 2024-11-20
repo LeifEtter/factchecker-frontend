@@ -29,11 +29,6 @@ export default function CreateClaim() {
   });
 
   const { user } = useContext(UserContext);
-
-  if (!user) {
-    window.location.replace("/login");
-  }
-
   const [categoriesIsLoading, categories, setCategories] = useFetchCategories();
 
   const [claimData, setClaimData] = useState<ClaimData | null>(null);
@@ -59,6 +54,9 @@ export default function CreateClaim() {
   }, [user, categories]);
 
   useEffect(() => {
+    if (!user) {
+      window.location.replace("/login");
+    }
     if (claimSubmitted) {
       setSnackbar({
         title: "Claim Submitted",
