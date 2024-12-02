@@ -8,7 +8,7 @@
 export const capitalizeString = (string: string) => {
   const splitString: string[] = string.split(" ");
   let newString = "";
-  for (let word of splitString) {
+  for (const word of splitString) {
     newString += capitalizeWord(word) + " ";
   }
   newString = newString.trimEnd();
@@ -50,7 +50,7 @@ export const constructQueryUrl = (query: ClaimQuery | UserQuery): string => {
     return queryString;
   }
   queryString += "category=";
-  for (let [_, value] of Object.entries(query.category)) {
+  for (const [, value] of Object.entries(query.category)) {
     const categoryButtonData: ClaimCategoryButtonData = value;
     if (categoryButtonData.active) queryString += `${categoryButtonData.name},`;
   }
