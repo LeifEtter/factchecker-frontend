@@ -26,7 +26,6 @@ export function useDarkmode(
 
   const storeDarkmode = () => {
     localStorage.setItem("darkmode", "active");
-    console.log("Srt darkmode");
   };
 
   const removeDarkmodeFromStorage = () => {
@@ -42,10 +41,8 @@ export function useDarkmode(
   };
 
   const isForceLightmodeStored = (): boolean => {
-    console.log("Checking");
     const localStorageForceLightmode: string | null =
       localStorage.getItem("lightmode");
-    console.log(localStorageForceLightmode);
     if (localStorageForceLightmode == "active") return true;
     return false;
   };
