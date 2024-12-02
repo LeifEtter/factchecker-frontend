@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { API } from "../assets/constants";
 
 /**
- * Hook for checking wether a user is authenticated
+ * Hook for checking wether a user is authenticated and setting user Data
  *
  * @returns Loading State, Authentication state
  */
