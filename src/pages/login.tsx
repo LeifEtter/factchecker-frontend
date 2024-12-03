@@ -51,9 +51,7 @@ export default function Login() {
     });
 
     const body = await loginResult.json();
-    console.log(body);
     if (loginResult.status != 200) {
-      console.log(body);
       if (body.errorCode == CustomErrors.EmailNotExist) {
         setEmailError("Email Does Not Exist");
       } else if (

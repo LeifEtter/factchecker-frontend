@@ -3,6 +3,7 @@ import {
   isPassword,
   isValidUrl,
 } from "../../src/helpers/validationHelpers";
+import { describe, it, expect } from "vitest";
 
 describe("testing functionality", () => {
   it("should test email validity", () => {

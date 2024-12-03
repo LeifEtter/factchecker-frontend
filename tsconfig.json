@@ -12,21 +12,23 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "baseUrl": "src"
   },
   "include": [
+    "src",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "cypress/e2e/user-flows.cy.js",
     "jest",
     "__tests__/helpers/helpers.js",
-    "__tests__/helpers/conversionHelpers.test.js",
-    "__tests__/helpers/validationHelpers.test.js",
-    "__tests__/helpers/calculationHelpers.test.js",
-    "__tests__/hooks/useFetchCategories.test.js",
+    "__tests__/helpers/conversionHelpers.test.ts",
+    "__tests__/helpers/validationHelpers.test.ts",
+    "__tests__/helpers/calculationHelpers.test.ts",
+    "__tests__/hooks/useFetchCategories.test.ts",
     "__tests__/hooks/useCreateClaim.test.js",
-    "__tests__/hooks/useAuthentication.test.js"
+    "__tests__/hooks/useAuthentication.test.ts"
   ],
   "exclude": ["node_modules"]
 }

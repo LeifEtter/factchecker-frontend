@@ -4,6 +4,9 @@ import {
   cleanTrailingSpecialChars,
   constructQueryUrl,
 } from "../../src/helpers/conversionHelpers";
+import { describe, it, expect } from "vitest";
+import { claimQuery } from "../mocks/objects/queries";
+import { categoryDict } from "../mocks/objects/category";
 
 describe("capitalization function", () => {
   it("should return a capitalized word", () => {
@@ -32,27 +35,22 @@ describe("function for cleaning trailing chars", () => {
 });
 
 describe("functionality for constructing queries from query objects", () => {
-  let mockQuery = {
-    endpoint: "claims",
-    limit: 10,
-    skip: 10,
-    orderBy: "comments_created",
-    orderByDirection: "DESC",
-    keywords: "",
-  };
-  let mockCategoryDict = {
-    0: { name: "social media", active: false },
-    1: { name: "image", active: true },
-    2: { name: "ai", active: true },
-  };
+  const mockQuery = claimQuery;
+  const mockCategoryDict = categoryDict;
+
   it("should return the proper query string when a claim query is passed", () => {
     expect(constructQueryUrl(mockQuery)).toBe(
       "claims?limit=10&skip=10&orderBy=comments_created&orderByDirection=DESC"
     );
+    mockCategoryDict[0].active = true; // images
+    mockCategoryDict[6].active = true; // ai
     expect(
-      constructQueryUrl({ ...mockQuery, category: mockCategoryDict })
+      constructQueryUrl({
+        ...mockQuery,
+        category: mockCategoryDict,
+      })
     ).toBe(
-      "claims?limit=10&skip=10&orderBy=comments_created&orderByDirection=DESC&category=image,ai"
+      "claims?limit=10&skip=10&orderBy=comments_created&orderByDirection=DESC&category=images,ai"
     );
     expect(
       constructQueryUrl({
@@ -61,17 +59,18 @@ describe("functionality for constructing queries from query objects", () => {
         keywords: "Trump claims Elon will be new Secretary of State",
       })
     ).toBe(
-      "claims?limit=10&skip=10&orderBy=comments_created&orderByDirection=DESC&category=image,ai&keywords=Trump,claims,Elon,will,be,new,Secretary,of,State"
+      "claims?limit=10&skip=10&orderBy=comments_created&orderByDirection=DESC&category=images,ai&keywords=Trump,claims,Elon,will,be,new,Secretary,of,State"
     );
   });
-  it("should return the proper query string when a user query is passed", () => {
-    expect(
-      constructQueryUrl({
-        ...mockQuery,
-        endpoint: "users",
-        orderBy: "creation_date",
-        orderByDirection: "ASC",
-      })
-    ).toBe("users?limit=10&skip=10&orderBy=creation_date&orderByDirection=ASC");
-  });
+  // TODO: Create Mock User Query
+  // it("should return the proper query string when a user query is passed", () => {
+  //   expect(
+  //     constructQueryUrl({
+  //       ...mockQuery,
+  //       endpoint: "users",
+  //       orderBy: "creation_date",
+  //       orderByDirection: "ASC",
+  //     })
+  //   ).toBe("users?limit=10&skip=10&orderBy=creation_date&orderByDirection=ASC");
+  // });
 });

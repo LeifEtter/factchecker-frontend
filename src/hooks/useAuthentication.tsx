@@ -2,33 +2,39 @@ import { useEffect, useState } from "react";
 import { API } from "../assets/constants";
 
 /**
- * Hook for checking wether a user is authenticated
+ * Hook for checking wether a user is authenticated and setting user Data
  *
  * @returns Loading State, Authentication state
  */
-export const useAuthentication = (): [boolean, boolean] => {
+export const useAuthentication = (): [boolean, boolean, object] => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [userData, setUserData] = useState<object>(null);
 
-  useEffect(() => {
+  const authenticate = async () => {
     try {
-      setIsLoading(true);
-      fetch(`${API}/users/authenticate`, {
+      const res = await fetch(`${API}/users/authenticate`, {
         method: "GET",
         mode: "cors",
         credentials: "include",
-      }).then((res) => {
-        if (res.status == 200) {
-          setIsAuthenticated(true);
-        } else {
-          setIsAuthenticated(false);
-        }
-        setIsLoading(false);
       });
+      if (res.status != 200) {
+        setIsAuthenticated(false);
+        setIsLoading(false);
+      } else {
+        const body = await res.json();
+        setUserData(body);
+        setIsAuthenticated(true);
+        setIsLoading(false);
+      }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
+  };
+
+  useEffect(() => {
+    authenticate();
   }, []);
 
-  return [isLoading, isAuthenticated];
+  return [isLoading, isAuthenticated, userData];
 };

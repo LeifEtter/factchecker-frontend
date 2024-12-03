@@ -3,6 +3,7 @@ import {
   calculateLevelFromScoreData,
   determineUserTitleFromLevel,
 } from "../../src/utils/scores";
+import { describe, it, expect } from "vitest";
 
 describe("testing utils", () => {
   it("should test if the right score is shown", () => {

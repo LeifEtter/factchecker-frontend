@@ -5,8 +5,8 @@
  *
  * @returns Boolean representing wether email is valid or not
  */
-export const isEmail = (email: String): boolean => {
-  var emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+export const isEmail = (email: string): boolean => {
+  const emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
   return email !== "" && email.match(emailFormat) ? true : false;
 };
 
@@ -17,8 +17,8 @@ export const isEmail = (email: String): boolean => {
  *
  * @returns Boolean representing wether or not password is strong enough
  */
-export const isPassword = (password: String): boolean => {
-  var passwordFormat =
+export const isPassword = (password: string): boolean => {
+  const passwordFormat =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
   return password !== "" && password.match(passwordFormat) ? true : false;
 };
@@ -34,7 +34,7 @@ export const isValidUrl = (url: string): boolean => {
   if (url == "" || url == null) {
     return false;
   }
-  var res = url.match(
+  const res = url.match(
     /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/
   );
   if (res == null) {

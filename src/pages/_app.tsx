@@ -1,4 +1,3 @@
-import { API } from "../assets/constants";
 import { Appbar } from "../components/appbar/Appbar";
 import { UserContext } from "../state/user";
 import "../styles/globals.css";
@@ -9,6 +8,7 @@ import { useEffect, useState } from "react";
 import { AppbarCollapsed } from "../components/appbar/AppbarCollapsed";
 import { UserSettingsContext } from "../state/settings";
 import { useDarkmode } from "../hooks/useDarkmode";
+import { useAuthentication } from "hooks/useAuthentication";
 
 const robotoMono = Roboto_Mono({
   subsets: ["latin"],
@@ -26,38 +26,23 @@ export default function App({ Component, pageProps }) {
 
   const [darkmodeLoading] = useDarkmode(darkModeActive, setDarkModeActive);
 
+  const [isLoading, isAuthenticated, userData] = useAuthentication();
+
   useEffect(() => {
-    const syncUserInfo = async () => {
-      const res = await fetch(`${API}/users/authenticate`, {
-        method: "GET",
-        mode: "cors",
-        credentials: "include",
-      });
-
-      if (res.status == 401) {
-        sessionStorage.removeItem("user");
-        return;
-      }
-      const dec = await res.json();
-      const sessionUser: User = JSON.parse(sessionStorage.getItem("user"));
-      if (
-        !user ||
-        !sessionUser ||
-        dec.id != sessionUser.id ||
-        dec.name != sessionUser.name ||
-        dec.avatar != sessionUser.avatar
-      ) {
-        sessionStorage.setItem("user", JSON.stringify(dec));
-        setUser(dec);
-      }
-    };
-
-    if (!user) {
-      syncUserInfo();
-      // const storedUser: User = JSON.parse(sessionStorage.getItem("user"));
-      // setUser(storedUser);
+    if (isLoading) return;
+    if (!isAuthenticated && sessionStorage.getItem("user") != null) {
+      sessionStorage.removeItem("user");
+    } else if (isAuthenticated) {
+      sessionStorage.setItem("user", JSON.stringify(userData));
+      const user: User = {
+        id: userData["id"],
+        name: userData["name"],
+        avatar: userData["avatar"],
+        biography: userData["biography"],
+      };
+      setUser(user);
     }
-  }, [user]);
+  }, [isAuthenticated]);
 
   return (
     <UserSettingsContext.Provider value={{ darkModeActive, setDarkModeActive }}>

@@ -132,7 +132,6 @@ const Profile: React.FC = () => {
               title: "Edit Biography",
               value: user.biography,
               onSubmit: (value: string) => {
-                console.log(value);
                 setEditingPopupProps(null);
                 setNewBiography(value);
               },
